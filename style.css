@@ -1,0 +1,363 @@
+/* Reset básico */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #f9f9f9;
+	color: #222;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	min-height: 100vh;
+	padding: 1rem;
+}
+
+/* Header */
+header {
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid #ffd700;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo {
+  max-width: 300px;
+  margin: 0 auto 1rem;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.construction-note {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #444;
+  font-style: italic;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(90deg, #ffd700, #ffa500, #ffd700);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineText 3s linear infinite;
+}
+
+@keyframes shineText {
+  to {
+    background-position: 200% center;
+  }
+}
+
+
+/* Main */
+main {
+	flex: 1;
+	width: 100%;
+	max-width: 900px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 3rem;
+}
+
+/* Loja - foto */
+.store-photo h2 {
+	font-size: 1.8rem;
+	margin-bottom: 1.2rem;
+	font-weight: 700;
+	color: #111;
+	text-align: center;
+	position: relative;
+}
+
+.store-photo h2::after {
+	content: "";
+	position: absolute;
+	width: 60px;
+	height: 3px;
+	background-color: #fadd00;
+	bottom: -8px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-radius: 10px;
+}
+
+.loja-img {
+	width: 100%;
+	max-width: 700px;
+	border-radius: 16px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+	transition: transform 0.4s ease, box-shadow 0.4s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Efeito de brilho animado no hover */
+.loja-img::before {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: linear-gradient(120deg,
+			transparent 0%,
+			rgba(255, 255, 255, 0.2) 50%,
+			transparent 100%);
+	transform: rotate(25deg);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.4s ease;
+}
+
+.loja-img:hover {
+	transform: scale(1.03);
+	box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
+}
+
+.loja-img:hover::before {
+	opacity: 1;
+	animation: shine 1.2s ease forwards;
+}
+
+/* Animação de brilho */
+@keyframes shine {
+	0% {
+		transform: translateX(-100%) rotate(25deg);
+	}
+
+	100% {
+		transform: translateX(100%) rotate(25deg);
+	}
+}
+
+/* Contato */
+.contact-card {
+	background-color: #f7fdf9;
+	max-width: 700px;
+	width: 100%;
+	padding: 2.5rem 3rem;
+	border-radius: 20px;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+	transition: all 0.3s ease;
+	margin: 1.5rem auto;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	color: #222;
+}
+
+.contact-card:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 14px 38px rgba(0, 0, 0, 0.16);
+}
+
+.contact-card h2 {
+	font-size: 1.8rem;
+	margin-bottom: 1rem;
+	font-weight: 700;
+	color: #111;
+}
+
+.contact-card p {
+	margin: 0.4rem 0;
+	font-size: 1.1rem;
+	line-height: 1.6;
+}
+
+.contact-card a {
+	color: #0077cc;
+	text-decoration: none;
+	font-weight: 600;
+	position: relative;
+	transition: color 0.3s ease;
+}
+
+.contact-card a::after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 2px;
+	bottom: -2px;
+	left: 0;
+	background-color: #0077cc;
+	transition: width 0.3s ease;
+}
+
+.contact-card a:hover {
+	color: #005fa3;
+}
+
+.contact-card a:hover::after {
+	width: 100%;
+}
+
+
+/* Títulos dentro do card */
+.card h2 {
+	margin-bottom: 1rem;
+	font-weight: 700;
+	font-size: 1.8rem;
+	color: #000;
+}
+
+/* Parágrafos e links */
+.card p,
+.card a {
+	font-size: 1.1rem;
+	line-height: 1.5;
+	color: #444;
+}
+
+.card a {
+	color: #0077cc;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.card a:hover {
+	text-decoration: underline;
+}
+
+/* Botão WhatsApp */
+.whatsapp-button {
+	background: linear-gradient(135deg, #25d366, #1ebe5d);
+	color: white;
+	font-weight: 700;
+	padding: 1rem 2.5rem;
+	border-radius: 40px;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	box-shadow: 0 6px 16px rgba(37, 211, 102, 0.5);
+	transition: all 0.3s ease;
+	font-size: 1.15rem;
+	margin-bottom: 2rem;
+	border: none;
+	position: relative;
+	overflow: hidden;
+}
+
+.whatsapp-button::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.2);
+	transition: left 0.4s ease;
+}
+
+.whatsapp-button:hover::after {
+	left: 100%;
+}
+
+.whatsapp-button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 10px 24px rgba(37, 211, 102, 0.6);
+	background: linear-gradient(135deg, #32e37f, #1ac155);
+}
+
+.whatsapp-button img {
+	width: 24px;
+	height: 24px;
+	transition: transform 0.3s ease;
+}
+
+.whatsapp-button:hover img {
+	transform: scale(1.15);
+}
+
+/* Botão Catálogo */
+.catalogo-button {
+	background: linear-gradient(135deg, #fadd00, #ffb300);
+	color: #222;
+	font-weight: 700;
+	padding: 1rem 2.5rem;
+	border-radius: 40px;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	box-shadow: 0 6px 16px rgba(250, 200, 0, 0.5);
+	transition: all 0.3s ease;
+	font-size: 1.15rem;
+	margin-bottom: 2rem;
+	border: none;
+	position: relative;
+	overflow: hidden;
+}
+
+.catalogo-button::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.25);
+	transition: left 0.4s ease;
+}
+
+.catalogo-button:hover::after {
+	left: 100%;
+}
+
+.catalogo-button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 10px 24px rgba(250, 200, 0, 0.6);
+	background: linear-gradient(135deg, #ffe74c, #ffc107);
+	color: #111;
+}
+
+.catalogo-button img {
+	width: 24px;
+	height: 24px;
+	transition: transform 0.3s ease;
+}
+
+.catalogo-button:hover img {
+	transform: scale(1.15);
+}
+
+
+/* Mapa */
+.map-section h2 {
+	font-size: 1.6rem;
+	margin-bottom: 1rem;
+	color: #000;
+}
+
+.map-container {
+	width: 100%;
+	max-width: 900px;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+	width: 100%;
+	/* max-width: 900px; */
+	background-color: #222;
+	color: #ccc;
+	padding: 1rem;
+	margin-top: 3rem;
+	border-radius: 0 0 8px 8px;
+	font-size: 0.9rem;
+}
