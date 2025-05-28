@@ -361,3 +361,49 @@ footer {
 	border-radius: 0 0 8px 8px;
 	font-size: 0.9rem;
 }
+
+/* ****** */
+/* ÉTICAS */
+/* ****** */
+
+ .menu-link {
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.menu-link:hover {
+  color: #0077cc;
+}
+
+/* ************* */
+/* PÁGINA ÉTICAS */
+/* ************* */
+.etica-compromisso {
+    padding: 20px;
+    background-color: #f5f5f5;
+    margin: 30px;
+    border-radius: 8px;
+}
+
+.etica-compromisso p {
+  text-align: left;
+  padding-bottom: 20px;
+}
+
+.etica-compromisso h2, .etica-compromisso h3 {
+    color: #2e2e2e;
+}
+
+.etica-compromisso p, .etica-compromisso li {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.etica-compromisso ul {
+    text-align: left;
+    list-style-type: disc;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
