@@ -3,7 +3,12 @@ import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 const whatsappHref = "https://wa.me/5513982071346";
 const mapsHref = "https://maps.app.goo.gl/PxrYSXD6Z6WUsmXcA";
 
-const sectionLinks = [
+type SectionLink = {
+  label: string;
+  id: string;
+};
+
+const sectionLinks: SectionLink[] = [
   { label: "Soluções", id: "solucoes" },
   { label: "Segmentos", id: "segmentos" },
   { label: "Sobre", id: "sobre" },
@@ -15,7 +20,7 @@ export default function SiteLayout() {
   const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
 
-  function scrollToSection(sectionId) {
+  function scrollToSection(sectionId: string) {
     const runScroll = () => {
       window.requestAnimationFrame(() => {
         const element = document.getElementById(sectionId);

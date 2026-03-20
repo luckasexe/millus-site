@@ -3,8 +3,20 @@ import { Link } from "react-router-dom";
 const whatsappHref = "https://wa.me/5513982071346";
 const mapsHref = "https://maps.app.goo.gl/PxrYSXD6Z6WUsmXcA";
 
-// Substitua esta lista por clientes autorizados assim que os nomes e logos reais forem definidos.
-const trustLogos = [
+type LogoItem = string;
+
+type ContentCard = {
+  kicker?: string;
+  title: string;
+  description: string;
+};
+
+type Metric = {
+  value: string;
+  label: string;
+};
+
+const trustLogos: LogoItem[] = [
   "ATLANTIS OPERAÇÕES",
   "PORTO SERRA",
   "METALNAVE INDÚSTRIA",
@@ -13,7 +25,7 @@ const trustLogos = [
   "GRUPO VERTEX",
 ];
 
-const solutions = [
+const solutions: ContentCard[] = [
   {
     kicker: "Fornecimento técnico",
     title: "Peças e componentes para manutenção industrial",
@@ -34,7 +46,7 @@ const solutions = [
   },
 ];
 
-const segments = [
+const segments: string[] = [
   "Indústrias de processo",
   "Operação portuária e logística",
   "Manutenção industrial",
@@ -43,7 +55,7 @@ const segments = [
   "Suprimentos e compras corporativas",
 ];
 
-const projectHighlights = [
+const projectHighlights: ContentCard[] = [
   {
     title: "Adequação de conjuntos hidráulicos",
     description:
@@ -61,14 +73,14 @@ const projectHighlights = [
   },
 ];
 
-const differentiators = [
+const differentiators: string[] = [
   "Atendimento técnico-comercial direto",
   "Agilidade para demandas operacionais",
   "Atuação em peças, conjuntos e soluções",
   "Relacionamento com foco industrial",
 ];
 
-const companyNumbers = [
+const companyNumbers: Metric[] = [
   { value: "18+", label: "anos de atuação no setor" },
   { value: "350+", label: "clientes atendidos na região" },
   { value: "6", label: "frentes de fornecimento" },
@@ -76,6 +88,7 @@ const companyNumbers = [
 
 export default function HomePage() {
   const marqueeItems = [...trustLogos, ...trustLogos];
+
   function scrollToAbout() {
     const aboutSection = document.getElementById("sobre");
     if (aboutSection) {
@@ -108,7 +121,11 @@ export default function HomePage() {
               >
                 Solicitar atendimento no WhatsApp
               </a>
-              <button type="button" className="btn-secondary btn-secondary-ghost" onClick={scrollToAbout}>
+              <button
+                type="button"
+                className="btn-secondary btn-secondary-ghost"
+                onClick={scrollToAbout}
+              >
                 Conhecer a empresa
               </button>
             </div>
@@ -146,11 +163,7 @@ export default function HomePage() {
               </div>
               <div className="hero-visual-card location-card">
                 <span className="signal-label">BASE EM CUBATÃO/SP</span>
-                <a
-                  href={mapsHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={mapsHref} target="_blank" rel="noopener noreferrer">
                   Ver localização da empresa
                 </a>
               </div>

@@ -5,7 +5,13 @@ import App from "./App";
 import "./tokens.css";
 import "./styles.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("Elemento raiz '#root' não encontrado.");
+}
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <HashRouter>
       <App />

@@ -1,7 +1,17 @@
 const whatsappHref = "https://wa.me/5513982071346";
 
-// Substitua os mocks por projetos e cases reais assim que houver autorização dos clientes.
-const projectAreas = [
+type ProjectCard = {
+  title: string;
+  description: string;
+};
+
+type CaseCard = {
+  number: string;
+  title: string;
+  summary: string;
+};
+
+const projectAreas: ProjectCard[] = [
   {
     title: "Projetos sob demanda",
     description:
@@ -19,7 +29,7 @@ const projectAreas = [
   },
 ];
 
-const casesMock = [
+const casesMock: CaseCard[] = [
   {
     number: "01",
     title: "Conjuntos hidráulicos para continuidade operacional",

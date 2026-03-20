@@ -1,4 +1,16 @@
-const commitments = [
+type Commitment = {
+  icon: string;
+  title: string;
+  description: string;
+};
+
+type ValueCard = {
+  icon: string;
+  title: string;
+  description: string;
+};
+
+const commitments: Commitment[] = [
   {
     icon: "🔧",
     title: "Compromisso com qualidade",
@@ -25,7 +37,7 @@ const commitments = [
   },
 ];
 
-const values = [
+const values: ValueCard[] = [
   {
     icon: "🎯",
     title: "Missão",
@@ -46,7 +58,7 @@ const values = [
   },
 ];
 
-const principles = [
+const principles: string[] = [
   "Atuar com clareza na comunicação comercial e técnica.",
   "Construir relações de longo prazo com base em confiança.",
   "Priorizar postura profissional em todas as etapas do atendimento.",
