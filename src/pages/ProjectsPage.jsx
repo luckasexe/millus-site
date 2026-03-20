@@ -24,19 +24,19 @@ const casesMock = [
     number: "01",
     title: "Conjuntos hidráulicos para continuidade operacional",
     summary:
-      "Mock de case para demonstrar como a página pode apresentar escopo, desafio e solução aplicada.",
+      "Modelo de case para apresentar escopo, contexto operacional e solução aplicada.",
   },
   {
     number: "02",
     title: "Atendimento recorrente para manutenção industrial",
     summary:
-      "Modelo pensado para mostrar relacionamento contínuo, tipo de fornecimento e capacidade de resposta.",
+      "Exemplo de relacionamento contínuo, tipo de fornecimento e capacidade de resposta.",
   },
   {
     number: "03",
     title: "Solução direcionada para demanda específica de campo",
     summary:
-      "Estrutura pronta para apresentar casos com contexto técnico, aplicação e impacto operacional.",
+      "Estrutura pronta para receber casos com contexto técnico, aplicação e impacto operacional.",
   },
 ];
 
@@ -47,11 +47,10 @@ export default function ProjectsPage() {
         <div className="container projects-hero-grid">
           <div className="projects-hero-copy">
             <span className="section-kicker">PROJETOS E SOLUÇÕES</span>
-            <h1>Estrutura preparada para apresentar capacidade técnica com casos reais</h1>
+            <h1>Projetos e fornecimentos pensados para reforçar capacidade técnica</h1>
             <p>
-              Página pensada para receber projetos, fornecimentos relevantes e
-              frentes de atuação da Millus. Nesta fase, o conteúdo permanece
-              mockado para validar forma e posicionamento.
+              Esta área organiza fornecimentos relevantes, adequações e frentes
+              de atuação em uma leitura institucional, objetiva e comercial.
             </p>
             <a
               href={whatsappHref}
@@ -64,11 +63,11 @@ export default function ProjectsPage() {
           </div>
 
           <div className="projects-hero-panel surface-card">
-            <span className="panel-label">COMO ESTA PÁGINA VAI EVOLUIR</span>
+            <span className="panel-label">ESTRUTURA DA ÁREA</span>
             <ul className="bullet-list">
-              <li>Substituição dos mocks por cases reais autorizados</li>
-              <li>Inserção de fotos, escopo e contexto de projeto</li>
-              <li>Destaque para capacidade comercial e técnica</li>
+              <li>Cases reais autorizados podem entrar sem alterar o layout</li>
+              <li>A estrutura já comporta fotos, escopo e contexto de projeto</li>
+              <li>A leitura prioriza capacidade comercial e técnica</li>
             </ul>
           </div>
         </div>
@@ -78,10 +77,11 @@ export default function ProjectsPage() {
         <div className="container">
           <div className="section-heading">
             <span className="section-kicker">FRENTES DE ATUAÇÃO</span>
-            <h2>Como a Millus pode apresentar projetos e fornecimentos no site</h2>
+            <h2>Áreas em que projetos e fornecimentos podem ser apresentados</h2>
             <p>
-              A proposta não é virar portfólio criativo, mas reforçar capacidade
-              industrial, segurança comercial e tipo de solução entregue.
+              A proposta não é virar portfólio criativo, mas reforçar
+              capacidade industrial, segurança comercial e tipo de solução
+              entregue.
             </p>
           </div>
 
@@ -102,7 +102,7 @@ export default function ProjectsPage() {
             <span className="section-kicker">CASES MOCKADOS</span>
             <h2>Modelo visual para futuros projetos reais</h2>
             <p>
-              Estes cards mostram como a área pode receber projetos reais depois,
+              Estes cards mostram como a área pode receber projetos reais,
               mantendo linguagem institucional e leitura rápida.
             </p>
           </div>

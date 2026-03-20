@@ -85,8 +85,8 @@ export default function EthicsPage() {
             <span className="section-kicker">IDENTIDADE INSTITUCIONAL</span>
             <h2>Missão, visão e valores organizados com linguagem mais sólida</h2>
             <p>
-              A área de Ética existe para consolidar credibilidade institucional
-              e dar profundidade ao novo posicionamento do site.
+              A área de Ética consolida credibilidade institucional e reforça o
+              posicionamento comercial da marca.
             </p>
           </div>
 
@@ -110,8 +110,8 @@ export default function EthicsPage() {
             <span className="section-kicker">COMPROMISSOS</span>
             <h2>Diretrizes que sustentam o relacionamento com o mercado</h2>
             <p>
-              Estes compromissos dão consistência institucional ao site e
-              reforçam o posicionamento comercial da marca.
+              Estes compromissos dão consistência institucional ao site e ao
+              relacionamento com clientes e parceiros.
             </p>
           </div>
 

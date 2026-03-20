@@ -18,19 +18,19 @@ const solutions = [
     kicker: "Fornecimento técnico",
     title: "Peças e componentes para manutenção industrial",
     description:
-      "Atendimento para demanda recorrente e itens técnicos com foco em especificação correta e agilidade de resposta.",
+      "Atendimento para rotina de manutenção e itens críticos com foco em especificação correta e resposta ágil.",
   },
   {
     kicker: "Mangueiras prensadas",
     title: "Conjuntos montados para operação e reposição",
     description:
-      "Preparação de mangueiras, conexões e conjuntos hidráulicos para aplicação industrial com orientação prática.",
+      "Montagem de mangueiras, conexões e conjuntos hidráulicos para aplicação industrial e reposição rápida.",
   },
   {
     kicker: "Projetos e apoio técnico",
     title: "Soluções sob medida para operação e campo",
     description:
-      "Soluções direcionadas para adequação, substituição, melhoria operacional e demandas específicas da planta.",
+      "Adequação, substituição e apoio técnico para demandas específicas de operação, campo e projeto.",
   },
 ];
 
@@ -47,17 +47,17 @@ const projectHighlights = [
   {
     title: "Adequação de conjuntos hidráulicos",
     description:
-      "Substituição e preparação de conjuntos para continuidade operacional com foco em prazo e confiabilidade.",
+      "Substituição e preparação de conjuntos com foco em continuidade operacional, prazo e confiabilidade.",
   },
   {
     title: "Fornecimento técnico recorrente",
     description:
-      "Apoio contínuo a rotinas de manutenção com itens críticos, peças técnicas e atendimento consultivo.",
+      "Atendimento contínuo a rotinas de manutenção com itens críticos e suporte comercial consultivo.",
   },
   {
     title: "Solução sob demanda em campo",
     description:
-      "Estruturação de fornecimento para necessidade específica de operação com resposta rápida.",
+      "Estruturação de fornecimento para necessidades específicas de operação com resposta rápida.",
   },
 ];
 
@@ -69,9 +69,9 @@ const differentiators = [
 ];
 
 const companyNumbers = [
-  { value: "18+", label: "anos no atendimento industrial" },
+  { value: "18+", label: "anos de atuação no setor" },
   { value: "350+", label: "clientes atendidos na região" },
-  { value: "6", label: "frentes de fornecimento prioritárias" },
+  { value: "6", label: "frentes de fornecimento" },
 ];
 
 export default function HomePage() {
@@ -95,9 +95,8 @@ export default function HomePage() {
             </h1>
             <p className="hero-description">
               Fornecimento técnico, mangueiras prensadas, peças industriais e
-              apoio comercial para manutenção, operação e projetos. Uma presença
-              comercial preparada para responder com clareza, agilidade e
-              leitura técnica.
+              apoio comercial para manutenção, operação e projetos com resposta
+              clara, ágil e orientada ao ambiente industrial.
             </p>
 
             <div className="hero-actions">
@@ -162,30 +161,30 @@ export default function HomePage() {
 
       <section className="logo-marquee-section" aria-label="Clientes de referência">
         <div className="container logo-marquee-header">
-          <span className="section-kicker">PROVA DE AUTORIDADE</span>
+          <span className="section-kicker">CLIENTES E EMPRESAS ATENDIDAS</span>
           <p>
-            Simulação visual da futura área de clientes atendidos. Os nomes
-            abaixo são mockados, mas já seguem a lógica de exibição prevista
-            para a versão publicada.
+            Área preparada para receber clientes autorizados no padrão visual da
+            versão publicada.
           </p>
         </div>
-        <div className="logo-marquee">
-          <div className="logo-track">
-            {marqueeItems.map((logo, index) => (
-              <div className="logo-chip" key={`${logo}-${index}`}>
-                <span>{logo}</span>
-              </div>
-            ))}
+        <div className="container">
+          <div className="logo-marquee hero-logo-marquee">
+            <div className="logo-track">
+              {marqueeItems.map((logo, index) => (
+                <div className="logo-chip" key={`${logo}-${index}`}>
+                  <span>{logo}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="container proof-social-note">
-          <div className="surface-card proof-social-card">
-            <span className="panel-label">CLIENTES E EMPRESAS ATENDIDAS</span>
-            <p>
-              A versão final pode manter este mesmo padrão monocromático para
-              reforçar unidade visual e autoridade sem depender das cores
-              originais de cada marca.
-            </p>
+          <div className="proof-social-note">
+            <div className="surface-card proof-social-card">
+              <span className="panel-label">PROVA SOCIAL MOCKADA</span>
+              <p>
+                Esta faixa pode ser atualizada depois com logos reais,
+                preservando o mesmo tratamento monocromático.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -197,8 +196,8 @@ export default function HomePage() {
               <span className="section-kicker">O QUE FAZEMOS</span>
               <h2>Soluções industriais com leitura técnica e resposta comercial</h2>
               <p>
-                A Millus atende demandas em que confiança, disponibilidade e
-                entendimento técnico precisam andar juntos.
+                Atendimento para cenários em que confiança, disponibilidade e
+                entendimento técnico precisam caminhar juntos.
               </p>
             </div>
 
@@ -220,7 +219,7 @@ export default function HomePage() {
               <span className="section-kicker">PARA QUEM FORNECEMOS</span>
               <h2>Segmentos que buscam parceiro confiável para fornecimento técnico</h2>
               <p>
-                Conteúdo pensado para compradores, suprimentos, manutenção e
+                Estrutura pensada para compradores, suprimentos, manutenção e
                 coordenação técnica que precisam validar fornecedor com rapidez.
               </p>
             </div>
@@ -240,7 +239,7 @@ export default function HomePage() {
             <div className="section-heading section-heading-inline">
               <div>
                 <span className="section-kicker">PROJETOS</span>
-                <h2>Projetos e frentes de atuação para reforçar capacidade técnica</h2>
+                <h2>Frentes de atuação que reforçam capacidade técnica e resposta comercial</h2>
               </div>
               <Link to="/projetos" className="text-link">
                 Ver página de projetos
@@ -282,9 +281,9 @@ export default function HomePage() {
               <span className="section-kicker">SOBRE A EMPRESA</span>
               <h2>Presença comercial voltada para a realidade da indústria</h2>
               <p>
-                A Millus se posiciona como parceira comercial para demandas
-                técnicas e operacionais, com atendimento orientado à solução e
-                linguagem adequada ao ambiente industrial.
+                A Millus atua como parceira comercial para demandas técnicas e
+                operacionais, com atendimento orientado à solução e linguagem
+                compatível com o ambiente industrial.
               </p>
             </div>
 
@@ -305,7 +304,7 @@ export default function HomePage() {
               <span className="section-kicker">LOCALIZAÇÃO E CONTATO</span>
               <h2>Base local para atendimento industrial em Cubatão e região</h2>
               <p>
-                A localização reforça presença regional e confiança, enquanto o
+                A base local reforça presença regional e confiança, enquanto o
                 WhatsApp segue como principal canal de conversão.
               </p>
               <div className="contact-inline-list">
