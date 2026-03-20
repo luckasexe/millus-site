@@ -16,6 +16,7 @@
   --radius-lg: 20px;
   --container: 1240px;
   --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --header-offset: 132px;
 }
 
 * {
@@ -24,6 +25,11 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+body,
+#root {
+  min-height: 100vh;
 }
 
 body {
@@ -54,11 +60,25 @@ img {
   margin: 0 auto;
 }
 
+#solucoes,
+#segmentos,
+#projetos,
+#sobre,
+#contato {
+  scroll-margin-top: var(--header-offset);
+}
+
 .topbar {
   background: var(--bg-dark);
   color: rgba(255, 255, 255, 0.78);
   font-size: 0.84rem;
   letter-spacing: 0.03em;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
 }
 
 .topbar-inner {
@@ -73,12 +93,10 @@ img {
 }
 
 .navbar-shell {
-  position: sticky;
-  top: 0;
-  z-index: 20;
   backdrop-filter: blur(14px);
   background: rgba(255, 255, 255, 0.86);
   border-bottom: 1px solid rgba(31, 35, 41, 0.06);
+  box-shadow: 0 8px 20px rgba(31, 35, 41, 0.05);
 }
 
 .navbar-pro {
@@ -148,15 +166,28 @@ img {
   align-items: center;
   justify-content: center;
   padding: 0.95rem 1.35rem;
-  border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-white);
   transition: 0.25s ease;
 }
 
-.btn-secondary:hover {
+.btn-secondary-ghost {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-white);
+}
+
+.btn-secondary-ghost:hover {
   background: rgba(255, 255, 255, 0.16);
+}
+
+.btn-secondary-solid {
+  border: 1px solid rgba(31, 35, 41, 0.12);
+  background: var(--surface-strong);
+  color: var(--text-main);
+}
+
+.btn-secondary-solid:hover {
+  background: #f6f4eb;
 }
 
 .hero-shell {
@@ -265,6 +296,7 @@ img {
 .hero-visual {
   display: grid;
   gap: 1rem;
+  align-self: stretch;
 }
 
 .hero-photo-card {
@@ -313,6 +345,7 @@ img {
   padding: 1.35rem;
   background: linear-gradient(180deg, rgba(34, 40, 49, 0.96), rgba(49, 58, 69, 0.96));
   color: var(--text-white);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .signal-label,
@@ -323,7 +356,6 @@ img {
 }
 
 .signal-card p,
-.location-card a,
 .section-heading p,
 .split-copy p,
 .about-copy p,
@@ -334,6 +366,11 @@ img {
 .project-card p,
 .logo-marquee-header p {
   color: var(--text-soft);
+}
+
+.signal-card p {
+  margin: 0.75rem 0 0;
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .location-card a {
@@ -486,6 +523,17 @@ img {
   padding: 1.5rem;
   background: var(--surface-strong);
   border: 1px solid var(--line);
+}
+
+.solution-card,
+.project-card,
+.value-card,
+.commitment-item,
+.segment-pill,
+.contact-summary,
+.map-shell,
+.about-panel {
+  height: 100%;
 }
 
 .solution-card h3,
@@ -734,6 +782,10 @@ img {
 }
 
 @media (max-width: 1080px) {
+  :root {
+    --header-offset: 120px;
+  }
+
   .navbar-pro,
   .hero-grid,
   .split-section,
@@ -741,7 +793,11 @@ img {
   .contact-compact-grid,
   .section-heading-inline,
   .hero-visual-stack,
-  .footer-bottom-inner {
+  .footer-bottom-inner,
+  .solution-grid,
+  .project-grid,
+  .values-grid,
+  .commitments-grid {
     grid-template-columns: 1fr;
   }
 
@@ -756,28 +812,36 @@ img {
     align-items: flex-start;
   }
 
-  .solution-grid,
-  .project-grid,
-  .values-grid,
-  .commitments-grid {
-    grid-template-columns: 1fr;
-  }
-
   .hero-metrics,
   .segment-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .hero-headline {
+    max-width: 13ch;
+  }
 }
 
 @media (max-width: 720px) {
-  .topbar-inner,
+  :root {
+    --header-offset: 110px;
+  }
+
+  .topbar {
+    display: none;
+  }
+
   .navbar-pro,
   .nav-menu-pro,
   .hero-actions,
   .footer-actions,
-  .hero-metrics,
-  .segment-grid,
   .footer-bottom-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .topbar-inner {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -804,6 +868,15 @@ img {
 
   .hero-photo-card {
     min-height: 360px;
+  }
+
+  .hero-metrics,
+  .segment-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card {
+    text-align: left;
   }
 
   .content-section {

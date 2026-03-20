@@ -106,7 +106,7 @@ export default function HomePage() {
               >
                 Solicitar atendimento no WhatsApp
               </a>
-              <button type="button" className="btn-secondary" onClick={scrollToAbout}>
+              <button type="button" className="btn-secondary btn-secondary-ghost" onClick={scrollToAbout}>
                 Conhecer a empresa
               </button>
             </div>
@@ -325,7 +325,7 @@ export default function HomePage() {
                   href={mapsHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary"
+                  className="btn-secondary btn-secondary-solid"
                 >
                   Ver localização
                 </a>
