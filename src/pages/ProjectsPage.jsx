@@ -1,5 +1,6 @@
 const whatsappHref = "https://wa.me/5513982071346";
 
+// Substitua os mocks por projetos e cases reais assim que houver autorização dos clientes.
 const projectAreas = [
   {
     title: "Projetos sob demanda",
@@ -48,9 +49,10 @@ export default function ProjectsPage() {
             <span className="section-kicker">PROJETOS E SOLUÇÕES</span>
             <h1>Estrutura preparada para apresentar capacidade técnica com casos reais</h1>
             <p>
-              Esta página foi organizada para evoluir com projetos, fornecimentos
-              relevantes e frentes de atuação da Millus. Nesta fase, usamos
-              conteúdo mockado para validar forma, hierarquia e posicionamento.
+              Esta página foi organizada para evoluir com projetos,
+              fornecimentos relevantes e frentes de atuação da Millus. Nesta
+              fase, o conteúdo continua mockado para validar forma, hierarquia e
+              posicionamento institucional.
             </p>
             <a
               href={whatsappHref}

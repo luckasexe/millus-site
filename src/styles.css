@@ -1,24 +1,3 @@
-:root {
-  --bg-dark: #1f2329;
-  --bg-dark-2: #2a313a;
-  --bg-panel: #313a45;
-  --bg-soft: #f3f4f6;
-  --surface-strong: #ffffff;
-  --line: rgba(31, 35, 41, 0.1);
-  --text-main: #222831;
-  --text-soft: #5b6470;
-  --text-white: #ffffff;
-  --accent: #f2c230;
-  --accent-strong: #d9aa1d;
-  --accent-soft: rgba(242, 194, 48, 0.12);
-  --shadow-lg: 0 24px 60px rgba(24, 30, 36, 0.14);
-  --radius-xl: 28px;
-  --radius-lg: 20px;
-  --container: 1240px;
-  --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --header-offset: 132px;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -144,7 +123,8 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.95rem 1.35rem;
+  min-height: var(--button-height);
+  padding: 0 var(--button-padding-x);
   background: var(--accent);
   color: var(--bg-dark);
   border-radius: 999px;
@@ -165,7 +145,8 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.95rem 1.35rem;
+  min-height: var(--button-height);
+  padding: 0 var(--button-padding-x);
   border-radius: 999px;
   transition: 0.25s ease;
 }
@@ -239,7 +220,7 @@ img {
 }
 
 .hero-headline {
-  max-width: 11ch;
+  max-width: var(--headline-max);
   margin: 0;
   font-size: clamp(3rem, 6vw, 5rem);
   line-height: 0.95;
@@ -383,6 +364,15 @@ img {
   padding-bottom: 2rem;
 }
 
+.proof-social-note {
+  margin-top: 1rem;
+}
+
+.proof-social-card p {
+  margin: 0.7rem 0 0;
+  color: var(--text-soft);
+}
+
 .logo-marquee-header {
   display: flex;
   justify-content: space-between;
@@ -423,7 +413,7 @@ img {
 }
 
 .content-section {
-  padding: 5rem 0;
+  padding: var(--section-space) 0;
 }
 
 .section-header {
@@ -957,7 +947,7 @@ img {
   }
 
   .content-section {
-    padding: 3.75rem 0;
+    padding: var(--section-space-mobile) 0;
   }
 
   .floating-whatsapp {

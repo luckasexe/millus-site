@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 const whatsappHref = "https://wa.me/5513982071346";
 const mapsHref = "https://maps.app.goo.gl/PxrYSXD6Z6WUsmXcA";
 
+// Substitua esta lista por clientes autorizados assim que os nomes e logos reais forem definidos.
 const trustLogos = [
-  "Cliente Industrial 01",
-  "Cliente Portuário 02",
-  "Operação Técnica 03",
-  "Fornecedor Base 04",
-  "Projeto Estrutural 05",
-  "Indústria de Processo 06",
+  "LOGO MOCK 01",
+  "LOGO MOCK 02",
+  "LOGO MOCK 03",
+  "LOGO MOCK 04",
+  "LOGO MOCK 05",
+  "LOGO MOCK 06",
 ];
 
 const solutions = [
@@ -93,10 +94,10 @@ export default function HomePage() {
               Soluções técnicas para manutenção e operação industrial
             </h1>
             <p className="hero-description">
-              Atuamos com fornecimento técnico, mangueiras prensadas, peças
-              industriais e suporte para demandas de operação, manutenção e
-              projetos. Um parceiro comercial para quem precisa de resposta
-              rápida e atendimento confiável.
+              A Millus atende a indústria com fornecimento técnico, mangueiras
+              prensadas, peças e apoio comercial para rotinas de manutenção,
+              operação e projetos. O foco é unir resposta rápida, leitura
+              técnica e confiança no atendimento.
             </p>
 
             <div className="hero-actions">
@@ -140,8 +141,8 @@ export default function HomePage() {
               <div className="hero-visual-card signal-card">
                 <span className="signal-label">CAPACIDADE DE ATENDIMENTO</span>
                 <p>
-                  Peças técnicas, conjuntos prensados e soluções para operação e
-                  manutenção industrial.
+                  Fornecimento para rotina, urgência operacional e demandas sob
+                  medida com posicionamento voltado ao setor industrial.
                 </p>
               </div>
               <div className="hero-visual-card location-card">
@@ -163,9 +164,9 @@ export default function HomePage() {
         <div className="container logo-marquee-header">
           <span className="section-kicker">PROVA DE AUTORIDADE</span>
           <p>
-            Área preparada para logos reais de clientes e empresas atendidas.
-            Nesta fase, usamos marcas mockadas em padrão prata para validar o
-            layout.
+            A estrutura abaixo já está pronta para receber nomes e logos reais
+            de clientes autorizados. Nesta fase, os itens aparecem como mocks
+            monocromáticos apenas para validar o ritmo visual da seção.
           </p>
         </div>
         <div className="logo-marquee">
@@ -177,6 +178,16 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+        <div className="container proof-social-note">
+          <div className="surface-card proof-social-card">
+            <span className="panel-label">COMO EVOLUIR ESTA ÁREA</span>
+            <p>
+              Troque os mocks por clientes reais autorizados, mantendo logo
+              monocromático, ordem por relevância e no máximo 6 a 10 marcas na
+              primeira versão publicada.
+            </p>
+          </div>
+        </div>
       </section>
 
       <main className="site-main">
@@ -184,11 +195,12 @@ export default function HomePage() {
           <div className="container">
             <div className="section-heading">
               <span className="section-kicker">O QUE FAZEMOS</span>
-              <h2>Soluções industriais com leitura técnica e foco operacional</h2>
+              <h2>Soluções industriais com leitura técnica, agilidade e presença comercial</h2>
               <p>
-                O posicionamento do site prioriza capacidade técnica,
-                confiabilidade comercial e clareza sobre o tipo de fornecimento
-                que a Millus executa.
+                O objetivo desta home é comunicar com clareza o tipo de demanda
+                que a Millus atende: fornecimento técnico, montagem, apoio
+                operacional e resposta comercial orientada à realidade da
+                indústria.
               </p>
             </div>
 
@@ -210,9 +222,9 @@ export default function HomePage() {
               <span className="section-kicker">PARA QUEM FORNECEMOS</span>
               <h2>Segmentos que buscam parceiro confiável para fornecimento técnico</h2>
               <p>
-                O site foi desenhado para falar com compradores, suprimentos,
-                manutenção, coordenação técnica e gestores operacionais que
-                precisam validar fornecedor com rapidez.
+                A linguagem do site fala com compradores, suprimentos,
+                manutenção, coordenação técnica e gestão operacional que precisam
+                validar fornecedor com rapidez e segurança.
               </p>
             </div>
 
@@ -231,7 +243,7 @@ export default function HomePage() {
             <div className="section-heading section-heading-inline">
               <div>
                 <span className="section-kicker">PROJETOS</span>
-                <h2>Casos e frentes de atuação que reforçam capacidade técnica</h2>
+                <h2>Projetos e frentes de atuação para reforçar capacidade técnica</h2>
               </div>
               <Link to="/projetos" className="text-link">
                 Ver página de projetos
@@ -273,14 +285,14 @@ export default function HomePage() {
               <span className="section-kicker">SOBRE A EMPRESA</span>
               <h2>Presença comercial voltada para a realidade da indústria</h2>
               <p>
-                A Millus se posiciona como parceira para demandas técnicas e
-                operacionais, atendendo o setor industrial com uma comunicação
-                objetiva, comercial e orientada à solução.
+                A Millus se posiciona como parceira comercial para demandas
+                técnicas e operacionais, com atendimento orientado à solução e
+                linguagem adequada ao ambiente industrial.
               </p>
               <p>
-                Nesta nova versão do site, o foco deixa de ser apenas listar
-                itens e passa a comunicar autoridade, escopo de atuação e
-                prontidão para atendimento.
+                Nesta versão do site, o conteúdo deixa de apenas listar itens e
+                passa a comunicar capacidade de atendimento, escopo de atuação e
+                prontidão para responder ao cliente com mais autoridade.
               </p>
             </div>
 
