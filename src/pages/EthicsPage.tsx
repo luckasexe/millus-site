@@ -1,3 +1,5 @@
+import { usePageMeta } from "../hooks/usePageMeta";
+
 type Commitment = {
   icon: string;
   title: string;
@@ -66,6 +68,12 @@ const principles: string[] = [
 ];
 
 export default function EthicsPage() {
+  usePageMeta({
+    title: "Ética e Compromisso | Millus Acessórios Industriais",
+    description:
+      "Missão, visão, valores e compromissos institucionais da Millus para relações comerciais sérias, transparentes e duradouras.",
+  });
+
   return (
     <main>
       <section className="ethics-hero">

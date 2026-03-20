@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 const whatsappHref = "https://wa.me/5513982071346";
 const mapsHref = "https://maps.app.goo.gl/PxrYSXD6Z6WUsmXcA";
@@ -87,6 +88,12 @@ const companyNumbers: Metric[] = [
 ];
 
 export default function HomePage() {
+  usePageMeta({
+    title: "Millus Acessórios Industriais | Soluções Técnicas para Indústria",
+    description:
+      "Fornecimento técnico, mangueiras prensadas, peças industriais e apoio comercial para manutenção, operação e projetos em Cubatão/SP.",
+  });
+
   const marqueeItems = [...trustLogos, ...trustLogos];
 
   function scrollToAbout() {

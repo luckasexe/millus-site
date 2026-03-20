@@ -1,3 +1,5 @@
+import { usePageMeta } from "../hooks/usePageMeta";
+
 const whatsappHref = "https://wa.me/5513982071346";
 
 type ProjectCard = {
@@ -51,6 +53,12 @@ const casesMock: CaseCard[] = [
 ];
 
 export default function ProjectsPage() {
+  usePageMeta({
+    title: "Projetos e Soluções | Millus Acessórios Industriais",
+    description:
+      "Conheça a estrutura de projetos, fornecimentos e soluções da Millus para operação, manutenção e demandas industriais específicas.",
+  });
+
   return (
     <main>
       <section className="projects-hero">
