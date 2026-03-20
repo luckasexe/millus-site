@@ -91,12 +91,12 @@ export default function HomePage() {
           <div className="hero-copy">
             <span className="eyebrow">MILLUS ACESSÓRIOS INDUSTRIAIS</span>
             <h1 className="hero-headline">
-              Soluções técnicas para manutenção e operação industrial
+              Soluções técnicas para manutenção, operação e continuidade industrial
             </h1>
             <p className="hero-description">
               Fornecimento técnico, mangueiras prensadas, peças industriais e
-              apoio comercial para manutenção, operação e projetos com resposta
-              clara, ágil e orientada ao ambiente industrial.
+              apoio comercial para rotina, urgência e projeto com resposta
+              clara, ágil e compatível com o ambiente industrial.
             </p>
 
             <div className="hero-actions">
@@ -178,13 +178,11 @@ export default function HomePage() {
             </div>
           </div>
           <div className="proof-social-note">
-            <div className="surface-card proof-social-card">
-              <span className="panel-label">PROVA SOCIAL MOCKADA</span>
-              <p>
-                Esta faixa pode ser atualizada depois com logos reais,
-                preservando o mesmo tratamento monocromático.
-              </p>
-            </div>
+            <span className="panel-label">PROVA SOCIAL MOCKADA</span>
+            <p>
+              Esta faixa pode ser atualizada depois com logos reais,
+              preservando o mesmo tratamento monocromático.
+            </p>
           </div>
         </div>
       </section>

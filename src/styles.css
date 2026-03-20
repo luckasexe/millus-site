@@ -14,6 +14,7 @@ body,
 body {
   margin: 0;
   font-family: var(--font-family);
+  line-height: 1.5;
   color: var(--text-main);
   background:
     radial-gradient(circle at top left, rgba(242, 194, 48, 0.1), transparent 30%),
@@ -174,7 +175,7 @@ img {
 .hero-shell {
   position: relative;
   overflow: hidden;
-  padding: 2.9rem 0 1.6rem;
+  padding: 3.1rem 0 1.7rem;
   background:
     linear-gradient(135deg, rgba(242, 194, 48, 0.12), transparent 32%),
     linear-gradient(180deg, #20252d 0%, #2f3843 55%, #f7f7f8 55%);
@@ -193,15 +194,15 @@ img {
 .hero-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
-  gap: 1.2rem;
+  grid-template-columns: 1.22fr 0.78fr;
+  gap: 1.1rem;
   align-items: center;
 }
 
 .hero-copy {
-  max-width: 720px;
+  max-width: 740px;
   color: var(--text-white);
-  padding: 1.15rem 1.15rem 1.25rem;
+  padding: 1.1rem 1.15rem 1.2rem;
   background: linear-gradient(180deg, rgba(20, 24, 29, 0.82), rgba(32, 37, 45, 0.66));
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
@@ -228,17 +229,17 @@ img {
 .hero-headline {
   max-width: none;
   margin: 0;
-  font-size: clamp(2.25rem, 4vw, 3.45rem);
-  line-height: 1.02;
+  font-size: clamp(2.35rem, 4.2vw, 3.6rem);
+  line-height: 0.99;
   letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
 .hero-description {
-  max-width: 52ch;
+  max-width: 50ch;
   margin: 0.8rem 0 0;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   line-height: 1.55;
 }
 
@@ -292,7 +293,7 @@ img {
 .hero-photo-card {
   position: relative;
   overflow: hidden;
-  min-height: 290px;
+  min-height: 280px;
 }
 
 .hero-main-photo {
@@ -332,7 +333,7 @@ img {
 
 .signal-card,
 .location-card {
-  padding: 0.7rem 0.75rem;
+  padding: 0.75rem 0.8rem;
   background: linear-gradient(180deg, rgba(34, 40, 49, 0.96), rgba(49, 58, 69, 0.96));
   color: var(--text-white);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -375,17 +376,19 @@ img {
 }
 
 .logo-marquee-section {
-  padding: 1.7rem 0 1.35rem;
+  padding: 1.85rem 0 1.45rem;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 32%);
 }
 
 .proof-social-note {
-  margin-top: 0.7rem;
+  margin-top: 0.8rem;
 }
 
-.proof-social-card p {
-  margin: 0.5rem 0 0;
+.proof-social-note p {
+  max-width: 58ch;
+  margin: 0.35rem 0 0;
   color: var(--text-soft);
+  font-size: 0.92rem;
 }
 
 .logo-marquee-header {
@@ -476,14 +479,27 @@ img {
 
 .section-heading h2,
 .split-copy h2,
-.cta-band-inner h2,
 .about-copy h2,
-.contact-summary h2,
+.contact-summary h2 {
+  margin: 0.45rem 0 0;
+  font-size: clamp(1.85rem, 3.2vw, 2.7rem);
+  line-height: 1.06;
+}
+
+.cta-band-inner h2,
 .ethics-hero h1,
 .projects-hero h1 {
   margin: 0.45rem 0 0;
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: clamp(2.15rem, 4vw, 3.2rem);
   line-height: 1.02;
+}
+
+.section-heading p,
+.split-copy p,
+.about-copy p,
+.contact-summary p {
+  max-width: 58ch;
+  margin: 0.75rem 0 0;
 }
 
 .section-heading-inline,
@@ -547,7 +563,7 @@ img {
 .value-card h2,
 .commitment-content h3 {
   margin: 0.55rem 0 0.75rem;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
 }
 
 .segment-grid {
@@ -562,6 +578,7 @@ img {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(246, 246, 247, 0.95));
   border: 1px solid var(--line);
   font-weight: 600;
+  line-height: 1.35;
 }
 
 .project-card {
@@ -585,7 +602,7 @@ img {
   justify-content: space-between;
   gap: 2rem;
   align-items: center;
-  padding: 1.5rem 1.75rem;
+  padding: 1.55rem 1.8rem;
   border-radius: var(--radius-xl);
   background: linear-gradient(135deg, #242a32, #39424e);
   color: var(--text-white);
@@ -690,6 +707,11 @@ img {
   color: rgba(255, 255, 255, 0.78);
 }
 
+.projects-hero-copy p,
+.ethics-hero-copy p {
+  max-width: 56ch;
+}
+
 .values-section,
 .commitments-section {
   padding: 3.2rem 0;
@@ -782,7 +804,7 @@ img {
 
 .footer-copy {
   max-width: 44ch;
-  margin: 0.8rem 0 0;
+  margin: 0.65rem 0 0;
   color: rgba(255, 255, 255, 0.68);
 }
 
@@ -941,11 +963,11 @@ img {
   }
 
   .hero-shell {
-    padding-top: 1.4rem;
+    padding-top: 1.5rem;
   }
 
   .hero-headline {
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 
   .hero-copy {
@@ -954,6 +976,12 @@ img {
 
   .hero-photo-card {
     min-height: 240px;
+  }
+
+  .logo-chip {
+    min-width: 190px;
+    padding: 1rem 1.1rem;
+    font-size: 0.8rem;
   }
 
   .hero-metrics,

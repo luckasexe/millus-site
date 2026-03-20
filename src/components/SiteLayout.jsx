@@ -13,6 +13,7 @@ const sectionLinks = [
 export default function SiteLayout() {
   const location = useLocation();
   const navigate = useNavigate();
+  const currentYear = new Date().getFullYear();
 
   function scrollToSection(sectionId) {
     const runScroll = () => {
@@ -148,7 +149,7 @@ export default function SiteLayout() {
 
         <div className="footer-bottom">
           <div className="container footer-bottom-inner">
-            <p>&copy; 2025 Millus - Acessórios Industriais</p>
+            <p>&copy; {currentYear} Millus - Acessórios Industriais</p>
             <p>Estrutura pronta para evoluir com clientes, projetos e casos reais</p>
           </div>
         </div>
