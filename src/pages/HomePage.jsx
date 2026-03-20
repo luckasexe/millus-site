@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const whatsappHref = "https://wa.me/5513982071346";
 const mapsHref = "https://maps.app.goo.gl/PxrYSXD6Z6WUsmXcA";
 
@@ -231,9 +233,9 @@ export default function HomePage() {
                 <span className="section-kicker">PROJETOS</span>
                 <h2>Casos e frentes de atuação que reforçam capacidade técnica</h2>
               </div>
-              <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="text-link">
-                Ver mais no atendimento comercial
-              </a>
+              <Link to="/projetos" className="text-link">
+                Ver página de projetos
+              </Link>
             </div>
 
             <div className="project-grid">

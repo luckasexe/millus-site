@@ -474,7 +474,8 @@ img {
 .cta-band-inner h2,
 .about-copy h2,
 .contact-summary h2,
-.ethics-hero h1 {
+.ethics-hero h1,
+.projects-hero h1 {
   margin: 0.45rem 0 0;
   font-size: clamp(2rem, 4vw, 3.2rem);
   line-height: 1.02;
@@ -653,6 +654,37 @@ img {
   color: var(--text-white);
 }
 
+.ethics-hero-grid,
+.projects-hero-grid,
+.project-area-grid,
+.case-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.ethics-hero-grid,
+.projects-hero-grid {
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: end;
+}
+
+.ethics-highlight,
+.projects-hero-panel {
+  background: linear-gradient(180deg, rgba(34, 40, 49, 0.96), rgba(49, 58, 69, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-white);
+}
+
+.ethics-highlight .bullet-list,
+.projects-hero-panel .bullet-list {
+  margin-top: 0.75rem;
+}
+
+.ethics-highlight .bullet-list li,
+.projects-hero-panel .bullet-list li {
+  color: rgba(255, 255, 255, 0.78);
+}
+
 .values-section,
 .commitments-section {
   padding: 4rem 0;
@@ -667,8 +699,49 @@ img {
 }
 
 .ethics-hero .section-kicker,
-.ethics-hero p {
+.ethics-hero p,
+.projects-hero p {
   color: rgba(255, 255, 255, 0.72);
+}
+
+.projects-hero {
+  padding: 4.5rem 0 3rem;
+  background:
+    linear-gradient(135deg, rgba(242, 194, 48, 0.12), transparent 28%),
+    linear-gradient(180deg, #20252d, #303844);
+  color: var(--text-white);
+}
+
+.project-area-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.project-area-card h3,
+.case-card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.3rem;
+}
+
+.case-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.case-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.case-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 1rem;
+  border-radius: 14px;
+  background: var(--accent-soft);
+  color: var(--bg-dark);
+  font-weight: 800;
 }
 
 .value-icon,
@@ -796,8 +869,12 @@ img {
   .footer-bottom-inner,
   .solution-grid,
   .project-grid,
+  .project-area-grid,
+  .case-grid,
   .values-grid,
-  .commitments-grid {
+  .commitments-grid,
+  .ethics-hero-grid,
+  .projects-hero-grid {
     grid-template-columns: 1fr;
   }
 

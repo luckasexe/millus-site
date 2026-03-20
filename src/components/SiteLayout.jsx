@@ -6,7 +6,6 @@ const mapsHref = "https://maps.app.goo.gl/PxrYSXD6Z6WUsmXcA";
 const sectionLinks = [
   { label: "Soluções", id: "solucoes" },
   { label: "Segmentos", id: "segmentos" },
-  { label: "Projetos", id: "projetos" },
   { label: "Sobre", id: "sobre" },
   { label: "Contato", id: "contato" },
 ];
@@ -73,6 +72,15 @@ export default function SiteLayout() {
                   {item.label}
                 </button>
               ))}
+
+              <NavLink
+                to="/projetos"
+                className={({ isActive }) =>
+                  `nav-link-pro${isActive ? " active" : ""}`
+                }
+              >
+                Projetos
+              </NavLink>
 
               <NavLink
                 to="/etica"
