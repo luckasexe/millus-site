@@ -174,7 +174,7 @@ img {
 .hero-shell {
   position: relative;
   overflow: hidden;
-  padding: 5rem 0 2rem;
+  padding: 4.25rem 0 1.4rem;
   background:
     linear-gradient(135deg, rgba(242, 194, 48, 0.12), transparent 32%),
     linear-gradient(180deg, #20252d 0%, #2f3843 55%, #f7f7f8 55%);
@@ -200,7 +200,7 @@ img {
 
 .hero-copy {
   color: var(--text-white);
-  padding: 2rem 0 3rem;
+  padding: 1.25rem 0 2.1rem;
 }
 
 .eyebrow,
@@ -228,7 +228,7 @@ img {
 
 .hero-description {
   max-width: 58ch;
-  margin: 1.5rem 0 0;
+  margin: 1.15rem 0 0;
   color: rgba(255, 255, 255, 0.78);
   font-size: 1.08rem;
 }
@@ -237,14 +237,14 @@ img {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .hero-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .metric-card,
@@ -283,7 +283,7 @@ img {
 .hero-photo-card {
   position: relative;
   overflow: hidden;
-  min-height: 520px;
+  min-height: 480px;
 }
 
 .hero-main-photo {
@@ -360,16 +360,16 @@ img {
 }
 
 .logo-marquee-section {
-  margin-top: -0.5rem;
-  padding-bottom: 2rem;
+  margin-top: -0.25rem;
+  padding-bottom: 1.25rem;
 }
 
 .proof-social-note {
-  margin-top: 1rem;
+  margin-top: 0.8rem;
 }
 
 .proof-social-card p {
-  margin: 0.7rem 0 0;
+  margin: 0.5rem 0 0;
   color: var(--text-soft);
 }
 
@@ -378,7 +378,7 @@ img {
   justify-content: space-between;
   gap: 1.5rem;
   align-items: end;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .logo-marquee-header p {
@@ -456,7 +456,7 @@ img {
 
 .section-heading {
   max-width: 760px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .section-heading h2,
@@ -500,7 +500,7 @@ img {
 .values-grid,
 .commitments-grid {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .solution-grid,
@@ -511,7 +511,7 @@ img {
 .surface-card,
 .value-card,
 .commitment-item {
-  padding: 1.5rem;
+  padding: 1.25rem;
   background: var(--surface-strong);
   border: 1px solid var(--line);
 }
@@ -538,11 +538,11 @@ img {
 .segment-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 0.9rem;
 }
 
 .segment-pill {
-  padding: 1.2rem 1.25rem;
+  padding: 1rem 1.1rem;
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(246, 246, 247, 0.95));
   border: 1px solid var(--line);
@@ -562,7 +562,7 @@ img {
 }
 
 .cta-band {
-  padding: 0 0 5rem;
+  padding: 0 0 4.25rem;
 }
 
 .cta-band-inner {
@@ -570,7 +570,7 @@ img {
   justify-content: space-between;
   gap: 2rem;
   align-items: center;
-  padding: 2rem 2.25rem;
+  padding: 1.5rem 1.75rem;
   border-radius: var(--radius-xl);
   background: linear-gradient(135deg, #242a32, #39424e);
   color: var(--text-white);
@@ -583,7 +583,7 @@ img {
 }
 
 .bullet-list {
-  margin: 1rem 0 0;
+  margin: 0.75rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -591,7 +591,7 @@ img {
 .bullet-list li {
   position: relative;
   padding-left: 1.5rem;
-  margin-top: 0.9rem;
+  margin-top: 0.7rem;
 }
 
 .bullet-list li::before {
@@ -606,13 +606,13 @@ img {
 }
 
 .contact-summary {
-  padding: 2rem;
+  padding: 1.6rem;
 }
 
 .contact-inline-list {
   display: grid;
   gap: 1rem;
-  margin: 1.5rem 0 0;
+  margin: 1.15rem 0 0;
 }
 
 .contact-inline-list strong {
@@ -637,7 +637,7 @@ img {
 }
 
 .ethics-hero {
-  padding: 4.5rem 0 3rem;
+  padding: 3.75rem 0 2.5rem;
   background:
     linear-gradient(135deg, rgba(242, 194, 48, 0.12), transparent 28%),
     linear-gradient(180deg, #20252d, #303844);
@@ -677,7 +677,7 @@ img {
 
 .values-section,
 .commitments-section {
-  padding: 4rem 0;
+  padding: 3.5rem 0;
 }
 
 .values-grid {
@@ -695,7 +695,7 @@ img {
 }
 
 .projects-hero {
-  padding: 4.5rem 0 3rem;
+  padding: 3.75rem 0 2.5rem;
   background:
     linear-gradient(135deg, rgba(242, 194, 48, 0.12), transparent 28%),
     linear-gradient(180deg, #20252d, #303844);
@@ -761,7 +761,7 @@ img {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
-  padding: 2.5rem 0;
+  padding: 2rem 0;
   align-items: center;
 }
 
@@ -926,7 +926,7 @@ img {
   }
 
   .hero-shell {
-    padding-top: 3rem;
+    padding-top: 2.6rem;
   }
 
   .hero-headline {
@@ -934,7 +934,7 @@ img {
   }
 
   .hero-photo-card {
-    min-height: 360px;
+    min-height: 320px;
   }
 
   .hero-metrics,

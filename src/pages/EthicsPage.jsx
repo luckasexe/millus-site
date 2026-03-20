@@ -3,25 +3,25 @@ const commitments = [
     icon: "🔧",
     title: "Compromisso com qualidade",
     description:
-      "Atuação orientada por especificação correta, clareza comercial e responsabilidade com o que é fornecido.",
+      "Atuação orientada por especificação correta, clareza comercial e responsabilidade sobre o fornecimento.",
   },
   {
     icon: "🤝",
     title: "Relação transparente",
     description:
-      "Comunicação objetiva com clientes, parceiros e rotinas de atendimento baseadas em confiança e previsibilidade.",
+      "Comunicação objetiva com clientes e parceiros, baseada em confiança e previsibilidade.",
   },
   {
     icon: "📈",
     title: "Melhoria contínua",
     description:
-      "Busca por evolução de atendimento, resposta comercial e capacidade de apoiar as operações industriais.",
+      "Busca por evolução de atendimento, resposta comercial e apoio às operações industriais.",
   },
   {
     icon: "🧭",
     title: "Conduta responsável",
     description:
-      "Postura institucional que reforça seriedade, coerência e compromisso com relações comerciais duradouras.",
+      "Postura institucional alinhada à seriedade e ao compromisso com relações comerciais duradouras.",
   },
 ];
 
@@ -64,7 +64,7 @@ export default function EthicsPage() {
             <p>
               Esta página reforça o posicionamento da Millus como empresa que
               combina atendimento técnico, responsabilidade comercial e conduta
-              alinhada ao ambiente industrial.
+              compatível com o ambiente industrial.
             </p>
           </div>
 
@@ -85,9 +85,8 @@ export default function EthicsPage() {
             <span className="section-kicker">IDENTIDADE INSTITUCIONAL</span>
             <h2>Missão, visão e valores organizados com linguagem mais sólida</h2>
             <p>
-              Em vez de uma página genérica, a proposta aqui é usar a área de
-              Ética para consolidar credibilidade institucional dentro do novo
-              posicionamento do site.
+              A área de Ética existe para consolidar credibilidade institucional
+              e dar profundidade ao novo posicionamento do site.
             </p>
           </div>
 
@@ -111,8 +110,8 @@ export default function EthicsPage() {
             <span className="section-kicker">COMPROMISSOS</span>
             <h2>Diretrizes que sustentam o relacionamento com o mercado</h2>
             <p>
-              Os compromissos abaixo servem como base institucional para a marca
-              e ajudam a dar profundidade ao site além da conversão comercial.
+              Estes compromissos dão consistência institucional ao site e
+              reforçam o posicionamento comercial da marca.
             </p>
           </div>
 

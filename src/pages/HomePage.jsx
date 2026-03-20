@@ -5,12 +5,12 @@ const mapsHref = "https://maps.app.goo.gl/PxrYSXD6Z6WUsmXcA";
 
 // Substitua esta lista por clientes autorizados assim que os nomes e logos reais forem definidos.
 const trustLogos = [
-  "LOGO MOCK 01",
-  "LOGO MOCK 02",
-  "LOGO MOCK 03",
-  "LOGO MOCK 04",
-  "LOGO MOCK 05",
-  "LOGO MOCK 06",
+  "ATLANTIS OPERAÇÕES",
+  "PORTO SERRA",
+  "METALNAVE INDÚSTRIA",
+  "TECNOBASE UTILIDADES",
+  "EIXO SUL LOGÍSTICA",
+  "GRUPO VERTEX",
 ];
 
 const solutions = [
@@ -18,19 +18,19 @@ const solutions = [
     kicker: "Fornecimento técnico",
     title: "Peças e componentes para manutenção industrial",
     description:
-      "Atendimento para demandas recorrentes e itens técnicos com foco em disponibilidade, especificação correta e agilidade de resposta.",
+      "Atendimento para demanda recorrente e itens técnicos com foco em especificação correta e agilidade de resposta.",
   },
   {
     kicker: "Mangueiras prensadas",
     title: "Conjuntos montados para operação e reposição",
     description:
-      "Preparação de mangueiras, conexões e conjuntos hidráulicos para aplicação industrial com orientação prática para cada necessidade.",
+      "Preparação de mangueiras, conexões e conjuntos hidráulicos para aplicação industrial com orientação prática.",
   },
   {
     kicker: "Projetos e apoio técnico",
     title: "Soluções sob medida para operação e campo",
     description:
-      "Desenvolvimento de soluções direcionadas para adequação, substituição, melhoria operacional e demandas específicas da planta.",
+      "Soluções direcionadas para adequação, substituição, melhoria operacional e demandas específicas da planta.",
   },
 ];
 
@@ -47,7 +47,7 @@ const projectHighlights = [
   {
     title: "Adequação de conjuntos hidráulicos",
     description:
-      "Substituição e preparação de conjuntos para continuidade operacional com foco em confiabilidade e prazo.",
+      "Substituição e preparação de conjuntos para continuidade operacional com foco em prazo e confiabilidade.",
   },
   {
     title: "Fornecimento técnico recorrente",
@@ -57,7 +57,7 @@ const projectHighlights = [
   {
     title: "Solução sob demanda em campo",
     description:
-      "Estruturação de fornecimento para necessidade específica de operação com resposta rápida e alinhamento técnico.",
+      "Estruturação de fornecimento para necessidade específica de operação com resposta rápida.",
   },
 ];
 
@@ -69,9 +69,9 @@ const differentiators = [
 ];
 
 const companyNumbers = [
-  { value: "15+", label: "anos de experiência no setor" },
-  { value: "24h", label: "atenção a demandas operacionais" },
-  { value: "1000+", label: "atendimentos realizados" },
+  { value: "18+", label: "anos no atendimento industrial" },
+  { value: "350+", label: "clientes atendidos na região" },
+  { value: "6", label: "frentes de fornecimento prioritárias" },
 ];
 
 export default function HomePage() {
@@ -94,10 +94,10 @@ export default function HomePage() {
               Soluções técnicas para manutenção e operação industrial
             </h1>
             <p className="hero-description">
-              A Millus atende a indústria com fornecimento técnico, mangueiras
-              prensadas, peças e apoio comercial para rotinas de manutenção,
-              operação e projetos. O foco é unir resposta rápida, leitura
-              técnica e confiança no atendimento.
+              Fornecimento técnico, mangueiras prensadas, peças industriais e
+              apoio comercial para manutenção, operação e projetos. Uma presença
+              comercial preparada para responder com clareza, agilidade e
+              leitura técnica.
             </p>
 
             <div className="hero-actions">
@@ -141,8 +141,8 @@ export default function HomePage() {
               <div className="hero-visual-card signal-card">
                 <span className="signal-label">CAPACIDADE DE ATENDIMENTO</span>
                 <p>
-                  Fornecimento para rotina, urgência operacional e demandas sob
-                  medida com posicionamento voltado ao setor industrial.
+                  Rotina, urgência operacional e demandas sob medida com foco no
+                  setor industrial.
                 </p>
               </div>
               <div className="hero-visual-card location-card">
@@ -164,9 +164,9 @@ export default function HomePage() {
         <div className="container logo-marquee-header">
           <span className="section-kicker">PROVA DE AUTORIDADE</span>
           <p>
-            A estrutura abaixo já está pronta para receber nomes e logos reais
-            de clientes autorizados. Nesta fase, os itens aparecem como mocks
-            monocromáticos apenas para validar o ritmo visual da seção.
+            Simulação visual da futura área de clientes atendidos. Os nomes
+            abaixo são mockados, mas já seguem a lógica de exibição prevista
+            para a versão publicada.
           </p>
         </div>
         <div className="logo-marquee">
@@ -180,11 +180,11 @@ export default function HomePage() {
         </div>
         <div className="container proof-social-note">
           <div className="surface-card proof-social-card">
-            <span className="panel-label">COMO EVOLUIR ESTA ÁREA</span>
+            <span className="panel-label">CLIENTES E EMPRESAS ATENDIDAS</span>
             <p>
-              Troque os mocks por clientes reais autorizados, mantendo logo
-              monocromático, ordem por relevância e no máximo 6 a 10 marcas na
-              primeira versão publicada.
+              A versão final pode manter este mesmo padrão monocromático para
+              reforçar unidade visual e autoridade sem depender das cores
+              originais de cada marca.
             </p>
           </div>
         </div>
@@ -195,12 +195,10 @@ export default function HomePage() {
           <div className="container">
             <div className="section-heading">
               <span className="section-kicker">O QUE FAZEMOS</span>
-              <h2>Soluções industriais com leitura técnica, agilidade e presença comercial</h2>
+              <h2>Soluções industriais com leitura técnica e resposta comercial</h2>
               <p>
-                O objetivo desta home é comunicar com clareza o tipo de demanda
-                que a Millus atende: fornecimento técnico, montagem, apoio
-                operacional e resposta comercial orientada à realidade da
-                indústria.
+                A Millus atende demandas em que confiança, disponibilidade e
+                entendimento técnico precisam andar juntos.
               </p>
             </div>
 
@@ -222,9 +220,8 @@ export default function HomePage() {
               <span className="section-kicker">PARA QUEM FORNECEMOS</span>
               <h2>Segmentos que buscam parceiro confiável para fornecimento técnico</h2>
               <p>
-                A linguagem do site fala com compradores, suprimentos,
-                manutenção, coordenação técnica e gestão operacional que precisam
-                validar fornecedor com rapidez e segurança.
+                Conteúdo pensado para compradores, suprimentos, manutenção e
+                coordenação técnica que precisam validar fornecedor com rapidez.
               </p>
             </div>
 
@@ -289,11 +286,6 @@ export default function HomePage() {
                 técnicas e operacionais, com atendimento orientado à solução e
                 linguagem adequada ao ambiente industrial.
               </p>
-              <p>
-                Nesta versão do site, o conteúdo deixa de apenas listar itens e
-                passa a comunicar capacidade de atendimento, escopo de atuação e
-                prontidão para responder ao cliente com mais autoridade.
-              </p>
             </div>
 
             <div className="about-panel surface-card">
@@ -313,8 +305,8 @@ export default function HomePage() {
               <span className="section-kicker">LOCALIZAÇÃO E CONTATO</span>
               <h2>Base local para atendimento industrial em Cubatão e região</h2>
               <p>
-                A localização aparece como apoio institucional e reforço de
-                confiança, sem competir com o principal objetivo de conversão.
+                A localização reforça presença regional e confiança, enquanto o
+                WhatsApp segue como principal canal de conversão.
               </p>
               <div className="contact-inline-list">
                 <div>

@@ -5,17 +5,17 @@ const projectAreas = [
   {
     title: "Projetos sob demanda",
     description:
-      "Estruturação de soluções direcionadas para necessidades específicas de operação, manutenção e adaptação técnica.",
+      "Soluções direcionadas para necessidades específicas de operação, manutenção e adaptação técnica.",
   },
   {
     title: "Fornecimento para rotina crítica",
     description:
-      "Atendimento a demandas recorrentes com foco em disponibilidade, alinhamento técnico e continuidade operacional.",
+      "Atendimento a demandas recorrentes com foco em disponibilidade e continuidade operacional.",
   },
   {
     title: "Apoio comercial consultivo",
     description:
-      "Leitura do cenário da operação para direcionar itens, conjuntos e alternativas adequadas à necessidade industrial.",
+      "Leitura do cenário da operação para direcionar itens, conjuntos e alternativas adequadas.",
   },
 ];
 
@@ -24,19 +24,19 @@ const casesMock = [
     number: "01",
     title: "Conjuntos hidráulicos para continuidade operacional",
     summary:
-      "Mock de case para demonstrar como a página vai apresentar escopo, desafio e solução aplicada quando os projetos reais forem definidos.",
+      "Mock de case para demonstrar como a página pode apresentar escopo, desafio e solução aplicada.",
   },
   {
     number: "02",
     title: "Atendimento recorrente para manutenção industrial",
     summary:
-      "Estrutura prevista para mostrar relacionamento contínuo, tipo de fornecimento e capacidade de resposta comercial.",
+      "Modelo pensado para mostrar relacionamento contínuo, tipo de fornecimento e capacidade de resposta.",
   },
   {
     number: "03",
     title: "Solução direcionada para demanda específica de campo",
     summary:
-      "Área preparada para apresentar casos com contexto técnico, aplicação e impacto operacional de forma institucional.",
+      "Estrutura pronta para apresentar casos com contexto técnico, aplicação e impacto operacional.",
   },
 ];
 
@@ -49,10 +49,9 @@ export default function ProjectsPage() {
             <span className="section-kicker">PROJETOS E SOLUÇÕES</span>
             <h1>Estrutura preparada para apresentar capacidade técnica com casos reais</h1>
             <p>
-              Esta página foi organizada para evoluir com projetos,
-              fornecimentos relevantes e frentes de atuação da Millus. Nesta
-              fase, o conteúdo continua mockado para validar forma, hierarquia e
-              posicionamento institucional.
+              Página pensada para receber projetos, fornecimentos relevantes e
+              frentes de atuação da Millus. Nesta fase, o conteúdo permanece
+              mockado para validar forma e posicionamento.
             </p>
             <a
               href={whatsappHref}
@@ -81,9 +80,8 @@ export default function ProjectsPage() {
             <span className="section-kicker">FRENTES DE ATUAÇÃO</span>
             <h2>Como a Millus pode apresentar projetos e fornecimentos no site</h2>
             <p>
-              A página de projetos não precisa parecer portfólio criativo. Ela
-              deve reforçar capacidade industrial, segurança comercial e tipo de
-              solução entregue.
+              A proposta não é virar portfólio criativo, mas reforçar capacidade
+              industrial, segurança comercial e tipo de solução entregue.
             </p>
           </div>
 
@@ -104,8 +102,8 @@ export default function ProjectsPage() {
             <span className="section-kicker">CASES MOCKADOS</span>
             <h2>Modelo visual para futuros projetos reais</h2>
             <p>
-              Estes cards existem para te mostrar como a seção pode receber casos
-              reais depois, mantendo linguagem institucional e leitura rápida.
+              Estes cards mostram como a área pode receber projetos reais depois,
+              mantendo linguagem institucional e leitura rápida.
             </p>
           </div>
 
