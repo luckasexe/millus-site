@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { useStructuredData } from "../hooks/useStructuredData";
 
 const whatsappHref = "https://wa.me/5513982071346";
 const mapsHref = "https://maps.app.goo.gl/PxrYSXD6Z6WUsmXcA";
@@ -92,6 +93,27 @@ export default function HomePage() {
     title: "Millus Acessórios Industriais | Soluções Técnicas para Indústria",
     description:
       "Fornecimento técnico, mangueiras prensadas, peças industriais e apoio comercial para manutenção, operação e projetos em Cubatão/SP.",
+  });
+
+  useStructuredData("millus-local-business", {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Millus Acessórios Industriais",
+    description:
+      "Fornecimento técnico, mangueiras prensadas, peças industriais e apoio comercial para manutenção, operação e projetos.",
+    image: "/assets/logo.png",
+    telephone: "+55 13 98207-1346",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Rua Belarmino Amaral, 618",
+      addressLocality: "Cubatão",
+      addressRegion: "SP",
+      postalCode: "11500-100",
+      addressCountry: "BR",
+    },
+    areaServed: ["Cubatão", "Baixada Santista", "São Paulo"],
+    hasMap: mapsHref,
+    sameAs: [whatsappHref],
   });
 
   const marqueeItems = [...trustLogos, ...trustLogos];

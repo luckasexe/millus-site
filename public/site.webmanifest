@@ -1,0 +1,17 @@
+{
+  "name": "Millus Acessórios Industriais",
+  "short_name": "Millus",
+  "description": "Soluções técnicas para manutenção, operação e fornecimento industrial em Cubatão/SP.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f7f8",
+  "theme_color": "#1f2329",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/assets/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
