@@ -19,7 +19,7 @@ export default function HeroBanner() {
   }, []);
 
   return (
-    <section className="hero-section relative w-full h-[700px] md:h-[720px] overflow-hidden">
+    <section className="hero-section relative w-full h-[500px] md:h-[720px] overflow-hidden">
       {slides.map((slide, i) => (
         <img
           key={i}
