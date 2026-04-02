@@ -10,16 +10,18 @@ const links = [
 
 export default function Navbar() {
   const [toast, setToast] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleWip = (e: React.MouseEvent) => {
     e.preventDefault();
+    setMenuOpen(false);
     setToast(true);
     setTimeout(() => setToast(false), 2500);
   };
 
   return (
     <>
-      <div className="fixed top-[79px] left-[227.5px] right-[227.5px] z-40">
+      <div className="fixed top-[79px] left-4 right-4 md:left-[227.5px] md:right-[227.5px] z-40">
         <nav className="w-full bg-white rounded-xl flex items-center justify-between">
           <img
             src="/assets/logo.png"
@@ -27,7 +29,8 @@ export default function Navbar() {
             className="h-[45px] w-auto my-[15px] mx-[30px]"
           />
 
-          <div className="flex items-center gap-8 px-[20px]">
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-8 px-[20px]">
             {links.map((link) => (
               <a
                 key={link.label}
@@ -39,11 +42,38 @@ export default function Navbar() {
               </a>
             ))}
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden flex flex-col gap-1.5 px-5 py-4"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Menu"
+          >
+            <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </button>
         </nav>
+
+        {/* Mobile dropdown */}
+        {menuOpen && (
+          <div className="md:hidden bg-white rounded-xl mt-2 flex flex-col overflow-hidden shadow-lg">
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={link.wip ? handleWip : () => setMenuOpen(false)}
+                className="text-black text-[16px] font-medium hover:text-yellow-400 hover:bg-gray-50 transition-colors px-6 py-4 border-b border-gray-100 last:border-0"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
 
       <div
-        className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-black text-white text-sm px-5 py-3 rounded-full shadow-lg transition-all duration-300 ${
+        className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-black text-white text-sm px-5 py-3 rounded-full shadow-lg transition-all duration-300 whitespace-nowrap ${
           toast ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
         }`}
       >

@@ -19,7 +19,7 @@ export default function HeroBanner() {
   }, []);
 
   return (
-    <section className="hero-section relative w-full h-[720px] overflow-hidden">
+    <section className="hero-section relative w-full h-[700px] md:h-[720px] overflow-hidden">
       {slides.map((slide, i) => (
         <img
           key={i}
@@ -31,9 +31,12 @@ export default function HeroBanner() {
         />
       ))}
 
-      <div className="absolute inset-0 flex items-center px-[262.5px]">
+      <div className="absolute inset-0 flex items-center px-6 md:px-[262.5px]">
         <div className="flex flex-col items-start gap-4">
-          <div style={{ fontFamily: "'Bai Jamjuree', sans-serif", fontSize: "48px" }} className="leading-tight">
+          <div
+            style={{ fontFamily: "'Bai Jamjuree', sans-serif" }}
+            className="leading-tight text-[28px] sm:text-[36px] md:text-[48px]"
+          >
             <p className="text-white">
               <span className="brush-highlight brush-bold font-bold uppercase">MILLUS</span>
               <span className="brush-highlight"> padrão de qualidade em</span>
@@ -49,7 +52,7 @@ export default function HeroBanner() {
             style={{
               fontFamily: "'Roboto', sans-serif",
               fontSize: "16px",
-              width: "292px",
+              width: "min(292px, 100%)",
               height: "49px",
               padding: "0 17px",
               borderRadius: "9999px",

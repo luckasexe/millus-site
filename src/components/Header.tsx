@@ -44,14 +44,14 @@ const socialLinks = [
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-[55px] bg-black flex items-center pl-[262.5px]">
+    <header className="fixed top-0 left-0 right-0 z-50 h-[55px] bg-black flex items-center px-4 md:pl-[262.5px]">
       <div className="flex items-center gap-3">
         {socialLinks.map((link) => (
           <a key={link.label} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer" className="text-white hover:text-yellow-400 transition-colors">
             {link.svg}
           </a>
         ))}
-        <span className="text-white text-sm ml-1">@millus.industrial</span>
+        <span className="hidden sm:inline text-white text-sm ml-1">@millus.industrial</span>
       </div>
     </header>
   );
