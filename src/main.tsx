@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./tokens.css";
 import "./styles.css";
-import Teste from "./Teste";
 
 const rootElement = document.getElementById("root");
 
@@ -13,6 +12,6 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <Teste />
+    <App />
   </React.StrictMode>,
 );

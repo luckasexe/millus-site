@@ -1,0 +1,122 @@
+[
+  {
+    "id": "ROL-001",
+    "nome": "Rolamento de Esferas 6205",
+    "categoria": "Rolamentos",
+    "descricao": "Rolamento rígido de esferas de uso geral. Diâmetro interno 25 mm, externo 52 mm.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "ROL-002",
+    "nome": "Rolamento de Rolos Cônicos 30205",
+    "categoria": "Rolamentos",
+    "descricao": "Rolamento de rolos cônicos para cargas radiais e axiais combinadas.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "ROL-003",
+    "nome": "Rolamento Autocompensador 1205",
+    "categoria": "Rolamentos",
+    "descricao": "Suporta desalinhamentos angulares. Ideal para eixos com deflexão ou montagem imprecisa.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "MAN-001",
+    "nome": "Manômetro 0–10 kgf/cm²",
+    "categoria": "Manômetros",
+    "descricao": "Manômetro glicerinado, caixa em inox, conexão 1/4\" BSP. Escala 0 a 10 kgf/cm².",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "MAN-002",
+    "nome": "Manômetro 0–250 kgf/cm²",
+    "categoria": "Manômetros",
+    "descricao": "Manômetro de alta pressão para sistemas hidráulicos. Conexão 1/4\" BSP, glicerinado.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "MAN-003",
+    "nome": "Termômetro Bimetálico",
+    "categoria": "Manômetros",
+    "descricao": "Termômetro de imersão para fluidos industriais. Escala 0–120 °C.",
+    "disponivel": false,
+    "imagem": ""
+  },
+  {
+    "id": "CON-001",
+    "nome": "Engate Rápido 1/2\" BSP",
+    "categoria": "Conexões",
+    "descricao": "Engate rápido macho/fêmea em aço inox. Vedação por O-ring, rosca 1/2\" BSP.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "CON-002",
+    "nome": "Adaptador BSP × NPT 3/4\"",
+    "categoria": "Conexões",
+    "descricao": "Adaptador para conversão de rosca BSP para NPT. Disponível em aço carbono e inox.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "CON-003",
+    "nome": "Niple Duplo 1\" BSP",
+    "categoria": "Conexões",
+    "descricao": "Niple duplo em aço carbono para emenda de linhas hidráulicas. Rosca 1\" BSP.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "VED-001",
+    "nome": "Kit O-ring Sortido NBR",
+    "categoria": "Vedações",
+    "descricao": "Kit com 380 peças em borracha NBR, sortidas em 30 dimensões. Resistente a óleos minerais.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "VED-002",
+    "nome": "Gaxeta de Teflão 1/2\"",
+    "categoria": "Vedações",
+    "descricao": "Gaxeta de vedação em PTFE para conexões roscadas. Rolo com 10 m.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "EPI-001",
+    "nome": "Luva de Proteção Química CA",
+    "categoria": "EPIs",
+    "descricao": "Luva de PVC para manuseio de fluidos hidráulicos e óleos industriais. Par.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "EPI-002",
+    "nome": "Óculos de Segurança Incolor",
+    "categoria": "EPIs",
+    "descricao": "Óculos de proteção com lente incolor antirrisco e antiembaçante. Com CA.",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "ACE-001",
+    "nome": "Abraçadeira de Aço Inox T304",
+    "categoria": "Acessórios",
+    "descricao": "Abraçadeira regulável em aço inox 304. Disponível de 3/4\" a 4\".",
+    "disponivel": true,
+    "imagem": ""
+  },
+  {
+    "id": "ACE-002",
+    "nome": "Suporte de Mangueira Rígido",
+    "categoria": "Acessórios",
+    "descricao": "Suporte fixo em polipropileno para fixação de mangueiras em painéis e estruturas.",
+    "disponivel": true,
+    "imagem": ""
+  }
+]

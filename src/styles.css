@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #0a1628;
+  color: #e2eaf5;
+  -webkit-font-smoothing: antialiased;
 }
 
 img {
@@ -12,29 +17,48 @@ img {
   max-width: 100%;
 }
 
-.brush-highlight {
-  display: inline;
-  background: linear-gradient(#000, #000) no-repeat left center;
-  background-size: 0% 100%;
-  transition: background-size 0.5s ease, color 0.5s ease;
-  padding: 2px 6px;
+/* ── Blueprint grid background ── */
+.blueprint-bg {
+  background-color: #0a1628;
+  background-image:
+    linear-gradient(rgba(100, 155, 220, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 155, 220, 0.07) 1px, transparent 1px),
+    linear-gradient(rgba(100, 155, 220, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 155, 220, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 20px 20px, 20px 20px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
 }
 
-.hero-section:hover .brush-highlight {
-  background-size: 100% 100%;
+/* ── Amber accent ── */
+.accent { color: #f59e0b; }
+.accent-bg { background-color: #f59e0b; }
+
+/* ── Technical corner marker ── */
+.corner-mark {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: #4a7fb5;
+  border-style: solid;
+  border-width: 0;
+}
+.corner-mark.tl { top: 16px; left: 16px; border-top-width: 1.5px; border-left-width: 1.5px; }
+.corner-mark.tr { top: 16px; right: 16px; border-top-width: 1.5px; border-right-width: 1.5px; }
+.corner-mark.bl { bottom: 16px; left: 16px; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.corner-mark.br { bottom: 16px; right: 16px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+/* ── Blueprint label tag ── */
+.blueprint-tag {
+  font-family: 'Inter', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a7fb5;
 }
 
-.hero-section:hover .brush-bold {
-  color: #facc15;
-}
-
-.btn-hero {
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-.btn-hero:hover {
-  background-color: #f97316 !important;
-  color: #fff !important;
-  transform: scale(1.03);
-  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.45);
+/* ── Divider line ── */
+.tech-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(100,155,220,0.3), transparent);
 }
