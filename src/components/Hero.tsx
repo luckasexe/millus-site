@@ -87,7 +87,7 @@ export function Hero() {
               <ArrowRight size={16} />
             </a>
             <a
-              href="#solucoes"
+              href="#mangueiras"
               className="flex items-center justify-center gap-2 text-[#8fadc8] border border-[#4a7fb5]/40 px-6 py-3 rounded-sm hover:border-[#4a7fb5] hover:text-white transition-all duration-200"
               style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '0.08em', fontSize: '1rem' }}
             >
