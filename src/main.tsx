@@ -1,17 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./tokens.css";
-import "./styles.css";
-
-const rootElement = document.getElementById("root");
-
-if (!rootElement) {
-  throw new Error("Elemento raiz '#root' não encontrado.");
-}
-
-ReactDOM.createRoot(rootElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Aplicacao from './App';
+import './tokens.css';
+import './styles.css';
+const elementoRaiz = document.getElementById('root');
+if (!elementoRaiz) throw new Error('Elemento raiz não encontrado.');
+ReactDOM.createRoot(elementoRaiz).render(<React.StrictMode><Aplicacao /></React.StrictMode>);

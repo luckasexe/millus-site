@@ -1,1 +1,1 @@
-@import "tailwindcss";
+:root { --amarelo: #ffc107; --preto: #111111; --cinza-escuro: #2e2e2e; --cinza-claro: #e5e7eb; --branco: #ffffff; font-family: 'Montserrat', Arial, sans-serif; color: var(--preto); background: var(--branco); font-synthesis: none; }

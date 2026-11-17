@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CarFront, Droplets, Factory, ArrowDown } from 'lucide-react';
 import { OfertaProduto } from '../components/OfertaProduto';
-import { Contato } from '../components/Contato';
 import { hlMulti1000 } from '../data/hlMulti1000';
 import './hl-multi-1000.css';
 
@@ -13,7 +12,7 @@ const aplicacoes = [
 
 export function HLMulti1000() {
   return <div className="hl-pagina">
-    <main id="hl-principal">
+    <main id="principal">
       <div className="hl-conteiner">
         <Link className="hl-voltar" to="/">← Voltar para a Millus</Link>
         <section className="hl-destaque" aria-labelledby="hl-titulo">
@@ -53,6 +52,5 @@ export function HLMulti1000() {
         </div>
       </section>
     </main>
-    <Contato />
   </div>;
 }

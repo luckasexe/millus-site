@@ -1,0 +1,6 @@
+import { Phone as IconeTelefone, MapPin as IconeMapa, Mail as IconeEmail } from 'lucide-react';
+import { contatoComercial, enderecoOrcamento } from '../data/comercial';
+export function Rodape() {
+  return <><section className="faixa-orcamento" id="contato"><div className="conteiner faixa-conteudo"><div><h2>Está com dúvida ou precisa de um orçamento?</h2><p>Converse com a Millus sobre o que sua operação precisa.</p></div><a className="botao" href={enderecoOrcamento()} target="_blank" rel="noopener noreferrer">Entre em contato <span aria-hidden="true">→</span></a></div></section>
+    <footer className="rodape"><div className="conteiner"><div className="rodape-grade"><a className="marca" href="/"><img src="/assets/logo2.png" alt="Millus Acessórios Industriais" width="2027" height="572" /></a><div><a href={contatoComercial.whatsapp} target="_blank" rel="noopener noreferrer"><IconeTelefone size={18} />{contatoComercial.telefone}</a><p><IconeMapa size={18} />{contatoComercial.endereco}</p></div><a href={`mailto:${contatoComercial.email}`}><IconeEmail size={18} />{contatoComercial.email}</a></div><div className="rodape-base"><p>Millus Acessórios Industriais · Cubatão/SP</p><a href="/etica.html">Ética e conduta</a></div></div></footer></>;
+}
