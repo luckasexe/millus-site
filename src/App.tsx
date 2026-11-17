@@ -8,6 +8,7 @@ import { Contato } from './components/Contato';
 import { NavbarLateral } from './components/NavbarLateral';
 import { MangueirasCatalogo } from './pages/MangueirasCatalogo';
 import { ProjetoDetalhe } from './pages/ProjetoDetalhe';
+import { HLMulti1000 } from './pages/HLMulti1000';
 
 const WHATSAPP_URL = 'https://wa.me/5513982071346';
 
@@ -51,6 +52,7 @@ export default function App() {
       <NavbarLateral />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/produtos/hl-multi-1000" element={<HLMulti1000 />} />
         <Route path="/mangueiras" element={<MangueirasCatalogo />} />
         <Route path="/projetos/:slug" element={<ProjetoDetalhe />} />
       </Routes>
