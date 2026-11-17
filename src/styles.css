@@ -27,7 +27,7 @@ h3 { font-size: 14px; line-height: 1.5; }
 .navegacao a:hover { color: var(--amarelo); }
 .cabecalho-contato { padding: 11px 14px; border: 1px solid #575744; border-radius: 4px; font-size: 11px; color: var(--amarelo); white-space: nowrap; }
 .menu-acionador { display: none; }
-.apresentacao { background: linear-gradient(90deg,rgba(0,0,0,.97),rgba(0,0,0,.46) 57%,rgba(0,0,0,.88)), url('/assets/wide_kiko.webp') center/cover; color: white; }
+.apresentacao { background: linear-gradient(90deg,rgba(0,0,0,.97),rgba(0,0,0,.46) 57%,rgba(0,0,0,.88)), url('/assets/geradas/engrenagens.webp') center/cover; color: white; }
 .apresentacao-grade { display: flex; align-items: center; justify-content: space-between; gap: 48px; min-height: 405px; padding-block: 48px; }
 .apresentacao-texto { max-width: 620px; }
 .apresentacao .sobretitulo { color: var(--amarelo); }
@@ -43,6 +43,9 @@ h1 span { color: var(--amarelo); }
 .categoria { border: 1px solid var(--cinza-claro); border-radius: 5px; overflow: hidden; transition: border-color .15s; }
 .categoria:hover { border-color: #ba8b00; }
 .categoria-ilustracao { height: 132px; display: grid; place-items: center; background: radial-gradient(ellipse at center,#fff,#e9e9e7); color: #444; }
+.categoria-ilustracao, .produto-ilustracao { position: relative; }
+.categoria-ilustracao img, .produto-ilustracao img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.imagem-aviso { position: absolute; bottom: 0; left: 0; right: 0; padding: 3px 4px; background: rgba(255,255,255,.94); color: #444; font-size: 10px; line-height: 1.3; text-align: center; }
 .categoria>span { display: flex; justify-content: space-between; align-items: center; padding: 12px; font-size: 11px; font-weight: 700; }
 .categoria b { border-radius: 50%; background: var(--amarelo); width: 23px; text-align: center; font-size: 16px; }
 .catalogo { background: #f4f4f4; }

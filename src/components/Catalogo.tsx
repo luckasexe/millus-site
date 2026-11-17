@@ -1,9 +1,20 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
-import { CircleDot as IconeRolamento, Gauge as IconeManometro, Cable as IconeConexao, CircleDashed as IconeVedacao, HardHat as IconeProtecao, Wrench as IconeAcessorio, Search as IconeBusca } from 'lucide-react';
+import { Search as IconeBusca } from 'lucide-react';
 import dadosProdutos from '../../public/data/produtos.json';
 import { enderecoOrcamento } from '../data/comercial';
-const iconesCategorias = { Rolamentos: IconeRolamento, 'Manômetros': IconeManometro, 'Conexões': IconeConexao, 'Vedações': IconeVedacao, EPIs: IconeProtecao, 'Acessórios': IconeAcessorio };
-const categorias = Object.keys(iconesCategorias) as (keyof typeof iconesCategorias)[];
+const imagensCategorias = {
+  Rolamentos: { arquivo: 'rolamentos', descricao: 'Rolamentos genéricos de esferas e rolos em aço' },
+  'Manômetros': { arquivo: 'manometros', descricao: 'Manômetro genérico em inox com conexão inferior' },
+  'Conexões': { arquivo: 'conexoes', descricao: 'Engates e adaptadores hidráulicos genéricos em aço' },
+  'Vedações': { arquivo: 'vedacoes', descricao: 'Anéis de vedação e rolo branco de PTFE genéricos' },
+  EPIs: { arquivo: 'epis', descricao: 'Luvas de proteção e óculos de segurança genéricos' },
+  'Acessórios': { arquivo: 'acessorios', descricao: 'Abraçadeiras em aço e suporte de mangueira genéricos' },
+};
+const categorias = Object.keys(imagensCategorias) as (keyof typeof imagensCategorias)[];
+function ImagemCategoria({ categoria }: { categoria: keyof typeof imagensCategorias }) {
+  const imagem = imagensCategorias[categoria];
+  return <><img src={`/assets/geradas/${imagem.arquivo}.webp`} alt={`${imagem.descricao}. Imagem ilustrativa da categoria, gerada por IA; não representa um SKU específico.`} width={640} height={640} loading="lazy" decoding="async" /><small className="imagem-aviso">Imagem ilustrativa · categoria</small></>;
+}
 const ContextoCatalogo = createContext<{ busca: string; definirBusca: (valor: string) => void; categoria: string; definirCategoria: (valor: string) => void } | null>(null);
 function usarCatalogo() { const contexto = useContext(ContextoCatalogo); if (!contexto) throw new Error('Use as partes dentro de Catalogo.Raiz'); return contexto; }
 function Raiz({ children: conteudo }: { children: ReactNode }) {
@@ -12,7 +23,7 @@ function Raiz({ children: conteudo }: { children: ReactNode }) {
 }
 function Categorias() {
   const { definirCategoria, definirBusca } = usarCatalogo();
-  return <section className="categorias secao" id="categorias"><div className="conteiner"><p className="sobretitulo">NOSSAS CATEGORIAS</p><h2>Encontre a peça ideal para o seu equipamento.</h2><p className="introducao">Conheça as linhas do nosso catálogo e consulte as opções para sua aplicação.</p><div className="categorias-grade">{categorias.map(categoria => { const Icone = iconesCategorias[categoria]; return <a href="#catalogo" key={categoria} onClick={() => { definirCategoria(categoria); definirBusca(''); }} className="categoria"><div className="categoria-ilustracao"><Icone size={70} strokeWidth={1} aria-hidden="true" /></div><span>{categoria}<b aria-hidden="true">→</b></span></a>; })}</div></div></section>;
+  return <section className="categorias secao" id="categorias"><div className="conteiner"><p className="sobretitulo">NOSSAS CATEGORIAS</p><h2>Encontre a peça ideal para o seu equipamento.</h2><p className="introducao">Conheça as linhas do nosso catálogo e consulte as opções para sua aplicação.</p><div className="categorias-grade">{categorias.map(categoria => { return <a href="#catalogo" key={categoria} onClick={() => { definirCategoria(categoria); definirBusca(''); }} className="categoria"><div className="categoria-ilustracao"><ImagemCategoria categoria={categoria} /></div><span>{categoria}<b aria-hidden="true">→</b></span></a>; })}</div></div></section>;
 }
 function Filtros() {
   const { busca, definirBusca, categoria, definirCategoria } = usarCatalogo();
@@ -22,6 +33,6 @@ const normalizar = (valor: string) => valor.normalize('NFD').replace(/[\u0300-\u
 function Lista() {
   const { busca, categoria } = usarCatalogo();
   const produtos = dadosProdutos.filter(produto => (categoria === 'Todas' || produto.categoria === categoria) && normalizar(`${produto.nome} ${produto.id} ${produto.descricao} ${produto.categoria}`).includes(normalizar(busca.trim())));
-  return <><p className="catalogo-contagem" role="status">{produtos.length} {produtos.length === 1 ? 'produto encontrado' : 'produtos encontrados'} · Consulte preço e disponibilidade.</p><div className="produtos-grade">{produtos.map(produto => { const Icone = iconesCategorias[produto.categoria as keyof typeof iconesCategorias]; return <article className="produto" key={produto.id}><div className="produto-ilustracao"><Icone size={68} strokeWidth={1} aria-hidden="true" /><span>{produto.categoria}</span></div><div className="produto-conteudo"><p className="produto-codigo">Cód. {produto.id}</p><h3>{produto.nome}</h3><p>{produto.descricao}</p><a className="botao" href={enderecoOrcamento(`${produto.nome} (${produto.id})`)} target="_blank" rel="noopener noreferrer">Solicitar orçamento <span aria-hidden="true">→</span></a></div></article>; })}</div>{!produtos.length && <p className="catalogo-vazio">Nenhum produto encontrado. Experimente outro termo ou categoria.</p>}</>;
+  return <><p className="catalogo-contagem" role="status">{produtos.length} {produtos.length === 1 ? 'produto encontrado' : 'produtos encontrados'} · Consulte preço e disponibilidade.</p><div className="produtos-grade">{produtos.map(produto => { return <article className="produto" key={produto.id}><div className="produto-ilustracao"><ImagemCategoria categoria={produto.categoria as keyof typeof imagensCategorias} /></div><div className="produto-conteudo"><p className="produto-codigo">Cód. {produto.id}</p><h3>{produto.nome}</h3><p>{produto.descricao}</p><a className="botao" href={enderecoOrcamento(`${produto.nome} (${produto.id})`)} target="_blank" rel="noopener noreferrer">Solicitar orçamento <span aria-hidden="true">→</span></a></div></article>; })}</div>{!produtos.length && <p className="catalogo-vazio">Nenhum produto encontrado. Experimente outro termo ou categoria.</p>}</>;
 }
 export const Catalogo = { Raiz, Categorias, Filtros, Lista };
