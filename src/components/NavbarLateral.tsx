@@ -12,7 +12,7 @@ const SECOES = [
 
 export function NavbarLateral() {
   const [ativa, setAtiva] = useState('inicio');
-  const { pathname } = useLocation();
+  const { pathname: caminhoAtual } = useLocation();
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -32,7 +32,7 @@ export function NavbarLateral() {
     });
 
     return () => observers.forEach(o => o.disconnect());
-  }, [pathname]);
+  }, [caminhoAtual]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -42,7 +42,7 @@ export function NavbarLateral() {
     <>
       <nav aria-label="Produtos Millus" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, padding: '14px 24px', background: '#111', borderBottom: '1px solid #333' }}>
         <Link to="/" aria-label="Millus — início"><img src="/assets/millus_branco.png" alt="Millus" style={{ width: 110, height: 40, objectFit: 'contain' }} /></Link>
-        <Link to="/produtos/hl-multi-1000" aria-current={pathname === '/produtos/hl-multi-1000' ? 'page' : undefined} style={{ color: '#ffc107', fontSize: 13, padding: '12px 0', textUnderlineOffset: 5 }}>HL Multi 1000</Link>
+        <Link to="/produtos/hl-multi-1000" aria-current={caminhoAtual === '/produtos/hl-multi-1000' ? 'page' : undefined} style={{ color: '#ffc107', fontSize: 13, padding: '12px 0', textUnderlineOffset: 5 }}>HL Multi 1000</Link>
       </nav>
     <nav aria-label="Seções da página" className="fixed right-8 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-1 hidden md:flex">
       {/* Linha vertical */}
@@ -51,7 +51,7 @@ export function NavbarLateral() {
         style={{ background: 'rgba(74,127,181,0.25)' }}
       />
 
-      {(pathname === '/' ? SECOES : SECOES.filter(section => section.id === 'contato')).map(({ id, label }) => {
+      {(caminhoAtual === '/' ? SECOES : SECOES.filter(secao => secao.id === 'contato')).map(({ id, label }) => {
         const isAtiva = ativa === id;
         return (
           <button

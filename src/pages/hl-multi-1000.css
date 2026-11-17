@@ -1,41 +1,41 @@
-.hl-page{
-  --hl-yellow:#ffc107;
+.hl-pagina{
+  --hl-amarelo:#ffc107;
   background:#111;
   color:#fff
 }
-.hl-page *{
+.hl-pagina *{
   box-sizing:border-box
 }
-.hl-wrap{
+.hl-conteiner{
   width:min(1180px,calc(100% - 48px));
   margin:auto
 }
-.hl-back{
+.hl-voltar{
   display:inline-block;
   margin:32px 0;
   color:#d9d9d9;
   font-size:13px;
   text-decoration:none
 }
-.hl-page a:focus-visible,.hl-page input:focus-visible+span{
+.hl-pagina a:focus-visible,.hl-pagina input:focus-visible+span{
   outline:3px solid #ffc107;
   outline-offset:5px
 }
-.hl-hero{
+.hl-destaque{
   display:grid;
   grid-template-columns:1.15fr .9fr;
   gap:40px 48px;
   padding:32px 0 72px;
   align-items:center
 }
-.hl-eyebrow{
+.hl-sobretitulo{
   font-size:11px;
   letter-spacing:.14em;
   font-weight:600;
-  color:var(--hl-yellow);
+  color:var(--hl-amarelo);
   margin:0 0 20px
 }
-.hl-intro h1{
+.hl-introducao h1{
   font-family:'Barlow Condensed',sans-serif;
   font-size:clamp(64px,7vw,100px);
   font-weight:700;
@@ -43,22 +43,22 @@
   letter-spacing:-.02em;
   margin:0 0 26px
 }
-.hl-intro h1 span{
-  color:var(--hl-yellow)
+.hl-introducao h1 span{
+  color:var(--hl-amarelo)
 }
-.hl-lead{
+.hl-chamada{
   font-size:clamp(23px,3vw,34px);
   line-height:1.2;
   margin:0 0 22px;
   font-weight:600
 }
-.hl-description{
+.hl-descricao{
   font-size:15px;
   line-height:1.8;
   color:#c9c9c9;
   max-width:480px
 }
-.hl-details{
+.hl-detalhes{
   display:inline-flex;
   gap:12px;
   align-items:center;
@@ -67,7 +67,7 @@
   text-underline-offset:6px;
   font-size:13px
 }
-.hl-product{
+.hl-produto{
   margin:0;
   background:#fff;
   border-radius:4px;
@@ -81,33 +81,33 @@
   flex-direction:column;
   justify-content:center
 }
-.hl-product-tag{
+.hl-etiqueta-produto{
   color:#555;
   font-size:10px;
   letter-spacing:.1em;
   font-weight:600
 }
-.hl-product img{
+.hl-produto img{
   width:100%;
   max-width:340px;
   height:auto;
   margin:20px auto;
   object-fit:contain
 }
-.hl-product figcaption{
+.hl-produto figcaption{
   font-size:11px;
   color:#666
 }
-.hl-offer{
+.hl-oferta{
   border-top:1px solid #414141;
   padding-top:28px
 }
-.hl-offer h2{
+.hl-oferta h2{
   font-size:25px;
   margin:0 0 22px;
   font-weight:600
 }
-.hl-offer .hl-eyebrow{
+.hl-oferta .hl-sobretitulo{
   margin-bottom:10px
 }
 .hl-volumes{
@@ -149,16 +149,16 @@
   color:#111;
   border-color:#ffc107
 }
-.hl-summary{
+.hl-resumo{
   font-size:15px;
   line-height:1.8;
   margin:20px 0
 }
-.hl-summary small{
+.hl-resumo small{
   font-size:12px;
   color:#ccc
 }
-.hl-button{
+.hl-botao{
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -172,115 +172,115 @@
   font-weight:600;
   font-size:14px
 }
-.hl-button:hover{
+.hl-botao:hover{
   background:#ffcf40
 }
-.hl-note{
+.hl-aviso{
   font-size:11px;
   line-height:1.7;
   color:#aaa;
   margin:12px 0 0
 }
-.hl-applications{
+.hl-aplicacoes{
   padding:64px 0;
   background:#f5f5f3;
   color:#111;
   scroll-margin-top:24px
 }
-.hl-applications .hl-eyebrow{
+.hl-aplicacoes .hl-sobretitulo{
   color:#705400
 }
-.hl-applications h2{
+.hl-aplicacoes h2{
   font-size:clamp(26px,3vw,36px);
   font-weight:600;
   margin:0 0 32px
 }
-.hl-cards{
+.hl-cartoes{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px
 }
-.hl-cards article{
+.hl-cartoes article{
   border:1px solid #ddd;
   padding:28px;
   background:#fff;
   border-top:3px solid #ffc107
 }
-.hl-card-top{
+.hl-topo-cartao{
   display:flex;
   justify-content:space-between;
   align-items:center
 }
-.hl-card-top span{
+.hl-topo-cartao span{
   font-size:12px;
   color:#777
 }
-.hl-cards h3{
+.hl-cartoes h3{
   font-size:17px;
   margin:24px 0 12px
 }
-.hl-cards p,.hl-guidance p{
+.hl-cartoes p,.hl-orientacoes p{
   font-size:14px;
   line-height:1.8;
   color:#4d4d4d
 }
-.hl-guidance{
+.hl-orientacoes{
   margin-top:32px;
   border-top:1px solid #d4d4d4;
   padding-top:24px;
   max-width:780px
 }
-.hl-guidance h3{
+.hl-orientacoes h3{
   font-size:17px;
   margin:0
 }
-.hl-guidance a{
+.hl-orientacoes a{
   font-size:13px;
   color:#111;
   text-underline-offset:4px
 }
-.hl-page #contato{
+.hl-pagina #contato{
   padding-bottom:110px
 }
 @media(min-width:768px){
-  .hl-page .hl-wrap{
+  .hl-pagina .hl-conteiner{
     padding-right:100px
   }
 }
 @media(max-width:767px){
-  .hl-wrap{
+  .hl-conteiner{
     width:calc(100% - 40px)
   }
-  .hl-back{
+  .hl-voltar{
     margin:24px 0
   }
-  .hl-hero{
+  .hl-destaque{
     grid-template-columns:1fr;
     gap:28px;
     padding:16px 0 48px
   }
-  .hl-product{
+  .hl-produto{
     grid-column:auto;
     grid-row:auto;
     padding:24px 20px 16px
   }
-  .hl-product img{
+  .hl-produto img{
     max-width:220px;
     margin:16px auto
   }
-  .hl-cards{
+  .hl-cartoes{
     grid-template-columns:1fr
   }
-  .hl-applications{
+  .hl-aplicacoes{
     padding:44px 0
   }
-  .hl-intro h1{
+  .hl-introducao h1{
     font-size:clamp(56px,12vw,84px)
   }
-  .hl-note{
+  .hl-aviso{
     font-size:12px
   }
-  .hl-offer{
+  .hl-oferta{
     padding-top:24px
   }
 }

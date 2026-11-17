@@ -1,21 +1,21 @@
-// Run in the browser console at /produtos/hl-multi-1000.
-// Does not open WhatsApp or send messages. Returns a Promise of assertions.
+// Execute no console do navegador em /produtos/hl-multi-1000.
+// Não abre o WhatsApp nem envia mensagens. Retorna as verificações.
 (async () => {
-  const assert = (condition, message) => { if (!condition) throw new Error(message); };
-  const nextFrame = () => new Promise(resolve => requestAnimationFrame(resolve));
-  assert(document.querySelector('h1')?.textContent.includes('HL MULTI'), 'Product route renders');
+  const verificar = (condicao, mensagem) => { if (!condicao) throw new Error(mensagem); };
+  const proximoQuadro = () => new Promise(resolver => requestAnimationFrame(resolver));
+  verificar(document.querySelector('h1')?.textContent.includes('HL MULTI'), 'Página do produto renderizada');
   for (const volume of ['2 L', '5 L', '2 L']) {
-    const input = document.querySelector(`input[value="${volume}"]`);
-    assert(input, `Volume ${volume} exists`);
-    input.click();
-    await nextFrame();
-    assert(input.checked, `Selected ${volume}`);
-    assert(document.querySelector('.hl-summary').textContent.includes(`· ${volume}`), `Summary matches ${volume}`);
-    const href = new URL(document.querySelector('.hl-button').href);
-    assert(href.searchParams.get('phone') === '5513982071346', 'Existing Millus destination');
-    assert(href.searchParams.get('text').includes(`HL Multi 1000 Henlau, embalagem de ${volume}.`), `CTA matches ${volume}`);
+    const entrada = document.querySelector(`input[value="${volume}"]`);
+    verificar(entrada, `Volume ${volume} disponível`);
+    entrada.click();
+    await proximoQuadro();
+    verificar(entrada.checked, `Selecionado ${volume}`);
+    verificar(document.querySelector('.hl-resumo').textContent.includes(`· ${volume}`), `Resumo corresponde a ${volume}`);
+    const endereco = new URL(document.querySelector('.hl-botao').href);
+    verificar(endereco.searchParams.get('phone') === '5513982071346', 'Destino Millus preservado');
+    verificar(endereco.searchParams.get('text').includes(`HL Multi 1000 Henlau, embalagem de ${volume}.`), `Orçamento corresponde a ${volume}`);
   }
-  assert([...document.querySelectorAll('.hl-page img')].every(image => image.complete && image.naturalWidth > 0), 'Product image decoded');
-  assert(document.documentElement.scrollWidth <= innerWidth, 'No horizontal overflow');
-  return 'PASS: product route, 2/5/2 L selection, summary, CTA destination/message, image and overflow';
+  verificar([...document.querySelectorAll('.hl-pagina img')].every(imagem => imagem.complete && imagem.naturalWidth > 0), 'Imagem do produto carregada');
+  verificar(document.documentElement.scrollWidth <= innerWidth, 'Sem transbordamento horizontal');
+  return 'APROVADO: seleção 2/5/2 L, resumo, orçamento, imagem e largura';
 })();
