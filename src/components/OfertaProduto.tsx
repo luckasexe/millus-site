@@ -18,8 +18,14 @@ function usarOferta() {
 function Raiz({ children: conteudo }: { children: ReactNode }) {
   const [volume, selecionarVolume] = useState<VolumeProduto>('2 L');
   return <ContextoOferta.Provider value={{ volume, selecionarVolume }}>
-    <section className="hl-oferta" aria-label="Consultar produto">{conteudo}</section>
+    <div className="hl-contexto-oferta">{conteudo}</div>
   </ContextoOferta.Provider>;
+}
+
+function Imagem() {
+  const { volume } = usarOferta();
+  const embalagem = volume === '2 L' ? '2l' : '5l';
+  return <figure className="hl-produto"><span className="hl-etiqueta-produto">HENLAU · DETERGENTE MULTIUSO</span><img src={`/assets/hl-multi-1000-${embalagem}.webp`} alt={`Embalagem Henlau HL Multi 1000 de ${volume}`} width={volume === '2 L' ? 331 : 636} height="900" fetchPriority="high" /><figcaption>Foto do fabricante · embalagem de {volume}</figcaption></figure>;
 }
 
 function SeletorVolume() {
@@ -55,4 +61,4 @@ function BotaoOrcamento() {
  * Componha essas partes dentro da mesma Raiz. Não há captura de dados pessoais;
  * abrir a conversa não envia a mensagem, que depende da ação do visitante.
  */
-export const OfertaProduto = { Raiz, SeletorVolume, Resumo, BotaoOrcamento };
+export const OfertaProduto = { Raiz, Imagem, SeletorVolume, Resumo, BotaoOrcamento };

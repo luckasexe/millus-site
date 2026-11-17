@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Menu as IconeMenu, X as IconeFechar, Search as IconeBusca, MessageCircle as IconeContato } from 'lucide-react';
 import { contatoComercial } from '../data/comercial';
 
-function Raiz({ children: conteudo }: { children: ReactNode }) {
+function Raiz({ children: conteudo, className: classe = '' }: { children: ReactNode; className?: string }) {
   const elementoCabecalho = useRef<HTMLElement>(null);
   useEffect(() => {
     const cabecalho = elementoCabecalho.current;
@@ -15,7 +15,7 @@ function Raiz({ children: conteudo }: { children: ReactNode }) {
     observador.observe(cabecalho);
     return () => observador.disconnect();
   }, []);
-  return <header ref={elementoCabecalho} className="cabecalho"><div className="conteiner cabecalho-conteudo">{conteudo}</div></header>;
+  return <header ref={elementoCabecalho} className={`cabecalho ${classe}`}><div className="conteiner cabecalho-conteudo">{conteudo}</div></header>;
 }
 function Marca() {
   return <a className="marca" href="/" aria-label="Millus — início"><img src="/assets/logo2.png" width="2027" height="572" alt="Millus Acessórios Industriais" /></a>;

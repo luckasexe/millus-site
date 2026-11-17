@@ -1,286 +1,100 @@
-.hl-pagina{
-  --hl-amarelo:var(--amarelo);
-  background:var(--preto);
-  color:var(--texto-inverso)
+.hl-pagina { background:var(--preto); color:var(--texto-inverso); }
+.hl-conteiner { width:min(1180px,calc(100% - 96px)); margin-inline:auto; }
+.hl-cabecalho .cabecalho-conteudo { justify-content:space-between; }
+.hl-navegacao { display:flex; align-items:center; gap:var(--espaco-8); font-size:var(--texto-corpo-menor); }
+.hl-navegacao>a:first-child { color:var(--texto-inverso-discreto); }
+.hl-pagina a:focus-visible,.hl-pagina summary:focus-visible { outline:3px solid var(--foco-inverso); outline-offset:4px; }
+.hl-pagina .hl-clara a:focus-visible,.hl-pagina .hl-clara summary:focus-visible { outline-color:var(--foco); }
+.hl-destaque { display:grid; grid-template-columns:1.2fr .85fr; gap:var(--espaco-8) 80px; align-items:center; padding-block:64px 72px; }
+.hl-sobretitulo { color:var(--amarelo); font-size:var(--texto-pequeno); letter-spacing:.13em; font-weight:700; margin-bottom:var(--espaco-5); }
+.hl-introducao h1 { font-family:var(--fonte-titulo); font-size:clamp(48px,5vw,72px); letter-spacing:-.055em; line-height:1.05; margin-bottom:var(--espaco-6); }
+.hl-chamada { font-size:clamp(23px,2.5vw,32px); line-height:1.3; font-weight:600; max-width:530px; }
+.hl-descricao { color:var(--texto-tecnico); font-size:var(--texto-destaque); line-height:1.8; margin-top:var(--espaco-5); max-width:540px; }
+.hl-detalhes { display:inline-flex; align-items:center; gap:var(--espaco-3); margin-top:var(--espaco-5); text-decoration:underline; text-underline-offset:6px; font-size:var(--texto-corpo-menor); }
+.hl-produto { margin:0; background:transparent; color:var(--texto-inverso); padding:var(--espaco-8) var(--espaco-6); text-align:center; grid-column:2; grid-row:1 / span 2; align-self:stretch; display:flex; flex-direction:column; justify-content:center; border-bottom:1px solid var(--borda-tecnica); }
+.hl-etiqueta-produto { font-size:var(--texto-micro); letter-spacing:.1em; font-weight:600; color:var(--texto-inverso-discreto); }
+.hl-produto img { width:auto; max-width:100%; height:540px; margin:var(--espaco-6) auto; object-fit:contain; }
+.hl-produto figcaption { font-size:var(--texto-controle); color:var(--texto-inverso-discreto); }
+.hl-oferta { border-top:1px solid var(--borda-tecnica); padding-top:var(--espaco-6); scroll-margin-top:var(--espaco-4); }
+.hl-oferta h2 { font-family:var(--fonte-interface); font-size:22px; margin-bottom:var(--espaco-5); letter-spacing:0; }
+.hl-oferta .hl-sobretitulo { margin-bottom:var(--espaco-2); }
+.hl-volumes { border:0; margin:0; padding:0; }
+.hl-volumes legend { font-size:var(--texto-corpo-menor); margin-bottom:var(--espaco-3); }
+.hl-volumes>div { display:flex; gap:var(--espaco-3); }
+.hl-volumes label { position:relative; cursor:pointer; flex:1; }
+.hl-volumes input { position:absolute; opacity:0; width:100%; height:100%; margin:0; }
+.hl-volumes span { display:block; border:1px solid var(--texto-auxiliar); border-radius:var(--raio-pequeno); padding:12px 20px; text-align:center; font-size:20px; font-weight:600; }
+.hl-volumes input:checked+span { background:var(--amarelo); color:var(--preto); border-color:var(--amarelo); }
+.hl-volumes input:focus-visible+span { outline:3px solid var(--amarelo); outline-offset:3px; }
+.hl-resumo { font-size:var(--texto-destaque); line-height:1.8; margin-block:var(--espaco-4); }
+.hl-resumo small { font-size:var(--texto-corpo-menor); color:var(--texto-inverso-discreto); }
+.hl-botao { width:100%; justify-content:space-between; min-height:52px; font-size:var(--texto-corpo); }
+.hl-aviso { font-size:var(--texto-controle); line-height:1.7; color:var(--texto-inverso-discreto); margin-top:var(--espaco-3); }
+.hl-secao { padding-block:80px; }
+.hl-secao h2 { font-size:clamp(28px,3.3vw,42px); max-width:720px; }
+.hl-abertura { margin-top:var(--espaco-5); max-width:680px; font-size:var(--texto-destaque); color:var(--texto-inverso-discreto); line-height:1.8; }
+.hl-clara { background:var(--superficie-tecnica); color:var(--texto); }
+.hl-clara .hl-sobretitulo { color:var(--destaque-texto); }
+.hl-clara .hl-abertura { color:var(--texto-tecnico-corpo); }
+.hl-cartoes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--espaco-5); margin-top:var(--espaco-10); }
+.hl-cartoes article { padding:var(--espaco-7); border-top:3px solid var(--amarelo); }
+.hl-topo-cartao { display:flex; justify-content:space-between; align-items:center; }
+.hl-topo-cartao span { font-size:var(--texto-controle); color:var(--texto-auxiliar); }
+.hl-cartoes h3 { font-size:18px; margin-block:var(--espaco-6) var(--espaco-3); }
+.hl-cartoes p { color:var(--texto-tecnico-corpo); line-height:1.8; }
+.hl-nota { font-size:var(--texto-corpo-menor); color:var(--texto-discreto); border-top:1px solid var(--borda-tecnica-suave); padding-top:var(--espaco-5); margin-top:var(--espaco-8); line-height:1.8; }
+.hl-divisao { display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+.hl-embalagens { display:grid; grid-template-columns:1fr 1fr; gap:var(--espaco-6); }
+.hl-embalagens article { border-top:1px solid var(--borda-tecnica); padding-top:var(--espaco-5); }
+.hl-embalagens article>span { display:block; color:var(--amarelo); font:700 52px/1.2 var(--fonte-titulo); margin-bottom:var(--espaco-5); }
+.hl-embalagens h3 { font-size:var(--texto-destaque); margin-bottom:var(--espaco-3); }
+.hl-embalagens p { color:var(--texto-inverso-discreto); font-size:var(--texto-corpo-menor); line-height:1.8; }
+.hl-embalagens>p { grid-column:1/-1; }
+.hl-tecnica { margin-top:var(--espaco-10); grid-template-columns:1.35fr 1fr; gap:var(--espaco-12); }
+.hl-tabela table { width:100%; border-collapse:collapse; font-size:var(--texto-corpo-menor); text-align:left; }
+.hl-tabela caption { text-align:left; margin-bottom:var(--espaco-4); color:var(--texto-discreto); }
+.hl-tabela th,.hl-tabela td { padding:var(--espaco-4); border-bottom:1px solid var(--borda-tecnica-suave); vertical-align:top; }
+.hl-tabela thead { background:var(--preto); color:var(--texto-inverso); }
+.hl-tabela tbody th { color:var(--texto); white-space:nowrap; font-size:18px; padding-left:0; }
+.hl-modo h3 { font-size:18px; }
+.hl-modo ol { padding-left:var(--espaco-5); line-height:1.8; margin-block:var(--espaco-5); }
+.hl-modo li { padding-left:var(--espaco-2); margin-bottom:var(--espaco-3); }
+.hl-modo p { font-size:var(--texto-corpo-menor); line-height:1.8; color:var(--texto-tecnico-corpo); }
+.hl-modo a { display:inline-block; margin-top:var(--espaco-5); text-decoration:underline; text-underline-offset:4px; font-weight:600; font-size:var(--texto-corpo-menor); }
+.hl-atendimento { background:var(--cinza-escuro); }
+.hl-atendimento p:not(.hl-sobretitulo) { font-size:var(--texto-destaque); line-height:1.8; color:var(--texto-inverso-suave); margin-bottom:var(--espaco-4); }
+.hl-perguntas details { border-bottom:1px solid var(--borda-tecnica-suave); }
+.hl-perguntas summary { padding-block:var(--espaco-5); font-weight:600; cursor:pointer; min-height:var(--altura-controle); }
+.hl-perguntas details:first-child summary { padding-top:0; }
+.hl-perguntas details p { color:var(--texto-tecnico-corpo); line-height:1.8; padding-bottom:var(--espaco-6); }
+.hl-final { border-top:4px solid var(--amarelo); }
+.hl-final h2+p { color:var(--texto-inverso-discreto); margin-top:var(--espaco-5); }
+.hl-final .hl-resumo { margin-top:0; }
+@media(max-width:760px) {
+ .hl-conteiner { width:calc(100% - 40px); }
+ .cabecalho.hl-cabecalho .cabecalho-conteudo { display:flex; flex-wrap:wrap; gap:var(--espaco-3); min-height:80px; }
+ .cabecalho.hl-cabecalho .marca { width:140px; }
+ .hl-navegacao { margin-left:auto; gap:var(--espaco-3); font-size:var(--texto-pequeno); }
+ .hl-navegacao .botao { padding-inline:var(--espaco-3); }
+ .hl-destaque { grid-template-columns:1fr; gap:var(--espaco-8); padding-block:var(--espaco-10) var(--espaco-12); }
+ .hl-produto { grid-column:auto; grid-row:auto; padding:var(--espaco-5); }
+ .hl-produto img { max-width:100%; height:340px; margin-block:var(--espaco-4); }
+ .hl-introducao h1 { font-size:clamp(39px,10vw,62px); }
+ .hl-chamada { font-size:25px; }
+ .hl-secao { padding-block:var(--espaco-12); }
+ .hl-cartoes,.hl-divisao { grid-template-columns:1fr; gap:var(--espaco-8); }
+ .hl-cartoes { gap:var(--espaco-4); }
+ .hl-cartoes article { padding:var(--espaco-6); }
+ .hl-cartoes h3 { margin-top:var(--espaco-4); }
+ .hl-embalagens { gap:var(--espaco-5); }
+ .hl-tecnica { gap:var(--espaco-8); }
+ .hl-tabela th,.hl-tabela td { padding:var(--espaco-3); }
+ .hl-perguntas details:first-child summary { padding-top:var(--espaco-5); }
 }
-.hl-pagina *{
-  box-sizing:border-box
-}
-.hl-conteiner{
-  width:min(1180px,calc(100% - 48px));
-  margin:auto
-}
-.hl-voltar{
-  display:inline-block;
-  margin:var(--espaco-8) 0;
-  color:var(--texto-tecnico-voltar);
-  font-size: var(--texto-corpo-menor);
-  text-decoration:none
-}
-.hl-pagina a:focus-visible,.hl-pagina input:focus-visible+span{
-  outline:3px solid var(--amarelo);
-  outline-offset:5px
-}
-.hl-destaque{
-  display:grid;
-  grid-template-columns:1.15fr .9fr;
-  gap:var(--espaco-10) var(--espaco-12);
-  padding:var(--espaco-8) 0 72px;
-  align-items:center
-}
-.hl-sobretitulo{
-  font-size: var(--texto-pequeno);
-  letter-spacing:.14em;
-  font-weight:600;
-  color:var(--hl-amarelo);
-  margin:0 0 var(--espaco-5)
-}
-.hl-introducao h1{
-  font-family:var(--fonte-produto);
-  font-size:clamp(64px,7vw,100px);
-  font-weight:var(--peso-destaque);
-  line-height:.95;
-  letter-spacing:-.02em;
-  margin:0 0 26px
-}
-.hl-introducao h1 span{
-  color:var(--hl-amarelo)
-}
-.hl-chamada{
-  font-size:clamp(23px,3vw,34px);
-  line-height:1.2;
-  margin:0 0 22px;
-  font-weight:600
-}
-.hl-descricao{
-  font-size: var(--texto-destaque);
-  line-height:1.8;
-  color:var(--texto-tecnico);
-  max-width:480px
-}
-.hl-detalhes{
-  display:inline-flex;
-  gap:var(--espaco-3);
-  align-items:center;
-  margin-top:var(--espaco-4);
-  color:var(--texto-inverso);
-  text-underline-offset:6px;
-  font-size: var(--texto-corpo-menor)
-}
-.hl-produto{
-  margin:0;
-  background:var(--superficie);
-  border-radius:var(--raio-pequeno);
-  position:relative;
-  padding:30px var(--espaco-6) 18px;
-  text-align:center;
-  grid-column:2;
-  grid-row:1 / span 2;
-  align-self:stretch;
-  display:flex;
-  flex-direction:column;
-  justify-content:center
-}
-.hl-etiqueta-produto{
-  color:var(--texto-discreto);
-  font-size: var(--texto-micro);
-  letter-spacing:.1em;
-  font-weight:600
-}
-.hl-produto img{
-  width:100%;
-  max-width:340px;
-  height:auto;
-  margin:var(--espaco-5) auto;
-  object-fit:contain
-}
-.hl-produto figcaption{
-  font-size: var(--texto-pequeno);
-  color:var(--texto-auxiliar)
-}
-.hl-oferta{
-  border-top:1px solid var(--borda-tecnica);
-  padding-top:var(--espaco-7)
-}
-.hl-oferta h2{
-  font-size:25px;
-  margin:0 0 22px;
-  font-weight:600
-}
-.hl-oferta .hl-sobretitulo{
-  margin-bottom:10px
-}
-.hl-volumes{
-  padding:0;
-  margin:0;
-  border:0
-}
-.hl-volumes legend{
-  font-size: var(--texto-corpo-menor);
-  margin-bottom:var(--espaco-3)
-}
-.hl-volumes>div{
-  display:flex;
-  gap:var(--espaco-3)
-}
-.hl-volumes label{
-  position:relative;
-  cursor:pointer;
-  flex:1
-}
-.hl-volumes input{
-  position:absolute;
-  opacity:0;
-  width:100%;
-  height:100%;
-  margin:0
-}
-.hl-volumes span{
-  display:block;
-  border:1px solid var(--texto-auxiliar);
-  border-radius:var(--raio-pequeno);
-  padding:15px 22px;
-  text-align:center;
-  font-size:20px;
-  font-weight:600
-}
-.hl-volumes input:checked+span{
-  background:var(--amarelo);
-  color:var(--preto);
-  border-color:var(--amarelo)
-}
-.hl-resumo{
-  font-size: var(--texto-destaque);
-  line-height:1.8;
-  margin:var(--espaco-5) 0
-}
-.hl-resumo small{
-  font-size: var(--texto-controle);
-  color:var(--texto-inverso-discreto)
-}
-.hl-botao{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:var(--espaco-4);
-  min-height:52px;
-  background:var(--amarelo);
-  color:var(--preto);
-  border-radius:var(--raio-pequeno);
-  padding:var(--espaco-4) var(--espaco-5);
-  text-decoration:none;
-  font-weight:600;
-  font-size: var(--texto-corpo)
-}
-.hl-botao:hover{
-  background:var(--acao-hover)
-}
-.hl-aviso{
-  font-size: var(--texto-pequeno);
-  line-height:1.7;
-  color:var(--texto-inverso-auxiliar);
-  margin:var(--espaco-3) 0 0
-}
-.hl-aplicacoes{
-  padding:64px 0;
-  background:var(--superficie-tecnica);
-  color:var(--preto);
-  scroll-margin-top:var(--espaco-6)
-}
-.hl-aplicacoes .hl-sobretitulo{
-  color:var(--destaque-texto)
-}
-.hl-aplicacoes h2{
-  font-size:clamp(26px,3vw,36px);
-  font-weight:600;
-  margin:0 0 var(--espaco-8)
-}
-.hl-cartoes{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:var(--espaco-5)
-}
-.hl-cartoes article{
-  border:1px solid var(--texto-inverso-suave);
-  padding:var(--espaco-7);
-  background:var(--superficie);
-  border-top:3px solid var(--amarelo)
-}
-.hl-topo-cartao{
-  display:flex;
-  justify-content:space-between;
-  align-items:center
-}
-.hl-topo-cartao span{
-  font-size: var(--texto-controle);
-  color:var(--texto-tecnico-legenda)
-}
-.hl-cartoes h3{
-  font-size:17px;
-  margin:var(--espaco-6) 0 var(--espaco-3)
-}
-.hl-cartoes p,.hl-orientacoes p{
-  font-size: var(--texto-corpo);
-  line-height:1.8;
-  color:var(--texto-tecnico-corpo)
-}
-.hl-orientacoes{
-  margin-top:var(--espaco-8);
-  border-top:1px solid var(--borda-tecnica-suave);
-  padding-top:var(--espaco-6);
-  max-width:780px
-}
-.hl-orientacoes h3{
-  font-size:17px;
-  margin:0
-}
-.hl-orientacoes a{
-  font-size: var(--texto-corpo-menor);
-  color:var(--preto);
-  text-underline-offset:4px
-}
-.hl-pagina #contato{
-  padding-bottom:110px
-}
-@media(min-width:768px){
-  .hl-pagina .hl-conteiner{
-    padding-right:100px
-  }
-}
-@media(max-width:767px){
-  .hl-conteiner{
-    width:calc(100% - 40px)
-  }
-  .hl-voltar{
-    margin:var(--espaco-6) 0
-  }
-  .hl-destaque{
-    grid-template-columns:1fr;
-    gap:var(--espaco-7);
-    padding:var(--espaco-4) 0 var(--espaco-12)
-  }
-  .hl-produto{
-    grid-column:auto;
-    grid-row:auto;
-    padding:var(--espaco-6) var(--espaco-5) var(--espaco-4)
-  }
-  .hl-produto img{
-    max-width:220px;
-    margin:var(--espaco-4) auto
-  }
-  .hl-cartoes{
-    grid-template-columns:1fr
-  }
-  .hl-aplicacoes{
-    padding:44px 0
-  }
-  .hl-introducao h1{
-    font-size:clamp(56px,12vw,84px)
-  }
-  .hl-aviso{
-    font-size: var(--texto-controle)
-  }
-  .hl-oferta{
-    padding-top:var(--espaco-6)
-  }
+@media(max-width:380px) {
+ .cabecalho.hl-cabecalho .marca { width:100px; }
+ .hl-cabecalho .cabecalho-conteudo { width:calc(100% - 32px); }
+ .hl-navegacao { gap:var(--espaco-2); }
+ .hl-navegacao .botao { font-size:var(--texto-pequeno); padding-inline:var(--espaco-2); }
+ .hl-navegacao>a:first-child { max-width:56px; line-height:1.4; }
 }
