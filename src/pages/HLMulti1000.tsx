@@ -15,24 +15,28 @@ function ApresentacaoProduto() {
     <div className="hl-oferta" id="hl-escolha"><p className="hl-sobretitulo">ORÇAMENTO COM A MILLUS</p><h2>Escolha sua embalagem.</h2><OfertaProduto.SeletorVolume /><OfertaProduto.Resumo /><OfertaProduto.BotaoOrcamento /><AvisoConversa /></div>
   </section>;
 }
+const aplicacoesProduto = [
+  { diluicao: '1:100', icone: IconeGotas, titulo: 'Vidros em geral', descricao: 'Uma indicação específica para a limpeza de superfícies de vidro.', exemplos: 'Vidros em geral, conforme a tabela do fabricante.' },
+  { diluicao: '1:50', icone: IconeCarro, titulo: 'Interiores e superfícies polidas', descricao: 'Aplicações que pedem atenção ao acabamento e à compatibilidade da superfície.', exemplos: 'Interiores de veículos e ônibus, plásticos, mármore, fórmica e inox.' },
+  { diluicao: '1:40', icone: IconeCarro, titulo: 'Veículos e pisos em geral', descricao: 'Indicações para a rotina automotiva e a limpeza de ambientes profissionais.', exemplos: 'Automóveis, motocicletas, ônibus, caminhões e pisos de lojas, restaurantes e hotéis.' },
+  { diluicao: '1:30', icone: IconeFabrica, titulo: 'Sujidades impregnadas', descricao: 'Aplicações específicas da tabela Henlau — não uma regra para qualquer sujeira difícil.', exemplos: 'Paredes muito sujas, persianas, alumínio e pisos de postos.' },
+  { diluicao: '1:20', icone: IconeFabrica, titulo: 'Pisos engordurados e operação pesada', descricao: 'Indicações para áreas e equipamentos descritos pelo fabricante.', exemplos: 'Pisos engordurados, veículos de carga, máquinas agrícolas e pátios movimentados.' },
+];
 function AplicacoesProduto() {
-  const aplicacoes = [
-    { icone: IconeCarro, titulo: 'Veículos e frotas', texto: 'Automóveis, motocicletas, ônibus, caminhões e interiores de veículos. A diluição muda entre a limpeza externa e a de interiores.' },
-    { icone: IconeFabrica, titulo: 'Ambientes profissionais', texto: 'Pisos e superfícies em lojas, restaurantes, hotéis e áreas industriais, nas aplicações descritas pelo fabricante.' },
-    { icone: IconeGotas, titulo: 'Superfícies específicas', texto: 'Vidros, fórmica, inox e outras superfícies polidas têm indicações próprias. Consulte a tabela antes de preparar a solução.' },
-  ];
-  return <section className="hl-secao hl-clara" id="hl-aplicacoes" aria-labelledby="hl-titulo-aplicacoes"><div className="hl-conteiner"><p className="hl-sobretitulo">01 / APLICAÇÕES</p><h2 id="hl-titulo-aplicacoes">Da rotina automotiva aos espaços de trabalho.</h2><p className="hl-abertura">Um produto com diferentes indicações de uso — não uma diluição única para tudo.</p><div className="hl-cartoes">{aplicacoes.map(({ icone: Icone, titulo, texto }, indice) => <Cartao key={titulo}><div className="hl-topo-cartao"><Icone size={30} strokeWidth={1.5} aria-hidden="true" /><span>0{indice + 1}</span></div><h3>{titulo}</h3><p>{texto}</p></Cartao>)}</div><p className="hl-nota">As aplicações são uma síntese das indicações da Henlau. A adequação depende da superfície, da sujidade e das orientações técnicas do produto.</p></div></section>;
+  return <section className="hl-secao hl-clara" id="hl-aplicacoes" aria-labelledby="hl-titulo-aplicacoes"><div className="hl-conteiner">
+    <p className="hl-sobretitulo">01 / APLICAÇÕES E DILUIÇÕES</p><h2 id="hl-titulo-aplicacoes">Onde você vai aplicar?</h2>
+    <p className="hl-abertura">Encontre sua aplicação e confira a diluição indicada pela Henlau. Cada superfície tem sua orientação.</p>
+    <div className="hl-aplicacoes-grade">{aplicacoesProduto.map(({ icone: Icone, diluicao, titulo, descricao, exemplos }) => <Cartao className="hl-aplicacao" key={diluicao}>
+      <div className="hl-aplicacao-topo"><Icone size={28} strokeWidth={1.5} aria-hidden="true" /><span className="hl-aplicacao-diluicao"><small>DILUIÇÃO</small><strong>{diluicao}</strong></span></div>
+      <h3>{titulo}</h3><p>{descricao}</p><div className="hl-aplicacao-exemplos"><span>EXEMPLOS DE APLICAÇÃO</span><p>{exemplos}</p></div>
+    </Cartao>)}</div>
+    <div className="hl-aplicacoes-alerta"><IconeGotas size={24} aria-hidden="true" /><p><strong>A diluição muda conforme a aplicação.</strong> As proporções são as publicadas pelo fabricante. Confira compatibilidade, preparo e cuidados no rótulo e na documentação técnica antes de usar.</p><a href="#hl-diluicao">Ver tabela e modo de uso ↓</a></div>
+  </div></section>;
 }
 function EmbalagensProduto() {
   return <section className="hl-secao" aria-labelledby="hl-titulo-embalagens"><div className="hl-conteiner hl-divisao"><div><p className="hl-sobretitulo">02 / UMA ESCOLHA PARA SUA ROTINA</p><h2 id="hl-titulo-embalagens">Multiuso no preparo.<br />Opções na embalagem.</h2><p className="hl-abertura">A diluição é definida pela aplicação. O volume da embalagem é escolhido conforme o planejamento da sua operação.</p><a className="hl-detalhes" href="#hl-escolha">Escolher volume e consultar condições ↑</a></div><div className="hl-embalagens"><article><span>2 L</span><h3>Menor volume por embalagem</h3><p>Uma opção para compor sua compra quando a necessidade é de menor volume de produto.</p></article><article><span>5 L</span><h3>Maior volume por embalagem</h3><p>Uma opção para o planejamento de compras que demanda mais produto por unidade.</p></article><p>Sem estimativa de rendimento: o consumo depende da diluição, da área e das condições de uso. Consulte preço e disponibilidade.</p></div></div></section>;
 }
-const diluicoes = [
-  ['1:100', 'Vidros em geral.'],
-  ['1:50', 'Interiores de veículos e ônibus; plásticos, mármore, fórmica, inox e outras superfícies polidas.'],
-  ['1:40', 'Automóveis e motocicletas; ônibus e caminhões; pisos em geral, nas situações indicadas pelo fabricante.'],
-  ['1:30', 'Paredes muito sujas, persianas de alumínio e pisos de postos.'],
-  ['1:20', 'Pisos engordurados, veículos de carga, máquinas agrícolas e pátios movimentados.'],
-];
+const diluicoes = aplicacoesProduto.map(({ diluicao, exemplos }) => [diluicao, exemplos]);
 function OrientacoesProduto() {
   return <section className="hl-secao hl-clara" id="hl-diluicao" aria-labelledby="hl-titulo-diluicao"><div className="hl-conteiner"><p className="hl-sobretitulo">03 / PREPARO E APLICAÇÃO</p><h2 id="hl-titulo-diluicao">A aplicação orienta a diluição.</h2><p className="hl-abertura">Referência resumida da tabela publicada pela Henlau. Confira o rótulo e a documentação técnica atualizados antes de usar.</p><div className="hl-divisao hl-tecnica"><div className="hl-tabela"><table><caption>Diluições indicadas pelo fabricante — aplicações selecionadas</caption><thead><tr><th scope="col">Diluição</th><th scope="col">Aplicação</th></tr></thead><tbody>{diluicoes.map(([diluicao, aplicacao]) => <tr key={diluicao}><th scope="row">{diluicao}</th><td>{aplicacao}</td></tr>)}</tbody></table></div><div className="hl-modo"><h3>Orientação de uso da Henlau</h3><ol><li>Diluir conforme a aplicação indicada.</li><li>Aplicar por pulverização na superfície seca.</li><li>Aguardar aproximadamente 3 minutos.</li><li>Esfregar se necessário e enxaguar com jato de alta pressão.</li></ol><p>Este resumo não é uma instrução universal. Verifique compatibilidade, restrições da superfície e os EPIs indicados no rótulo e na ficha de segurança.</p><a href={hlMulti1000.fonte} target="_blank" rel="noopener noreferrer">Consultar tabela completa e informações na Henlau ↗</a></div></div><p className="hl-nota">As proporções foram preservadas como publicadas, sem conversão para litros de solução ou promessa de rendimento. Não use a mesma diluição para qualquer superfície.</p></div></section>;
 }

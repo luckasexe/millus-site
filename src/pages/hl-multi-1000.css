@@ -36,12 +36,24 @@
 .hl-clara { background:var(--superficie-tecnica); color:var(--texto); }
 .hl-clara .hl-sobretitulo { color:var(--destaque-texto); }
 .hl-clara .hl-abertura { color:var(--texto-tecnico-corpo); }
-.hl-cartoes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--espaco-5); margin-top:var(--espaco-10); }
-.hl-cartoes article { padding:var(--espaco-7); border-top:3px solid var(--amarelo); }
-.hl-topo-cartao { display:flex; justify-content:space-between; align-items:center; }
-.hl-topo-cartao span { font-size:var(--texto-controle); color:var(--texto-auxiliar); }
-.hl-cartoes h3 { font-size:18px; margin-block:var(--espaco-6) var(--espaco-3); }
-.hl-cartoes p { color:var(--texto-tecnico-corpo); line-height:1.8; }
+.hl-aplicacoes-grade { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:var(--espaco-5); margin-top:var(--espaco-10); }
+.hl-aplicacoes-grade .hl-aplicacao { grid-column:span 2; padding:var(--espaco-6); border-top:3px solid var(--amarelo); display:flex; flex-direction:column; }
+.hl-aplicacoes-grade .hl-aplicacao:nth-last-child(-n+2) { grid-column:span 3; }
+.hl-aplicacao-topo { display:flex; justify-content:space-between; align-items:center; gap:var(--espaco-4); }
+.hl-aplicacao-topo>svg { color:var(--texto-discreto); }
+.hl-aplicacao-diluicao { display:flex; flex-direction:column; align-items:center; background:var(--amarelo); color:var(--preto); padding:var(--espaco-2) var(--espaco-4); border-radius:var(--raio-pequeno); }
+.hl-aplicacao-diluicao small { font-size:var(--texto-micro); letter-spacing:.08em; font-weight:700; }
+.hl-aplicacao-diluicao strong { font-size:30px; line-height:1.2; }
+.hl-aplicacao h3 { font-size:20px; line-height:1.4; margin-block:var(--espaco-5) var(--espaco-3); }
+.hl-aplicacao p { color:var(--texto-tecnico-corpo); line-height:1.8; font-size:var(--texto-corpo-menor); }
+.hl-aplicacao-exemplos { margin-top:auto; padding-top:var(--espaco-6); }
+.hl-aplicacao-exemplos>span { display:block; font-size:var(--texto-micro); letter-spacing:.05em; font-weight:700; border-top:1px solid var(--borda-tecnica-suave); padding-top:var(--espaco-4); margin-bottom:var(--espaco-2); }
+.hl-aplicacoes-alerta { display:flex; align-items:flex-start; gap:var(--espaco-4); margin-top:var(--espaco-6); padding:var(--espaco-5); background:var(--branco); border:1px solid var(--borda-tecnica-suave); border-radius:var(--raio-pequeno); }
+.hl-aplicacoes-alerta>svg { flex-shrink:0; }
+.hl-aplicacoes-alerta p { font-size:var(--texto-corpo-menor); color:var(--texto-tecnico-corpo); }
+.hl-aplicacoes-alerta strong { color:var(--texto); }
+.hl-aplicacoes-alerta a { flex-shrink:0; font-size:var(--texto-corpo-menor); text-decoration:underline; text-underline-offset:4px; font-weight:600; }
+@media(max-width:1000px) { .hl-aplicacoes-grade { grid-template-columns:repeat(2,minmax(0,1fr)); } .hl-aplicacoes-grade .hl-aplicacao,.hl-aplicacoes-grade .hl-aplicacao:nth-last-child(-n+2) { grid-column:auto; } .hl-aplicacoes-grade .hl-aplicacao:last-child { grid-column:1/-1; } .hl-aplicacoes-alerta { flex-wrap:wrap; } .hl-aplicacoes-alerta p { flex:1; } }
 .hl-nota { font-size:var(--texto-corpo-menor); color:var(--texto-discreto); border-top:1px solid var(--borda-tecnica-suave); padding-top:var(--espaco-5); margin-top:var(--espaco-8); line-height:1.8; }
 .hl-divisao { display:grid; grid-template-columns:1fr 1fr; gap:80px; }
 .hl-embalagens { display:grid; grid-template-columns:1fr 1fr; gap:var(--espaco-6); }
@@ -82,10 +94,12 @@
  .hl-introducao h1 { font-size:clamp(39px,10vw,62px); }
  .hl-chamada { font-size:25px; }
  .hl-secao { padding-block:var(--espaco-12); }
- .hl-cartoes,.hl-divisao { grid-template-columns:1fr; gap:var(--espaco-8); }
- .hl-cartoes { gap:var(--espaco-4); }
- .hl-cartoes article { padding:var(--espaco-6); }
- .hl-cartoes h3 { margin-top:var(--espaco-4); }
+ .hl-aplicacoes-grade,.hl-divisao { grid-template-columns:1fr; gap:var(--espaco-8); }
+ .hl-aplicacoes-grade { gap:var(--espaco-4); }
+ .hl-aplicacoes-grade .hl-aplicacao { padding:var(--espaco-6); }
+ .hl-aplicacoes-alerta { display:block; }
+ .hl-aplicacoes-alerta>svg { margin-bottom:var(--espaco-3); }
+ .hl-aplicacoes-alerta a { display:inline-block; margin-top:var(--espaco-4); }
  .hl-embalagens { gap:var(--espaco-5); }
  .hl-tecnica { gap:var(--espaco-8); }
  .hl-tabela th,.hl-tabela td { padding:var(--espaco-3); }
