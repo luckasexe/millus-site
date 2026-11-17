@@ -1,3 +1,6 @@
+import { CampoBusca } from './ui/CampoBusca';
+import { Cartao } from './ui/Cartao';
+import { Botao } from './ui/Botao';
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import { Search as IconeBusca } from 'lucide-react';
 import dadosProdutos from '../../public/data/produtos.json';
@@ -27,12 +30,12 @@ function Categorias() {
 }
 function Filtros() {
   const { busca, definirBusca, categoria, definirCategoria } = usarCatalogo();
-  return <div className="filtros"><label className="busca" htmlFor="busca-catalogo"><IconeBusca size={20} aria-hidden="true" /><span className="somente-leitor">Buscar por produto, código ou descrição</span><input id="busca-catalogo" type="search" value={busca} onChange={evento => definirBusca(evento.target.value)} placeholder="Buscar por produto ou código…" /></label><div className="filtros-categorias" aria-label="Filtrar por categoria">{['Todas', ...categorias].map(opcao => <button key={opcao} data-categoria={opcao} aria-pressed={categoria === opcao} onClick={() => definirCategoria(opcao)}>{opcao}</button>)}</div></div>;
+  return <div className="filtros"><div className="busca"><IconeBusca size={20} aria-hidden="true" /><CampoBusca id="busca-catalogo" rotulo="Buscar por produto, código ou descrição" value={busca} onChange={evento => definirBusca(evento.target.value)} placeholder="Buscar por produto ou código…" /></div><div className="filtros-categorias" aria-label="Filtrar por categoria">{['Todas', ...categorias].map(opcao => <Botao variante="contorno" key={opcao} data-categoria={opcao} aria-pressed={categoria === opcao} onClick={() => definirCategoria(opcao)}>{opcao}</Botao>)}</div></div>;
 }
 const normalizar = (valor: string) => valor.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR');
 function Lista() {
   const { busca, categoria } = usarCatalogo();
   const produtos = dadosProdutos.filter(produto => (categoria === 'Todas' || produto.categoria === categoria) && normalizar(`${produto.nome} ${produto.id} ${produto.descricao} ${produto.categoria}`).includes(normalizar(busca.trim())));
-  return <><p className="catalogo-contagem" role="status">{produtos.length} {produtos.length === 1 ? 'produto encontrado' : 'produtos encontrados'} · Consulte preço e disponibilidade.</p><div className="produtos-grade">{produtos.map(produto => { return <article className="produto" key={produto.id}><div className="produto-ilustracao"><ImagemCategoria categoria={produto.categoria as keyof typeof imagensCategorias} /></div><div className="produto-conteudo"><p className="produto-codigo">Cód. {produto.id}</p><h3>{produto.nome}</h3><p>{produto.descricao}</p><a className="botao" href={enderecoOrcamento(`${produto.nome} (${produto.id})`)} target="_blank" rel="noopener noreferrer">Solicitar orçamento <span aria-hidden="true">→</span></a></div></article>; })}</div>{!produtos.length && <p className="catalogo-vazio">Nenhum produto encontrado. Experimente outro termo ou categoria.</p>}</>;
+  return <><p className="catalogo-contagem" role="status">{produtos.length} {produtos.length === 1 ? 'produto encontrado' : 'produtos encontrados'} · Consulte preço e disponibilidade.</p><div className="produtos-grade">{produtos.map(produto => { return <Cartao className="produto" key={produto.id}><div className="produto-ilustracao"><ImagemCategoria categoria={produto.categoria as keyof typeof imagensCategorias} /></div><div className="produto-conteudo"><p className="produto-codigo">Cód. {produto.id}</p><h3>{produto.nome}</h3><p>{produto.descricao}</p><Botao href={enderecoOrcamento(`${produto.nome} (${produto.id})`)} target="_blank" rel="noopener noreferrer">Solicitar orçamento <span aria-hidden="true">→</span></Botao></div></Cartao>; })}</div>{!produtos.length && <p className="catalogo-vazio">Nenhum produto encontrado. Experimente outro termo ou categoria.</p>}</>;
 }
 export const Catalogo = { Raiz, Categorias, Filtros, Lista };

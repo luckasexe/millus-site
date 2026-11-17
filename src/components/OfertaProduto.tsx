@@ -1,3 +1,4 @@
+import { Botao } from './ui/Botao';
 import { createContext, useContext, useId, useState, type ReactNode } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { hlMulti1000, type VolumeProduto } from '../data/hlMulti1000';
@@ -45,9 +46,9 @@ function BotaoOrcamento() {
   const { volume } = usarOferta();
   const endereco = new globalThis.URL(enderecosSite.WHATSAPP, 'https://api.whatsapp.com');
   endereco.searchParams.set('text', `Olá! Gostaria de um orçamento do HL Multi 1000 Henlau, embalagem de ${volume}. Podem informar preço e disponibilidade?`);
-  return <a className="hl-botao" href={endereco.toString()} target="_blank" rel="noopener noreferrer">
+  return <Botao className="hl-botao" href={endereco.toString()} target="_blank" rel="noopener noreferrer">
     Solicitar orçamento <ArrowUpRight size={19} aria-hidden="true" />
-  </a>;
+  </Botao>;
 }
 
 /** A Raiz controla o volume compartilhado por SeletorVolume, Resumo e BotaoOrcamento.

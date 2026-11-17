@@ -1,7 +1,7 @@
 .hl-pagina{
-  --hl-amarelo:#ffc107;
-  background:#111;
-  color:#fff
+  --hl-amarelo:var(--amarelo);
+  background:var(--preto);
+  color:var(--texto-inverso)
 }
 .hl-pagina *{
   box-sizing:border-box
@@ -12,33 +12,33 @@
 }
 .hl-voltar{
   display:inline-block;
-  margin:32px 0;
-  color:#d9d9d9;
-  font-size:13px;
+  margin:var(--espaco-8) 0;
+  color:var(--texto-tecnico-voltar);
+  font-size: var(--texto-corpo-menor);
   text-decoration:none
 }
 .hl-pagina a:focus-visible,.hl-pagina input:focus-visible+span{
-  outline:3px solid #ffc107;
+  outline:3px solid var(--amarelo);
   outline-offset:5px
 }
 .hl-destaque{
   display:grid;
   grid-template-columns:1.15fr .9fr;
-  gap:40px 48px;
-  padding:32px 0 72px;
+  gap:var(--espaco-10) var(--espaco-12);
+  padding:var(--espaco-8) 0 72px;
   align-items:center
 }
 .hl-sobretitulo{
-  font-size:11px;
+  font-size: var(--texto-pequeno);
   letter-spacing:.14em;
   font-weight:600;
   color:var(--hl-amarelo);
-  margin:0 0 20px
+  margin:0 0 var(--espaco-5)
 }
 .hl-introducao h1{
-  font-family:'Barlow Condensed',sans-serif;
+  font-family:var(--fonte-produto);
   font-size:clamp(64px,7vw,100px);
-  font-weight:700;
+  font-weight:var(--peso-destaque);
   line-height:.95;
   letter-spacing:-.02em;
   margin:0 0 26px
@@ -53,26 +53,26 @@
   font-weight:600
 }
 .hl-descricao{
-  font-size:15px;
+  font-size: var(--texto-destaque);
   line-height:1.8;
-  color:#c9c9c9;
+  color:var(--texto-tecnico);
   max-width:480px
 }
 .hl-detalhes{
   display:inline-flex;
-  gap:12px;
+  gap:var(--espaco-3);
   align-items:center;
-  margin-top:16px;
-  color:#fff;
+  margin-top:var(--espaco-4);
+  color:var(--texto-inverso);
   text-underline-offset:6px;
-  font-size:13px
+  font-size: var(--texto-corpo-menor)
 }
 .hl-produto{
   margin:0;
-  background:#fff;
-  border-radius:4px;
+  background:var(--superficie);
+  border-radius:var(--raio-pequeno);
   position:relative;
-  padding:30px 24px 18px;
+  padding:30px var(--espaco-6) 18px;
   text-align:center;
   grid-column:2;
   grid-row:1 / span 2;
@@ -82,8 +82,8 @@
   justify-content:center
 }
 .hl-etiqueta-produto{
-  color:#555;
-  font-size:10px;
+  color:var(--texto-discreto);
+  font-size: var(--texto-micro);
   letter-spacing:.1em;
   font-weight:600
 }
@@ -91,16 +91,16 @@
   width:100%;
   max-width:340px;
   height:auto;
-  margin:20px auto;
+  margin:var(--espaco-5) auto;
   object-fit:contain
 }
 .hl-produto figcaption{
-  font-size:11px;
-  color:#666
+  font-size: var(--texto-pequeno);
+  color:var(--texto-auxiliar)
 }
 .hl-oferta{
-  border-top:1px solid #414141;
-  padding-top:28px
+  border-top:1px solid var(--borda-tecnica);
+  padding-top:var(--espaco-7)
 }
 .hl-oferta h2{
   font-size:25px;
@@ -116,12 +116,12 @@
   border:0
 }
 .hl-volumes legend{
-  font-size:13px;
-  margin-bottom:12px
+  font-size: var(--texto-corpo-menor);
+  margin-bottom:var(--espaco-3)
 }
 .hl-volumes>div{
   display:flex;
-  gap:12px
+  gap:var(--espaco-3)
 }
 .hl-volumes label{
   position:relative;
@@ -137,74 +137,74 @@
 }
 .hl-volumes span{
   display:block;
-  border:1px solid #666;
-  border-radius:4px;
+  border:1px solid var(--texto-auxiliar);
+  border-radius:var(--raio-pequeno);
   padding:15px 22px;
   text-align:center;
   font-size:20px;
   font-weight:600
 }
 .hl-volumes input:checked+span{
-  background:#ffc107;
-  color:#111;
-  border-color:#ffc107
+  background:var(--amarelo);
+  color:var(--preto);
+  border-color:var(--amarelo)
 }
 .hl-resumo{
-  font-size:15px;
+  font-size: var(--texto-destaque);
   line-height:1.8;
-  margin:20px 0
+  margin:var(--espaco-5) 0
 }
 .hl-resumo small{
-  font-size:12px;
-  color:#ccc
+  font-size: var(--texto-controle);
+  color:var(--texto-inverso-discreto)
 }
 .hl-botao{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:16px;
+  gap:var(--espaco-4);
   min-height:52px;
-  background:#ffc107;
-  color:#111;
-  border-radius:4px;
-  padding:16px 20px;
+  background:var(--amarelo);
+  color:var(--preto);
+  border-radius:var(--raio-pequeno);
+  padding:var(--espaco-4) var(--espaco-5);
   text-decoration:none;
   font-weight:600;
-  font-size:14px
+  font-size: var(--texto-corpo)
 }
 .hl-botao:hover{
-  background:#ffcf40
+  background:var(--acao-hover)
 }
 .hl-aviso{
-  font-size:11px;
+  font-size: var(--texto-pequeno);
   line-height:1.7;
-  color:#aaa;
-  margin:12px 0 0
+  color:var(--texto-inverso-auxiliar);
+  margin:var(--espaco-3) 0 0
 }
 .hl-aplicacoes{
   padding:64px 0;
-  background:#f5f5f3;
-  color:#111;
-  scroll-margin-top:24px
+  background:var(--superficie-tecnica);
+  color:var(--preto);
+  scroll-margin-top:var(--espaco-6)
 }
 .hl-aplicacoes .hl-sobretitulo{
-  color:#705400
+  color:var(--destaque-texto)
 }
 .hl-aplicacoes h2{
   font-size:clamp(26px,3vw,36px);
   font-weight:600;
-  margin:0 0 32px
+  margin:0 0 var(--espaco-8)
 }
 .hl-cartoes{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:20px
+  gap:var(--espaco-5)
 }
 .hl-cartoes article{
-  border:1px solid #ddd;
-  padding:28px;
-  background:#fff;
-  border-top:3px solid #ffc107
+  border:1px solid var(--texto-inverso-suave);
+  padding:var(--espaco-7);
+  background:var(--superficie);
+  border-top:3px solid var(--amarelo)
 }
 .hl-topo-cartao{
   display:flex;
@@ -212,22 +212,22 @@
   align-items:center
 }
 .hl-topo-cartao span{
-  font-size:12px;
-  color:#777
+  font-size: var(--texto-controle);
+  color:var(--texto-tecnico-legenda)
 }
 .hl-cartoes h3{
   font-size:17px;
-  margin:24px 0 12px
+  margin:var(--espaco-6) 0 var(--espaco-3)
 }
 .hl-cartoes p,.hl-orientacoes p{
-  font-size:14px;
+  font-size: var(--texto-corpo);
   line-height:1.8;
-  color:#4d4d4d
+  color:var(--texto-tecnico-corpo)
 }
 .hl-orientacoes{
-  margin-top:32px;
-  border-top:1px solid #d4d4d4;
-  padding-top:24px;
+  margin-top:var(--espaco-8);
+  border-top:1px solid var(--borda-tecnica-suave);
+  padding-top:var(--espaco-6);
   max-width:780px
 }
 .hl-orientacoes h3{
@@ -235,8 +235,8 @@
   margin:0
 }
 .hl-orientacoes a{
-  font-size:13px;
-  color:#111;
+  font-size: var(--texto-corpo-menor);
+  color:var(--preto);
   text-underline-offset:4px
 }
 .hl-pagina #contato{
@@ -252,21 +252,21 @@
     width:calc(100% - 40px)
   }
   .hl-voltar{
-    margin:24px 0
+    margin:var(--espaco-6) 0
   }
   .hl-destaque{
     grid-template-columns:1fr;
-    gap:28px;
-    padding:16px 0 48px
+    gap:var(--espaco-7);
+    padding:var(--espaco-4) 0 var(--espaco-12)
   }
   .hl-produto{
     grid-column:auto;
     grid-row:auto;
-    padding:24px 20px 16px
+    padding:var(--espaco-6) var(--espaco-5) var(--espaco-4)
   }
   .hl-produto img{
     max-width:220px;
-    margin:16px auto
+    margin:var(--espaco-4) auto
   }
   .hl-cartoes{
     grid-template-columns:1fr
@@ -278,9 +278,9 @@
     font-size:clamp(56px,12vw,84px)
   }
   .hl-aviso{
-    font-size:12px
+    font-size: var(--texto-controle)
   }
   .hl-oferta{
-    padding-top:24px
+    padding-top:var(--espaco-6)
   }
 }
