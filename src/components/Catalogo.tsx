@@ -18,7 +18,7 @@ function ImagemCategoria({ categoria }: { categoria: keyof typeof imagensCategor
 const ContextoCatalogo = createContext<{ busca: string; definirBusca: (valor: string) => void; categoria: string; definirCategoria: (valor: string) => void } | null>(null);
 function usarCatalogo() { const contexto = useContext(ContextoCatalogo); if (!contexto) throw new Error('Use as partes dentro de Catalogo.Raiz'); return contexto; }
 function Raiz({ children: conteudo }: { children: ReactNode }) {
-  const [busca, definirBusca] = useState(''); const [categoria, definirCategoria] = useState('Todas');
+  const [busca, definirBusca] = useState(() => new URLSearchParams(window.location.search).get('busca') || ''); const [categoria, definirCategoria] = useState('Todas');
   return <ContextoCatalogo.Provider value={{ busca, definirBusca, categoria, definirCategoria }}>{conteudo}</ContextoCatalogo.Provider>;
 }
 function Categorias() {
