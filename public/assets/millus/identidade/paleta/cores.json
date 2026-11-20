@@ -1,0 +1,6 @@
+{
+  "carvao": { "hex": "#0B0F17", "uso": "Marca principal, textos e fundos escuros" },
+  "branco": { "hex": "#FFFFFF", "uso": "Fundos claros e marca negativa" },
+  "cinzaClaro": { "hex": "#E9ECEF", "uso": "Superfícies e apoio" },
+  "amareloIndustrial": { "hex": "#FFC700", "uso": "Destaques e triângulo da marca" }
+}

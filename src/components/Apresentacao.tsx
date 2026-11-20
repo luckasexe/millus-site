@@ -1,5 +1,0 @@
-import { Botao } from './ui/Botao';
-import { MessageCircle as IconeConversa, Wrench as IconeFerramenta, PackageSearch as IconeProduto } from 'lucide-react';
-export function Apresentacao() {
-  return <section className="apresentacao" id="inicio"><div className="conteiner apresentacao-grade"><div className="apresentacao-texto"><p className="sobretitulo">PEÇAS E ACESSÓRIOS INDUSTRIAIS</p><h1>Tudo o que sua indústria precisa, <span>em um só lugar.</span></h1><p>Produtos para manutenção e operação industrial. Encontre a peça que procura e consulte nossa equipe em Cubatão.</p><Botao href="#catalogo">Ver nosso catálogo <span aria-hidden="true">→</span></Botao></div><ul className="apresentacao-beneficios"><li><IconeProduto /><span>Peças e acessórios<br />para sua operação</span></li><li><IconeFerramenta /><span>Manutenção<br />industrial</span></li><li><IconeConversa /><span>Atendimento direto<br />pelo WhatsApp</span></li></ul></div></section>;
-}

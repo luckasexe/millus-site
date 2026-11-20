@@ -1,0 +1,7 @@
+:root {
+  --millus-amarelo: #ffd200;
+  --millus-grafite: #0b0f14;
+  --millus-cinza-tecnico: #6b7280;
+  --millus-branco: #ffffff;
+  --millus-superficie: color-mix(in srgb, var(--millus-cinza-tecnico) 10%, white);
+}

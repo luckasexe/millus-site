@@ -1,0 +1,375 @@
+# Padrao Arquitetural do Frontend
+
+Este documento define como o codigo do `web/` e organizado: idioma, pastas, arquivos de cada pagina e a forma de escrever os componentes de interface.
+
+Este e o manual de regras da arquitetura do frontend e a referencia para toda pagina nova.
+
+## 1. Idioma do codigo
+
+Os nomes do codigo (pastas, arquivos, componentes, funcoes, variaveis, tipos e props) sao escritos em **portugues**.
+
+**Por que:** a escrita em portugues foi adotada para que os outros alunos, que ainda nao conhecem programacao, consigam entender o projeto mais facilmente ao ler o codigo. Um nome como `Exercicio.Cabecalho` e compreendido por quem esta comecando; `Exercise.Header` exige saber ingles tecnico.
+
+**O que fica em ingles:** alguns jargoes tecnicos foram mantidos como padrao porque sao linguagem universal da area. Quem aprende isso aqui vai encontrar exatamente os mesmos termos em qualquer projeto, documentacao ou vaga.
+
+| Fica em ingles (jargao universal) | Vai para portugues (negocio da academia) |
+|---|---|
+| `page`, `hook`, `service`, `dto`, `provider` | `treino`, `aluno`, `exercicio`, `serie`, `matricula`, `professor`, `equipamento` |
+| `Root` (raiz de um compound component) | Nomes de componentes, funcoes e variaveis: `Exercicio`, `marcarSerie`, `treinoDoDia` |
+| `login`, `auth`, `props`, `lazy`, `children`, `className` | Props e eventos que criamos: `expandido`, `aoAlternar` |
+| Nomes impostos por biblioteca ou linguagem: `use...` dos hooks (`useTreino`), `React`, `Tailwind`, `type` | |
+
+### Regras
+
+- Regra de bolso: se o termo aparece igual em qualquer projeto de programacao, mantem em ingles. Se e do negocio da academia, portugues.
+- Sem acentos e sem cedilha em nomes de codigo e de arquivo (`serie`, `acoes`, `cabecalho`).
+- O prefixo `use` dos hooks e obrigatorio do React e permanece: `useTreinoDoDia`, `useLogin`.
+- Os termos do dominio seguem o backend e o banco (`aluno`, `treino`, `exercicio`, `matricula`).
+- **Nomes que vem da API:** o DTO de resposta guarda os campos exatamente como o backend devolve (mesmo em ingles), e o servico converte para um modelo em portugues. A interface (hook, pagina e componentes) so enxerga o modelo em portugues. Exemplo: `SessaoAlunoResposta` (`enrollmentCode`) vira `SessaoAluno` (`matricula`).
+
+## 2. Estrutura de pastas
+
+```text
+web/src/
+  app/
+    providers/              # composicao dos providers globais
+    router/                 # AppRouter, router, protected.route (guards)
+  features/
+    auth/                   # login de aluno e de professor
+      auth.dto.ts
+      auth.service.ts
+      login-aluno.page.tsx
+      login-aluno.hook.ts
+      login-professor.page.tsx
+      login-professor.hook.ts
+    treino/                 # area do aluno: ver e marcar o treino
+      treino.page.tsx
+      treino.hook.ts
+      treino.service.ts
+      treino.dto.ts
+      components/           # componentes exclusivos da feature
+        exercicio.tsx
+    alunos/                 # area do professor: lista, busca e cadastro de alunos
+      alunos.dto.ts
+      alunos.service.ts
+      alunos-lista.page.tsx
+      alunos-lista.hook.ts
+      aluno-cadastro.page.tsx
+      aluno-cadastro.hook.ts
+    gestao-treinos/         # area do professor: treinos de um aluno por dia da semana
+      gestao-treinos.page.tsx
+      gestao-treinos.hook.ts
+      gestao-treinos.service.ts
+      gestao-treinos.dto.ts
+      components/
+  shared/                   # usado por duas ou mais features
+    components/             # UI generica: pagina-mobile, abas-dias-semana, campo, botao
+    lib/                    # cliente-api.ts, armazenamento.ts, paths.ts (URLs das rotas)
+    sessao/                 # sessao (aluno ou professor) usada por varias features (dto, service, hook, provider)
+    styles/                 # theme.css, globals.css
+  App.tsx
+  main.tsx
+```
+
+### Regras de pasta
+
+- A feature e **plana**: os arquivos de camada ficam na raiz da feature, sem subpasta por tipo (`pages/`, `services/`, `types/` nao existem mais).
+- A unica subpasta permitida dentro da feature e `components/`.
+- `shared/` so recebe o que ja e usado por duas ou mais features. Nao mover codigo para la antes da segunda necessidade.
+- Dependencias so em uma direcao: `app` -> `features` -> `shared`. `shared` nunca importa de uma feature, e uma feature nao importa de outra.
+- Estado global usado por varias features (ex.: a sessao do aluno) mora em `shared/<nome>/`, com os mesmos papeis de arquivo (`.dto`, `.service`, `.hook`, `.provider`). Assim a feature `treino` le a sessao sem importar da feature `auth`.
+
+### Imports
+
+- Entre pastas diferentes, usar o alias `@/` (aponta para `src/`): `@/shared/lib/cliente-api`, `@/features/treino/treino.page`.
+- Dentro da mesma pasta, usar caminho relativo: `./treino.dto`, `../treino.dto`.
+- O alias esta configurado em `vite.config.ts` (`resolve.alias`) e em `tsconfig.app.json` (`paths`). Ao mudar um, mudar o outro.
+
+### Regras verificadas pelo ESLint
+
+As regras de importacao abaixo sao checadas por `npm run lint` (`no-restricted-imports`, configurado em `eslint.config.js`) e o erro aparece com uma mensagem em portugues apontando a regra quebrada.
+
+| Regra | Onde vale |
+|---|---|
+| Nao importar de `app/` | `shared/` e todas as features |
+| Nao importar de `features/` | `shared/` |
+| Nao importar de outra feature | cada feature |
+| A pagina nao importa o `.service` | `*.page.tsx` |
+| O hook nao importa a pagina | `*.hook.ts` |
+| O service nao importa React, hook nem pagina | `*.service.ts` |
+| O DTO nao importa nada da feature | `*.dto.ts` |
+| Entre pastas diferentes usar `@/`, nunca `../` que saia da feature ou da pasta | todos os arquivos |
+
+- As features novas sao descobertas pelas pastas de `src/features/`; nao e preciso editar o `eslint.config.js` ao criar uma feature.
+- Um novo papel de arquivo (novo sufixo) exige um novo item em `camadas` no `eslint.config.js`.
+- O que o ESLint nao verifica e revisado em code review: portugues nos nomes, uso de compound components e logica fora da pagina.
+
+## 3. Estrutura de arquivos de uma pagina
+
+Cada pagina e dividida em quatro camadas, cada uma em um arquivo com o formato `<nome>.<papel>.<ext>`, em kebab-case.
+
+| Arquivo | Camada | Responsabilidade |
+|---|---|---|
+| `treino.page.tsx` | Pagina | Interface. Compoe componentes e chama hooks. Sem regra de negocio e sem `fetch`. |
+| `treino.hook.ts` | Hook | Estado, efeitos e regras da tela (selecao de dia, sequencia de series, rascunho). |
+| `treino.service.ts` | Servico | Acesso a dados: chamadas de API e leitura/escrita de storage. Nao conhece React. |
+| `treino.dto.ts` | DTO | Tipos dos dados que entram e saem do servico (contrato com a API). |
+
+### Regra de dependencia
+
+```text
+page -> hook -> service -> dto
+```
+
+- A pagina nunca chama o servico diretamente.
+- O servico nunca importa React nem hooks.
+- O DTO nao importa nada da feature.
+- Logica reaproveitavel entre paginas da mesma feature fica no hook ou no servico, nunca copiada na pagina.
+
+### Detalhes
+
+- **Um hook por tela:** a pagina chama um unico hook (`useTreino`) que devolve tudo que a tela precisa, ja pronto para exibir. Se o arquivo crescer demais, dividir em hooks menores que o hook principal compoe.
+- **Regras puras** (ex.: "so pode marcar a proxima serie") ficam como funcoes puras exportadas no proprio `.hook.ts`, para poderem ser testadas sem React.
+- **Uma feature, varias paginas:** cada pagina tem seu par `<pagina>.page.tsx` e `<pagina>.hook.ts`. Servico e DTO sao compartilhados pela feature (`auth.service.ts` atende `login-aluno.page.tsx` e `login-professor.page.tsx`).
+- **Provider e contexto:** quando ha estado global (ex.: sessao), o contexto e o hook de acesso ficam em `<nome>.hook.ts` e o componente em `<nome>.provider.tsx`. Se mais de uma feature usa esse estado, tudo isso mora em `shared/<nome>/`.
+- **Componentes** dentro de `components/` usam kebab-case e **nao** levam sufixo de papel (`exercicio.tsx`, `abas-dias-semana.tsx`).
+
+## 4. Componentes de interface: Compound Components
+
+Ao escrever o HTML/JSX das paginas, o padrao e **Compound Components**.
+
+### O que e
+
+Compound Components e um padrao em que um componente pai expoe subcomponentes que trabalham juntos e compartilham estado de forma implicita, via Context. Quem usa monta a estrutura livremente, sem passar uma lista longa de props.
+
+Analogia: `<select>` e `<option>`. O `<select>` sozinho nao faz nada, e o `<option>` fora dele nao faz sentido, mas juntos formam uma unidade. Quem escreve decide quais opcoes existem e em que ordem; o `<select>` cuida do estado.
+
+### Sem o padrao (props em cascata)
+
+```tsx
+<CartaoExercicio
+  exercicio={exercicio}
+  expandido={expandido}
+  concluido={concluido}
+  seriesConcluidas={seriesConcluidas}
+  mostrarNotas
+  aoAlternar={aoAlternar}
+  aoMarcarSerie={aoMarcarSerie}
+  aoConcluirExercicio={aoConcluirExercicio}
+/>
+```
+
+Cada variacao de layout vira uma prop nova (`mostrarNotas`, `compacto`, `esconderAcoes`...), e o componente cresce sem fim.
+
+### Com o padrao
+
+```tsx
+<Exercicio.Root
+  exercicio={exercicio}
+  expandido={expandido}
+  concluido={concluido}
+  seriesConcluidas={seriesConcluidas}
+  aoAlternar={aoAlternar}
+>
+  <Exercicio.Cabecalho />
+  <Exercicio.Corpo>
+    <Exercicio.Notas />
+    <Exercicio.Series aoAlternarSerie={aoAlternarSerie} />
+    <Exercicio.Acoes aoConcluir={aoConcluir} />
+  </Exercicio.Corpo>
+</Exercicio.Root>
+```
+
+Quem usa escolhe quais partes aparecem e em que ordem. Para esconder as notas, basta nao renderizar `<Exercicio.Notas />`. Exemplo real: `features/treino/components/exercicio.tsx`.
+
+### Como implementar
+
+Os nomes dos slots e das props deste exemplo seguem as sugestoes da secao "Padroes internos", que ainda estao em avaliacao.
+
+```tsx
+// components/exercicio.tsx
+import { createContext, useContext } from 'react'
+import type { PropsWithChildren } from 'react'
+import type { ExercicioTreino } from '../treino.dto'
+
+type ExercicioContextoValor = {
+  exercicio: ExercicioTreino
+  expandido: boolean
+  aoAlternar: () => void
+}
+
+const ExercicioContexto = createContext<ExercicioContextoValor | null>(null)
+
+function useExercicio() {
+  const contexto = useContext(ExercicioContexto)
+
+  if (!contexto) {
+    throw new Error('Exercicio.* deve ser usado dentro de <Exercicio.Root>.')
+  }
+
+  return contexto
+}
+
+function ExercicioRoot({
+  children,
+  ...valor
+}: PropsWithChildren<ExercicioContextoValor>) {
+  return (
+    <ExercicioContexto.Provider value={valor}>
+      <article>{children}</article>
+    </ExercicioContexto.Provider>
+  )
+}
+
+function ExercicioCabecalho() {
+  const { exercicio, expandido, aoAlternar } = useExercicio()
+
+  return (
+    <button type="button" onClick={aoAlternar} aria-expanded={expandido}>
+      {exercicio.nome}
+    </button>
+  )
+}
+
+function ExercicioNotas() {
+  const { exercicio, expandido } = useExercicio()
+
+  return expandido && exercicio.notas ? <p>{exercicio.notas}</p> : null
+}
+
+export const Exercicio = {
+  Root: ExercicioRoot,
+  Cabecalho: ExercicioCabecalho,
+  Notas: ExercicioNotas,
+}
+```
+
+Os tres ingredientes:
+
+1. **Context** guarda o estado compartilhado do grupo. E opcional: so entra quando os slots precisam compartilhar estado (como o `Exercicio`, que divide `expandido` entre cabecalho e notas). Sem estado compartilhado, a `Root` e apenas um involucro de layout (ver o exemplo `Notificacao` abaixo).
+2. **Root** renderiza o wrapper (e o Context, quando existe). E sempre exposto como `<Nome.Root>`.
+3. **Subcomponentes** sao expostos no mesmo objeto (`Exercicio.Cabecalho`, `Exercicio.Notas`...) e, quando ha Context, leem dele.
+
+O grupo e exportado como um objeto simples (`Exercicio = { Root, Cabecalho, ... }`), e a raiz nunca e usada sozinha como `<Exercicio>`.
+
+### Regras de uso no projeto
+
+- Usar quando o componente tem **tres ou mais partes** independentes ou variacoes de layout (cartao de exercicio, abas de dias, `PaginaMobile` com cabecalho/corpo/rodape).
+- **Nao usar** em componentes simples, sem partes internas (um botao, um campo, a tela de login como um todo).
+- O `useExercicio` (hook interno) **nao e exportado**: so os subcomponentes do proprio grupo o usam.
+- Um subcomponente usado fora da raiz deve falhar com erro claro (como acima), nunca renderizar vazio em silencio.
+- Componentes do grupo ficam no mesmo arquivo enquanto forem pequenos. Se passar de ~150 linhas, virar uma pasta (`components/exercicio/`) com um arquivo por parte e um `index.ts`.
+- Estilo continua com Tailwind e tokens de `theme.css` (`bg-[var(--color-surface)]`), sem valores soltos.
+- Arquivos de compound components ficam em `components/` e exportam um objeto (`Exercicio = { Root, ... }`); por isso a regra `react-refresh/only-export-components` esta desligada para `src/**/components/**/*.tsx` em `eslint.config.js`. O unico efeito e o hot reload desses arquivos recarregar a pagina em vez de preservar estado.
+- A **logica** (o que acontece ao marcar uma serie) continua no `.hook.ts` da pagina. O componente recebe callbacks e so cuida da apresentacao.
+
+### Padroes internos (em construcao)
+
+Os detalhes internos dos compound components **nao** sao definidos de uma vez. Cada padrao novo e registrado aqui quando aparecer em um componente real, com a decisao e o motivo.
+
+**Definidos:**
+
+- A raiz de todo grupo se chama `Root` e e usada como `<Nome.Root>`.
+
+**Referencia de estilo (exemplo do usuario, traduzido):**
+
+```tsx
+<Notificacao.Root>
+  <Notificacao.Icone icone={Foguete} />
+  <Notificacao.Conteudo texto="Voce recebeu um convite para fazer parte da empresa Rocketseat." />
+  <Notificacao.Acoes>
+    <Notificacao.Acao onClick={() => {}} icone={X} />
+    <Notificacao.Acao onClick={() => {}} icone={Check} className="" />
+  </Notificacao.Acoes>
+</Notificacao.Root>
+```
+
+O que esse exemplo mostra:
+
+- Cada slot e pequeno e recebe dados por **props simples** (`texto`, `icone`), sem `children` quando o conteudo e curto.
+- O icone e passado como **referencia do componente** (`icone={Foguete}`), nao como elemento pronto.
+- Slots sao **opcionais**: uma notificacao sem `Icone` simplesmente omite o slot.
+- Existe **grupo dentro de grupo**: `Acoes` (plural, o container) contem varias `Acao` (singular, o item).
+- Este grupo nao precisa de Context: a `Root` so organiza o layout.
+- `onClick` e `className` mantem o nome nativo do HTML/React.
+
+> O projeto ainda nao tem biblioteca de icones. Escolher uma antes de usar `icone={...}`.
+
+**Sugestoes em avaliacao (ainda nao adotadas):**
+
+1. **Nomes dos slots.** Vocabulario fixo para os genericos: `Cabecalho`, `Corpo`, `Rodape`, `Titulo`, `Descricao`, `Icone`, `Conteudo`. Slots do negocio usam o termo do dominio: `Series`, `Notas`. Container no plural, item no singular: `Acoes` contem `Acao`, `Series` contem `Serie`.
+2. **Dados por props simples.** Slot de conteudo curto recebe props (`texto`, `icone`); `children` so quando o conteudo for livre. Icone sempre como referencia de componente.
+3. **Nomes das props.** Atributos nativos do HTML/React mantem o nome nativo (`onClick`, `className`, `disabled`), por serem jargao universal. Eventos proprios do negocio usam o prefixo `ao`: `aoAlternar`, `aoMarcarSerie`, `aoConcluir`. Booleanos como adjetivo: `expandido`, `concluido`.
+4. **Context so quando necessario.** `Root` sem estado compartilhado e so um involucro. Quando os slots precisam dividir estado, usar Context com hook interno que falha fora da raiz.
+5. **Raiz controlada.** Quando existe estado, a `Root` recebe o valor pronto (`expandido`, `aoAlternar`) do hook da pagina e nao guarda estado proprio. A regra fica no `.hook.ts`; o componente so apresenta. Estado interno so em efeito puramente visual (ex.: animacao).
+6. **`className` nos slots.** Aceitar `className` para ajustes pontuais de estilo. Sem `asChild` por enquanto, para nao adicionar complexidade sem necessidade.
+7. **Acessibilidade embutida.** Slots interativos ja saem com o atributo `aria-*` correto (ex.: `aria-expanded` no gatilho, `aria-label` em botao so com icone).
+8. **Testes.** Testar o grupo montado do jeito que a pagina usa (raiz mais slots), e nao cada slot isolado.
+
+Cada sugestao so vira "Definida" depois de aprovada e, de preferencia, depois de aparecer em um componente real.
+
+## 5. Rotas
+
+- Definidas em `app/router/`, nunca dentro das features. A feature so exporta a pagina.
+- As URLs ficam em `shared/lib/paths.ts` (usado por `app/` e pelas features); nenhuma string de rota solta em `navigate()` ou `<Link>`.
+- Prefixo por area: as rotas do aluno comecam com `/aluno` (`/aluno/login`, `/aluno/treino`). A area do professor usa `/professor` (`/professor/login`, `/professor/alunos`, `/professor/alunos/novo`, `/professor/alunos/:alunoId/treinos`).
+- Paginas carregadas com `lazy` no data router.
+- Autenticacao por layout route (`<ProtectedRoute papel="aluno" />`, `<ProtectedRoute papel="professor" />` e `GuestRoute`): a pagina nao precisa saber de sessao. Quem tenta abrir a area do outro papel e redirecionado para a propria.
+- A sessao guarda o `papel` (`aluno` ou `professor`). Paginas leem a sessao com `useSessaoAluno()` ou `useSessaoProfessor()`, que falham se o papel for outro.
+- Chamadas que exigem identidade de professor usam `requisicaoApi(caminho, { comoProfessor: true })`, que envia os headers transitorios `x-user-role` e `x-user-id`.
+
+## 6. Checklist para criar uma pagina nova
+
+1. Criar a feature em `features/<nome>/` (ou reutilizar a existente), com o nome em portugues.
+2. Escrever o DTO com o contrato da API: `<nome>.dto.ts`.
+3. Escrever o servico com as chamadas: `<nome>.service.ts`.
+4. Escrever o hook com estado e regras: `<pagina>.hook.ts`.
+5. Escrever a pagina, so com JSX e chamadas de hook: `<pagina>.page.tsx`.
+6. Montar a interface com Compound Components; criar em `components/` o que for novo.
+7. Adicionar o path em `shared/lib/paths.ts` e a rota em `app/router/router.tsx`, com `lazy`.
+8. Conferir o idioma (portugues, sem acentos nos nomes), a regra de dependencia (page -> hook -> service -> dto) conferir a acessibilidade (secao 8) e rodar `npm run lint`, `npm test` e `npm run build`.
+
+## 7. Testes
+
+- **Ferramenta:** Vitest com Testing Library e jsdom. Rodar tudo: `npm test`. Modo continuo: `npm run test:watch`. O backend tem os proprios testes (Jest), em `backend/api`.
+- **Onde ficam:** ao lado do arquivo testado, com o sufixo `.test` (`treino.hook.test.tsx`, `exercicio.test.tsx`). A configuracao comum fica em `src/test/setup.ts` (limpa a tela e o `localStorage` depois de cada teste).
+- **O que testar em cada camada** (cada linha aponta um arquivo-exemplo para copiar o jeito de fazer):
+
+| Camada | Como testar | Exemplo |
+|---|---|---|
+| `.dto` | Nao precisa (so tipos). | - |
+| `.service` | Trocar o `fetch` por um falso (`vi.stubGlobal`) e conferir URL, metodo, headers, corpo e a conversao da resposta para o modelo em portugues. | `treino.service.test.ts` |
+| `.hook` (regras) | Funcoes puras exportadas, testadas direto, sem React. | `aluno-cadastro.hook.test.ts` |
+| `.hook` (completo) | `renderHook` com o provider da sessao e o service trocado por um falso. | `treino.hook.test.tsx` |
+| `.page` | Em geral nao precisa: ela so compoe. Teste os componentes e o hook. | - |
+| `components/` | Renderizar, interagir com `userEvent` e consultar como o usuario ve (papel e texto), nao por classe CSS. | `exercicio.test.tsx` |
+| Rotas e guards | `MemoryRouter` com o provider da sessao. | `protected.route.test.tsx` |
+
+- **O que nao testar:** codigo trivial (repasse de props, caminhos, leitura e escrita simples no `localStorage`) e aparencia (classes CSS, cores, alinhamento). Se quebrar, a tela mostra. Teste o que, se errar, o usuario nao percebe na hora: regras de negocio, contrato com a API e permissoes.
+- **Regras:**
+  - O nome do teste descreve o comportamento, em portugues.
+  - Cada arquivo cria os proprios dados (funcoes como `exercicio(...)`), sem depender de outro teste ou do banco.
+  - Classe CSS so e testada quando ela e o proprio comportamento pedido (ex.: o `Voltar` sempre na coluna da esquerda).
+  - Testes que dependem do dia usam `vi.useFakeTimers({ toFake: ['Date'] })`.
+  - Um hook que exige sessao roda dentro de um wrapper que so renderiza quando ha sessao, como faz o `ProtectedRoute`.
+  - Ao corrigir um bug, escreva antes o teste que o reproduz.
+
+## 8. Acessibilidade
+
+Referencia: WCAG 2.2 nivel AA. Regras para toda tela nova:
+
+- **Idioma e titulo:** o `index.html` declara `lang="pt-BR"` e um titulo real para a aba.
+- **Contraste:** texto normal precisa de pelo menos 4,5:1 contra o fundo (texto grande, 3:1). Ao criar ou mudar uma cor em `theme.css`, conferir o contraste contra os fundos onde ela aparece. Cuidado especial com `--color-text-muted`, `--color-danger` e com o inicio do gradiente do botao.
+- **Campos:** sempre com rotulo visivel (`Campo` e `CampoSelecao` ja fazem isso). Erros ficam ligados ao campo por `aria-describedby` e `aria-invalid`.
+- **Mensagens que aparecem sozinhas:** erros usam `role="alert"`; "carregando" e "salvo" usam `role="status"`, para o leitor de tela anunciar.
+- **Simbolos e indicadores so visuais:** o simbolo recebe `aria-hidden="true"` e a informacao vai em texto `sr-only` (ex.: o ponto de "com treino" nas abas). Botao so com icone precisa de `aria-label`.
+- **Estado dos controles:** `aria-expanded` em quem abre e fecha, `aria-pressed` em quem liga e desliga.
+- **Teclado e foco:** tudo que clica e um `button` ou `a`, nunca uma `div`. O foco visivel vem de `globals.css` (contorno de 2px na cor do tema); campos usam anel proprio. Nunca remover o contorno sem colocar outro no lugar.
+- **Movimento:** `prefers-reduced-motion` ja e respeitado em `globals.css`; novas animacoes nao precisam de tratamento extra.
+
+## 9. Em aberto
+
+- Adotar TanStack Query ou manter hooks manuais para busca de dados.
+- Regra de ESLint para o nome dos arquivos (kebab-case e sufixos permitidos), por exemplo com `eslint-plugin-check-file`.
+- Aprovar as sugestoes de padroes internos dos compound components (secao 4).
+- Auditoria de acessibilidade com ferramenta automatizada (axe ou Lighthouse) e com leitor de tela; hoje so ha verificacao manual do DOM e do contraste.
