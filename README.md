@@ -23,7 +23,9 @@ npm run preview
 - Responsável pela entrega, tipo, marca, modelo e série são opcionais. Acessórios permitem seleção múltipla e texto livre em “Outros acessórios”.
 - Fotos opcionais pela câmera **somente após ação** ou pela galeria: no máximo 6, até 5 MB cada, JPEG/PNG/WebP. Arquivos são decodificados antes de aceitar, exibidos em miniaturas e podem ser removidos. Object URLs são revogadas ao remover/desmontar. O seletor da câmera depende do aparelho/navegador; desktop pode abrir o seletor normal de arquivos. Não há upload nem acesso automático à câmera.
 - Data/hora nasce com o rascunho e não muda em edições, retorno ou reload.
-- “Salvar e continuar” valida, foca o primeiro erro e aguarda a transação local. Depois mostra **confirmação e resumo locais**, com “Voltar a editar”. Não existe Etapa 2 fictícia; próximas etapas ainda não disponíveis.
+- A Etapa 1 contém cinco subtelas: **Cliente → Equipamento (tipo/marca) → Identificação (modelo/série) → Acessórios → Fotos**. “Voltar” preserva os dados; “Continuar” valida nome/telefone na subtela Cliente e foca o primeiro erro. O indicador principal continua Etapa 1 de 6; o secundário informa a tela atual. Reload reabre Cliente (ou a confirmação já salva), preservando os dados, fotos e data, não a posição da navegação.
+- “Salvar e continuar”, somente em Fotos, aguarda a transação local. Depois mostra **confirmação e resumo locais paginados em seis páginas**, com “Voltar a editar”. Não existe Etapa 2 fictícia; próximas etapas ainda não disponíveis.
+- O layout normal cabe em 360×640, 390×844 e 1440×900, incluindo erros obrigatórios inline e seis miniaturas. A barra fica no fluxo, ao pé do viewport, sem cobrir campos. Controles têm ao menos 44px. O aviso local tem detalhes expansíveis acessíveis. Zoom, teclado virtual, detalhes expandidos, mensagens excepcionais ou textos extensos podem exigir rolagem natural: ela não é bloqueada nem o conteúdo cortado. Teclado físico/foco e viewport reduzido são testados em Chromium; teclado virtual real e zoom nativo em aparelhos não foram testados.
 
 ### Persistência local não é cadastro no servidor
 
@@ -43,7 +45,7 @@ Erros de acesso/gravação/quota são informados sem apresentar sucesso falso; o
 - `recebimento.service.ts`: contrato do rascunho e transações IndexedDB.
 - `components/estrutura.tsx`: shell, progresso, seção, campo e barra inferior.
 - `components/dados.tsx`, `fotos.tsx`, `resumo.tsx`: formulários específicos, seleção/miniaturas e confirmação.
-- `recebimento.css`: apresentação mobile-first amarelo/grafite, superfície clara e campos com altura mínima de 48px.
+- `recebimento.css`: apresentação mobile-first amarelo/grafite, superfície clara e controles com altura mínima de 44px.
 
 Não foram adicionadas dependências ao projeto. Nomes próprios permanecem em português; APIs nativas e contratos React preservam sua nomenclatura.
 
@@ -64,11 +66,13 @@ PLAYWRIGHT_BROWSERS_PATH="$TMPDIR/millus-playwright" npm exec --yes --package=@p
 PLAYWRIGHT_BROWSERS_PATH="$TMPDIR/millus-playwright" node --test tests/recebimento.e2e.mjs
 ```
 
-Opcional: `URL_TESTE=http://localhost:5174` define outra origem. `CAPTURAS_TESTE="$TMPDIR/millus-capturas"` salva screenshots de 360×640, 390×844 e 1440×1000 fora do repositório.
+Opcional: `URL_TESTE=http://localhost:5174` define outra origem. Neste ambiente, execute `PLAYWRIGHT_BROWSERS_PATH=/opt/data/cache/scratch/pw-browsers node --test tests/recebimento.e2e.mjs` usando o Chromium já instalado.
 
-Cobertura: erros inline/foco, máscara, campos opcionais, resumo/voltar, reload de texto/acessórios/data/foto Blob, remoção persistida, tipo/tamanho/quantidade/decodificação de fotos, revogação de URLs, ausência de câmera automática, quota com tentativa posterior, áreas de toque, overflow e conteúdo final acima da barra fixa. A captura física da câmera e Safari/iOS não foram testados; a semântica do seletor `capture="environment"` foi verificada em Chromium.
+Cobertura: navegação entre subtelas, erros inline/foco, máscara, campos opcionais, resumo paginado/voltar, reload de texto/acessórios/data/foto Blob, remoção persistida, tipo/tamanho/quantidade/decodificação de fotos, revogação de URLs, ausência de câmera automática, quota com tentativa posterior, áreas de toque, medidas reais de scrollHeight/clientHeight e scrollWidth, CTA dentro do viewport em cada subtela e página do resumo nos três tamanhos, incluindo seis fotos. A captura física da câmera e Safari/iOS não foram testados; a semântica do seletor `capture="environment"` foi verificada em Chromium.
 
 ### Evidência TDD desta implementação
+
+A subdivisão navegável teve RED observado: ausência do botão “Continuar” (timeout de 7s). Após implementar o fluxo, a medição com seis fotos revelou documento de 728px no viewport de 640px; miniaturas compactas com remoção de 44×44px corrigiram o excesso sem bloquear rolagem. A suíte verifica todas as subtelas e as seis páginas de resumo.
 
 Fatias executadas RED → GREEN: regras obrigatórias/máscara (funções ausentes); fluxo de recebimento/resumo/reload (tela ausente); regras de fotos (validador ausente); galeria/miniatura (controle ausente). A inspeção visual encontrou colisão com a classe legada `titulo-secao`; um teste reproduziu `text-transform: uppercase` indesejado, e o isolamento para `titulo-secao-recebimento` tornou-o verde. A suíte final também exercita erros de quota e limites sem armazenar dados reais.
 

@@ -73,19 +73,24 @@ export function useRecebimento() {
     campo: keyof RascunhoRecebimento,
     valor: string | string[] | RascunhoRecebimento["fotos"],
   ) {
+    definirSituacao("Salvando neste navegador…");
     definirDados((anterior) => ({
       ...anterior,
       [campo]: campo === "telefone" ? mascararTelefone(String(valor)) : valor,
     }));
   }
-  async function salvar() {
+  function validarCliente() {
     const novosErros = validarRecebimento(dados);
     definirErros(novosErros);
     const primeiro = Object.keys(novosErros)[0];
     if (primeiro) {
       requestAnimationFrame(() => document.getElementById(primeiro)?.focus());
-      return;
+      return false;
     }
+    return true;
+  }
+  async function salvar() {
+    if (!validarCliente()) return;
     definirSalvando(true);
     const proximo = { ...dados, confirmado: true };
     try {
@@ -113,5 +118,6 @@ export function useRecebimento() {
     alterar,
     salvar,
     editar,
+    validarCliente,
   };
 }

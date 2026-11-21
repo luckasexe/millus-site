@@ -53,7 +53,7 @@ export function DadosCliente({
     </SecaoRecebimento>
   );
 }
-export function DadosEquipamento({ dados, alterar }: PropriedadesDados) {
+export function DadosEquipamento({ dados, alterar, identificacao = false }: PropriedadesDados & { identificacao?: boolean }) {
   const campos = [
     { id: "tipo", rotulo: "Tipo de equipamento" },
     { id: "marca", rotulo: "Marca" },
@@ -67,7 +67,7 @@ export function DadosEquipamento({ dados, alterar }: PropriedadesDados) {
       descricao="Identifique o equipamento recebido. Todos os campos são opcionais."
     >
       <div className="grade-campos">
-        {campos.map((campo) => (
+        {campos.filter((_, indice) => identificacao ? indice >= 2 : indice < 2).map((campo) => (
           <CampoRecebimento
             key={campo.id}
             {...campo}

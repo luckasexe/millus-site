@@ -101,10 +101,6 @@ export function BarraInferior({ children }: { children: ReactNode }) {
   return (
     <footer className="barra-recebimento">
       <div>
-        <p>
-          Seus dados ficam apenas neste navegador.
-          <small>Sem envio à Millus ou sincronização entre aparelhos.</small>
-        </p>
         {children}
       </div>
     </footer>

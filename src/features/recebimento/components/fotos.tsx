@@ -24,7 +24,7 @@ export function MiniaturaFoto({
           onClick={remover}
           aria-label={`Remover foto ${foto.nome}`}
         >
-          Remover
+          ×
         </button>
       )}
     </figure>

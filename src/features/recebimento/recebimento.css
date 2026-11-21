@@ -1,3 +1,47 @@
+/* Subtelas mantêm fluxo natural: zoom, teclado e detalhes podem rolar. */
+.recebimento .cabecalho-recebimento { padding: 6px 16px; }
+.recebimento .marca-recebimento img { height: 30px; width: 90px; }
+.recebimento .conteudo-recebimento { padding: 10px 12px 12px; width: 100%; min-height: calc(100dvh - 43px); display: flex; flex-direction: column; }
+.recebimento .progresso-recebimento { margin-bottom: 8px; }
+.recebimento .trilha-progresso { margin-top: 4px; }
+.recebimento .abertura-recebimento { margin: 0 0 4px; }
+.recebimento .abertura-recebimento h1 { font-size: 20px; margin: 0; line-height: 1.25; }
+.recebimento .aviso-local { margin: 0; padding: 0; background: none; border: 0; font-size: 11px; }
+.recebimento .aviso-local summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
+.recebimento .estado-recebimento { font-size: 11px; margin: 0 0 4px; min-height: 17px; }
+.recebimento form { flex: 1; display: flex; flex-direction: column; }
+.recebimento .indicador-subtela { font-size: 13px; margin: 0 0 8px; text-transform: none; letter-spacing: normal; }
+.recebimento .secao-recebimento { padding: 12px; margin: 0 0 8px; }
+.recebimento .titulo-secao-recebimento { margin-bottom: 10px; gap: 8px; }
+.recebimento .titulo-secao-recebimento h2 { font-size: 16px; }
+.recebimento .titulo-secao-recebimento p { font-size: 11px; margin: 2px 0 0; }
+.recebimento .grade-campos { gap: 8px; }
+.recebimento .campo-recebimento label { margin-bottom: 3px; }
+.recebimento .campo-recebimento input { min-height: 44px; padding: 8px 10px; }
+.recebimento .barra-recebimento { position: static; margin-top: auto; padding: 8px 0 max(4px, env(safe-area-inset-bottom)); background: transparent; }
+.recebimento .barra-recebimento > div { flex-direction: row; gap: 10px; }
+.recebimento .barra-recebimento button { flex: 1; min-height: 44px; padding: 10px; }
+.recebimento .opcoes-acessorios { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+.recebimento .opcoes-acessorios label { min-height: 44px; padding: 6px; font-size: 11px; }
+.recebimento .grade-fotos { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; margin-top: 8px; }
+.recebimento .miniatura-foto { position: relative; }
+.recebimento .miniatura-foto button { position: absolute; right: 0; top: 0; width: 44px; height: 44px; min-height: 44px; background: #ffffffdf; font-size: 20px; }
+.recebimento .miniatura-foto img { height: 44px; display: block; }
+.recebimento .miniatura-foto figcaption { padding: 2px 4px; font-size: 9px; }
+.recebimento .acoes-fotos { gap: 6px; }
+.recebimento .acoes-fotos button { flex: 1; padding: 6px; min-height: 44px; font-size: 11px; }
+.recebimento .limites-fotos { margin-bottom: 6px; font-size: 10px; }
+.recebimento .contador-fotos { margin-top: 4px; }
+.recebimento .data-recebimento { padding: 0; margin-bottom: 4px; }
+.recebimento .erro-campo { font-size: 11px; margin: 2px 0; }
+.recebimento .falha-recebimento { padding: 6px; margin: 0 0 4px; font-size: 11px; }
+.recebimento .resumo-recebimento { flex: 1; display: flex; flex-direction: column; }
+.recebimento .resumo-recebimento h2 { font-size: 17px; margin: 0; }
+.recebimento .resumo-recebimento p { font-size: 11px; margin: 4px 0; }
+.recebimento .resumo-recebimento dl { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 8px 0; }
+.recebimento .resumo-recebimento dd { font-size: 13px; }
+.recebimento :focus-visible { scroll-margin: 12px; outline-offset: 0; }
+
 .limites-fotos {
   font-size: 12px;
   color: #687278;
