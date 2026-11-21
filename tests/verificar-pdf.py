@@ -6,16 +6,19 @@ with pymupdf.open(sys.argv[1]) as pdf:
     texto = "\n".join(pagina.get_text() for pagina in pdf)
     for termo in (
         "MILLUS-FIXTURE", "Águia Manutenção", "Márcia", "contato@millus.com.br",
-        "Mangueira", "Pressão oscilante", "MARCADOR FINAL LONGO", "Histórico informado",
+        "Mangueira", "Pressão oscilante", "MARCADOR FINAL LONGO", "Legado", f"Inspeção visual {sys.argv[2] if len(sys.argv) > 2 else 'pendente'}",
         "Inspeção visual", "Não sabe", "Queda observada.", "Oxidação aparente.",
         "cliente-ação.png", "inspeção-visível.png", "Assinatura manual", "autorização de reparo",
     ):
         assert termo in texto, termo
     corpo = " ".join(" ".join(pagina.get_text().splitlines()[4:-2]) for pagina in pdf)
     assert corpo.count("Pressão oscilante e ruído durante a operação.") == 240
-    assert "RESIDUAL OCULTO" not in texto and "Pressão no reservatório" not in texto
+    assert "RESIDUAL OCULTO" in texto  # preservado explicitamente como legado, não reatribuído à categoria atual
+    for termo in ("visual-cabos", "Danificado ou alteração", "visual-mangueiras", "Não observado", "Foto geral legada"):
+        assert termo in texto, termo
     fotos = 0
     for indice, pagina in enumerate(pdf):
+        assert not pagina.get_text().splitlines()[4].startswith("Estado atual do item"), "Legenda órfã em nova página"
         assert abs(pagina.rect.width - 595.28) < 0.5
         assert abs(pagina.rect.height - 841.89) < 0.5
         assert f"{indice + 1} / {len(pdf)}" in pagina.get_text()
@@ -36,6 +39,7 @@ with pymupdf.open(sys.argv[1]) as pdf:
             sobreposicao_x = min(anterior[2], atual[2]) - max(anterior[0], atual[0])
             if sobreposicao_x > 2:
                 assert anterior[3] <= atual[1] + 1, (indice, anterior, atual)
-    assert fotos == 2, fotos
+    assert fotos == 4, fotos
     pdf[0].get_pixmap().save(sys.argv[1].replace(".pdf", "-pagina1.png"))
+    pdf[-1].get_pixmap().save(sys.argv[1].replace(".pdf", "-ultima-pagina.png"))
     print(f"PDF A4 verificado: {len(pdf)} páginas, {fotos} fotos e textos completos.")

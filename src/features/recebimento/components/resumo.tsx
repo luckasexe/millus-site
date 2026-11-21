@@ -5,7 +5,7 @@ import type { PropriedadesDados } from "./dados";
 
 export function ResumoRecebimento({ pagina, corrigir }: {
   pagina: ReturnType<typeof paginasRevisao>[number];
-  corrigir: () => void;
+  corrigir: (tela?: string) => void;
 }) {
   return <section className="secao-recebimento resumo-recebimento">
     <h2>Revisão do recebimento</h2>
@@ -13,14 +13,13 @@ export function ResumoRecebimento({ pagina, corrigir }: {
     {pagina.fotos
       ? <><h3>{pagina.rotulo}</h3>
           {pagina.fotos.length > 0
-            ? <div className="grade-fotos">{pagina.fotos.map(foto => <MiniaturaFoto key={foto.id} foto={foto} />)}</div>
+            ? <div className="fotos-revisao">{pagina.fotos.map(foto => <div key={foto.id}><MiniaturaFoto foto={foto} /><p>{foto.itemTitulo ?? "Foto geral legada · sem item"} · {foto.estado ?? "Estado não registrado"}</p><button type="button" className="botao-secundario" onClick={() => corrigir(foto.itemId ?? "anexos")}>Corrigir anexo</button></div>)}</div>
             : <p>Nenhuma foto anexada.</p>}
         </>
-      : <dl><div>
-          <dt>{pagina.rotulo} {pagina.parte}</dt>
-          <dd className="texto-revisao">{pagina.valor}</dd>
-        </div></dl>}
-    <button className="botao-secundario" type="button" onClick={corrigir}>Corrigir</button>
+      : <><h3>{pagina.rotulo}</h3><dl>{pagina.linhas?.map((linha, indice) => <div key={indice}>
+          <dt>{linha.rotulo}</dt><dd className="texto-revisao">{linha.valor}</dd>
+        </div>)}</dl></>}
+    {!pagina.fotos && pagina.tela !== "painel" && <button className="botao-secundario" type="button" onClick={() => corrigir()}>Corrigir</button>}
   </section>;
 }
 

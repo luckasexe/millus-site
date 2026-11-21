@@ -62,7 +62,7 @@ export function ComprovanteRecebimento({ dados, novo, ocupado }: {
     }
   }
 
-  return <SecaoRecebimento numero="06" titulo="Recebimento concluído" descricao="Protocolo local de recebimento.">
+  return <SecaoRecebimento numero="01" titulo={`Recebido · inspeção ${dados.inspecao}`} descricao="Protocolo local de recebimento. Não constitui diagnóstico.">
     <p className="protocolo" data-testid="protocolo">{dados.protocolo}</p>
     {documento ? <>
       <div className="acoes-comprovante">

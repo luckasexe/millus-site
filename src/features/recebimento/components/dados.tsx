@@ -11,8 +11,7 @@ export function DadosCliente({
   dados,
   alterar,
   erros,
-  entrega,
-}: PropriedadesDados & { erros: { nome?: string; telefone?: string }; entrega: boolean }) {
+}: PropriedadesDados & { erros: { nome?: string; telefone?: string } }) {
   const campos = [
     {
       id: "nome",
@@ -27,31 +26,26 @@ export function DadosCliente({
       autoComplete: "tel",
       inputMode: "tel" as const,
     },
-    {
-      id: "responsavel",
-      rotulo: "Responsável pela entrega",
-      autoComplete: "off",
-    },
   ] as const;
   return (
     <SecaoRecebimento
       numero="01"
-      titulo={entrega ? "Entrega" : "Dados do cliente"}
-      descricao={entrega ? "Informe quem trouxe o equipamento." : "Nome ou razão social e telefone são obrigatórios."}
+      titulo="Dados do cliente"
+      descricao="Nome ou razão social e telefone são obrigatórios."
     >
       <div className="grade-campos">
-        {campos.filter(campo => (campo.id === "responsavel") === entrega).map((campo) => (
+        {campos.map((campo) => (
           <CampoRecebimento
             key={campo.id}
             {...campo}
             value={dados[campo.id]}
             maxLength={campo.id === "telefone" ? 15 : 160}
-            erro={campo.id === "responsavel" ? undefined : erros[campo.id]}
+            erro={erros[campo.id]}
             onChange={(evento) => alterar(campo.id, evento.target.value)}
           />
         ))}
       </div>
-      {entrega && <p className="data-recebimento">
+      {<p className="data-recebimento">
         Recebido em <time dateTime={dados.recebidoEm}>{formatarData(dados.recebidoEm)}</time>
       </p>}
     </SecaoRecebimento>
@@ -119,14 +113,14 @@ export function AcessoriosRecebimento({ dados, alterar }: PropriedadesDados) {
           </label>
         ))}
       </div>
-      <CampoRecebimento
+      <details><summary>Outros acessórios (opcional)</summary><CampoRecebimento
         id="outros"
         rotulo="Outros acessórios"
         placeholder="Ex.: adaptador, extensão…"
         value={dados.outros}
         maxLength={500}
         onChange={(evento) => alterar("outros", evento.target.value)}
-      />
+      /></details>
     </SecaoRecebimento>
   );
 }

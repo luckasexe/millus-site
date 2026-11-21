@@ -97,12 +97,21 @@ export async function gerarPdfRecebimento(dados: RascunhoRecebimento) {
         const escala = Math.min(largura / imagem.largura, 86 / imagem.altura);
         const altura = imagem.altura * escala;
         const larguraFoto = imagem.largura * escala;
-        reservar(altura + (indice === 0 ? 26 : 17));
+        const legendas = [
+          foto.nome,
+          foto.itemId ? `${foto.itemTitulo ?? foto.itemId} [${foto.itemId}] · Estado capturado: ${foto.estado ?? "Não registrado"}` : "Foto geral legada · sem item ou estado associado",
+          `Origem: ${foto.origem ?? (rotulo.includes("cliente") ? "cliente · legado" : "funcionário · legado")}${foto.capturadaEm ? ` · Capturada em ${new Date(foto.capturadaEm).toLocaleString("pt-BR")}` : " · Data de captura não registrada"}`,
+          ...(foto.itemId && foto.estado !== dados.respostas[foto.itemId] && foto.origem === "funcionário"
+            ? [`Estado atual do item: ${dados.respostas[foto.itemId] || "Não informado"}. Evidência mantém o estado original.`] : []),
+        ];
+        fonte(9);
+        const alturaLegendas = legendas.reduce((total, legenda) => total + pdf.splitTextToSize(legenda, largura).length * 9 * 0.53, 0);
+        reservar(altura + alturaLegendas + (indice === 0 ? 26 : 17));
         if (indice === 0) titulo(rotulo);
         texto(`${rotulo} · ${indice + 1}`, 9, "bold");
         pdf.addImage(imagem.dados, "JPEG", margem, linha, larguraFoto, altura);
         linha += altura + 5;
-        texto(foto.nome, 9);
+        for (const legenda of legendas) texto(legenda, 9);
       } catch {
         if (indice === 0) titulo(rotulo);
         texto(`${foto.nome} · imagem indisponível para impressão.`);
@@ -113,17 +122,20 @@ export async function gerarPdfRecebimento(dados: RascunhoRecebimento) {
 
   cabecalho();
   texto(aviso, 10, "bold");
+  texto(`Inspeção visual ${dados.inspecao}`, 11, "bold");
+  if (dados.inspecao !== "concluída") texto("Recebimento registrado. Inspeção visual ainda não concluída; nenhum diagnóstico realizado.");
   linha += 5;
   const linhas = linhasRecebimento(dados);
   for (const [indice, rotulo] of titulosEtapa.entries()) {
-    titulo(rotulo);
-    for (const item of linhas.filter(item => item.etapa === indice + 1)) {
+    const preenchidas = linhas.filter(item => item.etapa === indice + 1 && !!item.valor);
+    if (preenchidas.length) titulo(rotulo);
+    for (const item of preenchidas) {
       reservar(12);
       texto(item.rotulo, 9, "bold");
       texto(item.valor || "Não informado");
       linha += 2;
     }
-    if (indice === 1) await fotos("Fotos do cliente", dados.fotos);
+    if (indice === 1) await fotos("Fotos do recebimento · cliente", dados.fotos);
     if (indice === 4) await fotos("Fotos da inspeção visual", dados.fotosInspecao);
     linha += 5;
   }

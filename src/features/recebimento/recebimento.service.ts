@@ -2,9 +2,16 @@ export interface FotoRecebimento {
   id: string;
   nome: string;
   arquivo: Blob;
+  itemId?: string;
+  itemTitulo?: string;
+  estado?: string;
+  origem?: "cliente" | "funcionário";
+  capturadaEm?: string;
 }
 export interface RascunhoRecebimento {
-  versao: 2;
+  versao: 3;
+  inspecao: "pendente" | "em andamento" | "concluída";
+  ultimaTelaInspecao: string;
   revisao: string;
   tela: string;
   retornoRevisao: string;
@@ -28,7 +35,9 @@ export interface RascunhoRecebimento {
 }
 export function criarRascunho(): RascunhoRecebimento {
   return {
-    versao: 2,
+    versao: 3,
+    inspecao: "pendente",
+    ultimaTelaInspecao: "visual-carcaca",
     revisao: "",
     tela: "cliente",
     retornoRevisao: "",
@@ -52,10 +61,18 @@ export function criarRascunho(): RascunhoRecebimento {
   };
 }
 export function migrarRascunho(salvo: Partial<Omit<RascunhoRecebimento, "versao">> & { versao?: number }) {
-  if (salvo.versao !== undefined && salvo.versao !== 1 && salvo.versao !== 2) {
+  if (salvo.versao !== undefined && salvo.versao !== 1 && salvo.versao !== 2 && salvo.versao !== 3) {
     throw new Error("Versão de recebimento incompatível.");
   }
-  return { ...criarRascunho(), ...salvo, versao: 2 as const };
+  return {
+    ...criarRascunho(), ...salvo, versao: 3 as const,
+    ...(salvo.versao !== 3 ? {
+      tela: salvo.protocolo ? "painel" : "cliente",
+      retornoRevisao: "",
+      // Respostas antigas continuam separadas; não inferimos conclusão de inspeção.
+      inspecao: "pendente" as const,
+    } : {}),
+  };
 }
 
 async function abrirBanco(): Promise<IDBDatabase> {

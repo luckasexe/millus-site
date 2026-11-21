@@ -1,58 +1,54 @@
 import { useLayoutEffect, useState } from "react";
-import { BarraInferior, EstruturaRecebimento, ProgressoRecebimento, SecaoRecebimento } from "./components/estrutura";
-import { FotosRecebimento } from "./components/fotos";
+import { BarraInferior, EstruturaRecebimento, ProgressoRecebimento } from "./components/estrutura";
 import { AcessoriosRecebimento, DadosCliente, DadosEquipamento, TiposEquipamento } from "./components/dados";
 import { PerguntaRecebimento } from "./components/pergunta";
 import { ComprovanteRecebimento } from "./components/comprovante";
 import { CienciaRecebimento, ResumoRecebimento } from "./components/resumo";
-import { paginasRevisao, perguntasRecebimento, titulosEtapa } from "./recebimento.regras";
+import { paginasRevisao, perguntasRecebimento } from "./recebimento.regras";
+import { RegistrosPreservados } from "./components/registros-preservados";
+import { FotosContextoRecebimento } from "./components/fotos-contexto";
 import { useRecebimento } from "./recebimento.hook";
 import "./recebimento.css";
 
 export function RecebimentoPagina() {
   const {
     dados, carregando, falhaLeitura, erros, situacao, falha, ocupado, alterar, navegar,
-    validarCliente, concluir, tentarNovamente, novo,
+    validarCliente, validarPergunta, concluir, tentarNovamente, novo, iniciarInspecao, pausarInspecao, finalizarInspecao,
   } = useRecebimento();
   const [processandoFotos, definirProcessandoFotos] = useState(false);
-  const { retornoRevisao } = dados;
   const propriedades = { dados, alterar };
   const perguntas = perguntasRecebimento(dados.tipo);
-  const telas = [
-    { id: "cliente", etapa: 1, conteudo: <DadosCliente {...propriedades} erros={erros} entrega={false} /> },
-    { id: "entrega", etapa: 1, conteudo: <DadosCliente {...propriedades} erros={erros} entrega /> },
-    { id: "tipo", etapa: 2, conteudo: <TiposEquipamento {...propriedades} /> },
-    { id: "marca", etapa: 2, conteudo: <DadosEquipamento {...propriedades} serie={false} /> },
-    { id: "serie", etapa: 2, conteudo: <DadosEquipamento {...propriedades} serie /> },
-    { id: "acessorios", etapa: 2, conteudo: <AcessoriosRecebimento {...propriedades} /> },
-    { id: "fotos", etapa: 2, conteudo: <SecaoRecebimento numero="02" titulo="Fotos do cliente" descricao="Anexos fornecidos pelo cliente.">
-      <FotosRecebimento aoProcessar={definirProcessandoFotos} fotos={dados.fotos} alterar={fotos => alterar("fotos", fotos)} />
-    </SecaoRecebimento> },
-    ...perguntas.map(pergunta => ({
-      id: pergunta.id, etapa: pergunta.etapa,
-      conteudo: <PerguntaRecebimento {...propriedades} pergunta={pergunta} />,
-    })),
-    { id: "fotosInspecao", etapa: 5, conteudo: <SecaoRecebimento numero="05" titulo="Fotos da inspeção visual" descricao="Registros do funcionário.">
-      <FotosRecebimento aoProcessar={definirProcessandoFotos} fotos={dados.fotosInspecao} alterar={fotos => alterar("fotosInspecao", fotos)} />
-    </SecaoRecebimento> },
-    ...paginasRevisao(dados).map((pagina, indice) => ({
-      id: indice === 0 ? "revisao" : pagina.id, etapa: 6,
-      conteudo: <ResumoRecebimento pagina={pagina} corrigir={() => void navegar(
-        pagina.tela, indice === 0 ? "revisao" : pagina.id,
-      )} />,
-    })),
-    { id: "ciencia", etapa: 6, conteudo: <CienciaRecebimento {...propriedades} erros={erros} /> },
+  const telasCliente = [
+    { id: "cliente", conteudo: <DadosCliente {...propriedades} erros={erros} /> },
+    { id: "tipo", conteudo: <TiposEquipamento {...propriedades} /> },
+    { id: "marca", conteudo: <DadosEquipamento {...propriedades} serie={false} /> },
+    { id: "serie", conteudo: <DadosEquipamento {...propriedades} serie /> },
+    { id: "acessorios", conteudo: <AcessoriosRecebimento {...propriedades} /> },
+    ...perguntas.filter(item => item.etapa === 3).map(pergunta => ({ id: pergunta.id,
+      conteudo: <PerguntaRecebimento {...propriedades} pergunta={pergunta} /> })),
+    { id: "ciencia", conteudo: <CienciaRecebimento {...propriedades} erros={erros} /> },
   ];
+  const telasInspecao = perguntas.filter(item => item.etapa === 5).map(pergunta => ({ id: pergunta.id,
+    conteudo: <PerguntaRecebimento {...propriedades} pergunta={pergunta} /> }));
+  const telasRevisao = paginasRevisao(dados).map((pagina, indice) => ({
+    id: indice === 0 ? "revisao" : pagina.id,
+    conteudo: <ResumoRecebimento pagina={pagina} corrigir={destino => {
+      const tela = destino ?? pagina.tela;
+      void navegar([...telasCliente, ...telasInspecao].some(item => item.id === tela) || tela === "legado" ? tela : "anexos", indice === 0 ? "revisao" : pagina.id);
+    }} />,
+  }));
+  const inspecionando = telasInspecao.some(item => item.id === dados.tela);
+  const revisando = telasRevisao.some(item => item.id === dados.tela);
+  const auxiliar = dados.tela === "legado" || dados.tela === "anexos";
+  const telas = auxiliar ? [{id: dados.tela, conteudo: <RegistrosPreservados {...propriedades} anexos={dados.tela === "anexos"} />}]
+    : revisando ? telasRevisao : inspecionando ? telasInspecao : telasCliente;
   const indice = Math.max(0, telas.findIndex(item => item.id === dados.tela));
   const atual = telas[indice];
-  const tela = atual.id;
-  const daEtapa = telas.filter(item => item.etapa === atual.etapa);
-  useLayoutEffect(() => {
-    document.getElementById("titulo-subtela")?.focus();
-  }, [tela, carregando]);
+  const tela = dados.tela === "painel" ? "painel" : atual.id;
+  useLayoutEffect(() => { document.getElementById("titulo-subtela")?.focus(); }, [tela, carregando]);
 
   return <EstruturaRecebimento>
-    <ProgressoRecebimento etapa={atual.etapa} titulo={titulosEtapa[atual.etapa - 1] ?? "Revisão"} />
+    <ProgressoRecebimento etapa={inspecionando ? 2 : 1} titulo={inspecionando ? "Inspeção visual interna" : "Recebimento cliente"} />
     <div className="abertura-recebimento"><h1>Recebimento de equipamento</h1></div>
     <details className="aviso-local"><summary>Registro somente neste navegador · detalhes</summary><p>Dados e fotos ficam neste navegador, sem sincronização ou envio automático. Limpar os dados locais pode apagar o recebimento. Evite aparelhos compartilhados.</p></details>
     <div className="estado-recebimento" role="status">{situacao}</div>
@@ -60,31 +56,43 @@ export function RecebimentoPagina() {
       {!falhaLeitura && <button type="button" className="botao-secundario" disabled={ocupado || processandoFotos}
         onClick={() => void tentarNovamente()}>Tentar salvar novamente</button>}
     </div>}
-    {carregando ? <p>Preparando recebimento…</p> : falhaLeitura ? null : dados.protocolo ? (
-      <ComprovanteRecebimento key={dados.protocolo} dados={dados} novo={() => void novo()} ocupado={ocupado} />
-    ) : <form noValidate onSubmit={evento => {
+    {carregando ? <p>Preparando recebimento…</p> : falhaLeitura ? null : tela === "painel" ? <>
+      <ComprovanteRecebimento dados={dados} novo={() => void novo()} ocupado={ocupado} />
+      <div className="acoes-painel">
+        <button className="botao-secundario" disabled={ocupado} onClick={() => void iniciarInspecao()}>{dados.inspecao === "pendente" ? "Iniciar inspeção" : "Retomar inspeção"}</button>
+        <button className="botao-secundario" disabled={ocupado} onClick={() => void navegar("cliente")}>Editar básicos</button>
+        <button className="botao-secundario" disabled={ocupado} onClick={() => void navegar("revisao")}>Revisar registro</button>
+        <button className="botao-secundario" disabled={ocupado} onClick={() => void navegar("painel")}>Retomar depois</button>
+      </div>
+    </> : <form noValidate onSubmit={evento => {
       evento.preventDefault();
       if (processandoFotos || ocupado) return;
       if (tela === "cliente" && !validarCliente()) return;
       if (tela === "tipo" && !dados.tipo) return;
-      if (retornoRevisao) {
-        void navegar(telas.some(item => item.id === retornoRevisao) ? retornoRevisao : "revisao");
-      } else if (tela === "ciencia") {
-        void concluir();
-      } else {
-        void navegar(telas[indice + 1].id);
-      }
+      if ((tela === "ocorrencia" || inspecionando) && !validarPergunta(tela)) return;
+      if (dados.retornoRevisao) void navegar(telasRevisao.some(item => item.id === dados.retornoRevisao) ? dados.retornoRevisao : "revisao");
+      else if (tela === "ciencia") void concluir();
+      else if (indice === telas.length - 1) {
+        if (inspecionando) void finalizarInspecao(); else void navegar("painel");
+      } else void navegar(telas[indice + 1].id);
     }}>
       <h2 id="titulo-subtela" className="indicador-subtela" tabIndex={-1} data-tela={tela}>
-        Tela {daEtapa.indexOf(atual) + 1} de {daEtapa.length}
+        {revisando ? "Revisão" : "Tela"} {indice + 1} de {telas.length}
       </h2>
-      <fieldset key={atual.id} className="subtela-recebimento" disabled={ocupado}>{atual.conteudo}</fieldset>
+      <fieldset key={atual.id} className="subtela-recebimento" disabled={ocupado || processandoFotos}>
+        {atual.conteudo}
+        {(tela === "ocorrencia" || inspecionando) && erros[tela] && <p role="alert" className="erro-campo">{erros[tela]}</p>}
+        {!revisando && !auxiliar && <FotosContextoRecebimento {...propriedades} itemId={tela}
+          titulo={perguntas.find(item => item.id === tela)?.titulo ?? ({cliente: "Cliente e entrega", entrega: "Entrega", tipo: "Equipamento", marca: "Marca e modelo", serie: "Identificação", acessorios: "Acessórios", ciencia: "Documentação recebimento"}[tela] ?? tela)}
+          inspecao={inspecionando} aoProcessar={definirProcessandoFotos} />}
+      </fieldset>
       <BarraInferior>
-        <button type="button" disabled={(indice === 0 && !retornoRevisao) || ocupado || processandoFotos}
-          onClick={() => void navegar(retornoRevisao || telas[indice - 1].id)}>Voltar</button>
+        <button type="button" disabled={(indice === 0 && !dados.protocolo) || ocupado || processandoFotos}
+          onClick={() => void navegar(dados.retornoRevisao || (indice ? telas[indice - 1].id : "painel"))}>Voltar</button>
         <button type="submit" disabled={ocupado || processandoFotos || (tela === "tipo" && !dados.tipo)}>
-          {tela === "ciencia" ? "Concluir recebimento" : "Continuar"}
+          {dados.retornoRevisao ? "Continuar" : tela === "ciencia" ? "Salvar recebimento" : indice === telas.length - 1 ? (inspecionando ? "Concluir inspeção visual" : "Voltar ao painel") : "Continuar"}
         </button>
+        {inspecionando && <button type="button" disabled={ocupado || processandoFotos} onClick={() => void pausarInspecao()}>Retomar depois</button>}
       </BarraInferior>
     </form>}
   </EstruturaRecebimento>;

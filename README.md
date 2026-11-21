@@ -1,17 +1,12 @@
 # Millus — recebimento de equipamentos
 
-A branch `app-manutencao` abre o recebimento de equipamentos na raiz, em React, TypeScript e Vite.
+A branch `app-manutencao` abre o recebimento na raiz, em React, TypeScript e Vite. O fluxo existente tem **dois momentos reais**, com subtelas curtas e campos na vertical.
 
 ## Executar
 
 ```sh
 npm ci
 npm run dev -- --port 5174 --strictPort
-```
-
-Abra `http://localhost:5174`. Para verificar e construir o bundle:
-
-```sh
 npm run typecheck
 npm run build
 npm run preview
@@ -19,36 +14,48 @@ npm run preview
 
 ## Fluxo
 
-1. **Cliente e entrega** — nome completo ou razão social e telefone brasileiro com DDD são obrigatórios. Registre quem entregou o equipamento. A data e a hora são definidas no início do rascunho.
-2. **Equipamento** — escolha compressor de ar, lavadora de alta pressão ou outros. Registre identificação, acessórios e fotos fornecidas pelo cliente.
-3. **Relato do cliente** — documente o que foi informado e os sintomas específicos da categoria escolhida.
-4. **Histórico informado** — registre Sim, Não ou Não sabe, com complementos opcionais. Respostas em branco aparecem como “Não informado”.
-5. **Inspeção visual** — registre apenas observações visuais do funcionário e suas fotos, separadas dos anexos do cliente. Nenhum teste de funcionamento faz parte do fluxo.
-6. **Revisão** — confira as páginas e use **Corrigir** para voltar ao campo. A conclusão exige o nome do atendente e a confirmação de ciência do cliente. O PDF inclui espaço para assinatura manual.
+1. **Recebimento cliente** — sete subtelas: cliente/data, tipo de equipamento, marca/modelo, série, acessórios, relato breve e ciência/atendente. Nome/razão social, telefone brasileiro com DDD, problema relatado, atendente e ciência são necessários; funcionamento e tempo informados pelo cliente são opcionais. Não há questionário obrigatório de histórico nem teste de funcionamento. **Salvar recebimento** emite o protocolo local e abre **Recebido · inspeção pendente**, sem exigir inspeção com o cliente presente.
+2. **Inspeção visual interna, depois** — **Iniciar inspeção** ou **Retomar inspeção** abre quatro ou cinco itens: carcaça/componentes; cabos/conectores; mangueiras/conexões (compressor/lavadora); oxidação/umidade/vazamentos; peças/acessórios. Para outros equipamentos, mangueiras não entram automaticamente; a categoria pode ser corrigida sem apagar registros anteriores. Cada item recebe um estado explícito: Sem alteração, Danificado ou alteração, Não observado, Não se aplica. A observação do funcionário é opcional e fica separada do relato do cliente. Este fluxo não inclui ligar/testar equipamentos, diagnosticar ou autorizar reparos.
 
-Cada origem aceita até seis fotos opcionais em JPEG, PNG ou WebP, de até 5 MB cada. O navegador abre galeria ou câmera em resposta ao toque. Os arquivos são decodificados antes de entrar no rascunho. A escolha da câmera depende do aparelho.
+O painel permite baixar PDF antes da inspeção, editar básicos, revisar, iniciar/retomar inspeção ou retomar depois. O status distingue **pendente**, **em andamento** e **concluída**. Recarregar o painel não inicia inspeção; recarregar durante uma edição recupera a subtela e os dados. **Retomar depois** durante a inspeção salva a posição e volta ao painel. Editar evidências/estado de uma inspeção concluída a coloca novamente em andamento. O protocolo e a data original permanecem estáveis.
+
+## Fotos e revisão
+
+Todas as subtelas do recebimento oferecem foto opcional no próprio contexto, em um painel expansível: **documentação do recebimento, não documentos pessoais**. Na inspeção, selecione primeiro o estado; câmera, galeria, miniaturas e remoção ficam junto ao item. Cada contexto aceita até **seis fotos**, em JPEG/PNG/WebP, de até **5 MB** cada. O arquivo precisa ser decodificável. Os controles de câmera/galeria só abrem mediante ação do usuário.
+
+Fotos novas guardam Blob, `itemId`, título do contexto, origem, estado capturado e instante da captura. Ao alterar o estado de um item com fotos, o estado anterior não é reatribuído: um aviso explica a preservação, e a legenda/revisão/PDF mantêm a condição capturada. O PDF também mostra o estado atual quando diferente. Ao mudar categoria, respostas/fotos de itens que saíram do questionário continuam identificadas como registros anteriores; não viram respostas da nova inspeção.
+
+A revisão é agrupada por contexto, omite campos opcionais vazios e pagina textos longos e fotos (duas por página de revisão). **Corrigir** retorna à subtela correspondente. Anexos sem associação antiga e respostas/complementos legados permanecem revisáveis, exportáveis e corrigíveis, sem inventar item ou estado. Com muitos anexos haverá mais páginas, não páginas por campo vazio.
 
 ## Persistência e comprovante
 
-Um registro ativo fica no IndexedDB por origem e perfil do navegador. A leitura inicial precede as gravações. A migração mantém o banco na versão 1 e preenche os campos do modelo v2 sem converter as fotos Blob antigas. O aplicativo grava edições em fila e confirma a mudança de tela após a transação. Se outra aba alterar o registro, a aba desatualizada informa o conflito antes de sobrescrevê-lo. Aguarde a confirmação **Salvo neste navegador** antes de fechar ou recarregar. Em falha de gravação, os dados permanecem na aba para nova tentativa.
+Um único registro ativo fica no **IndexedDB deste navegador/perfil/origem**, sem servidor, múltiplos atendimentos, sincronização ou backup automático. O modelo v3 migra v1/v2 sem trocar Blob, data, protocolo ou respostas/complementos existentes; versões futuras desconhecidas são recusadas sem sobrescrita. Um protocolo antigo não comprova inspeção concluída: a migração deixa a inspeção pendente, preservando o material anterior separadamente.
 
-O protocolo emitido é estável ao recarregar e identifica o comprovante local de triagem. O mesmo navegador mantém um recebimento ativo por vez. **Novo recebimento** pede confirmação antes de substituir o registro concluído. Baixe o comprovante antes de iniciar outro. Limpar dados do site, usar navegação privada ou trocar de perfil ou aparelho pode tornar o registro indisponível. Evite aparelhos compartilhados.
+A leitura precede o autosave; gravações são serializadas e comparadas por revisão dentro da transação para impedir sobrescrita por outra aba. Aguarde **Salvo neste navegador** antes de fechar. Quota/falha de gravação não confirma recebimento nem navega para sucesso; a edição continua na aba para nova tentativa. Em conflito, recarregue para recuperar a versão persistida; alterações conflitantes ficam visíveis até a recarga.
 
-O comprovante A4 é gerado no navegador com jsPDF, carregado sob demanda, e usa o logo e os contatos institucionais existentes. É possível baixar o arquivo ou abri-lo no visualizador do navegador. Em ambientes com Web Share para arquivos, **Compartilhar PDF** abre a interface do dispositivo após clique. Nos demais, **Baixar PDF** continua disponível para encaminhamento manual. Dados e fotos não têm envio automático, backup ou sincronização. O recebimento não constitui diagnóstico, autorização de reparo ou ordem de serviço centralizada.
+O PDF A4 real é gerado no navegador com jsPDF sob demanda e usa logo/contatos existentes. Inclui data, atendente/ciência, origem dos relatos, status explícito, respostas preenchidas, anexos gerais e associados com item/estado/legenda e espaço de assinatura manual. Fotos e legendas são reservadas juntas na paginação. O documento atualizado mantém o protocolo. Não constitui diagnóstico, orçamento, autorização de reparo ou OS centralizada.
 
-## Testes
+Baixar/visualizar funciona sem Web Share. Quando disponível, compartilhar abre a interface nativa por clique; não há envio automático. **Novo recebimento** pede confirmação antes de substituir o registro local. Limpar dados do site, usar navegação privada ou mudar aparelho/perfil pode apagar/tornar indisponível o recebimento. Evite aparelhos compartilhados.
 
-As regras puras usam o runner nativo do Node com suporte a TypeScript (22.18+). Os testes de navegador usam Chromium e dados sintéticos. O teste de PDF usa PyMuPDF no interpretador informado em `MILLUS_PYTHON`.
+## Testes e evidências
+
+Runner nativo do Node com suporte a TypeScript (22.18+), Chromium/Playwright em cache e parser Python/PyMuPDF. Nenhuma dependência nova da aplicação foi adicionada.
 
 ```sh
+export PLAYWRIGHT_BROWSERS_PATH=/opt/data/cache/scratch/pw-browsers
 node --test tests/recebimento.test.mjs
-npm exec --yes --package=@playwright/test -- playwright install chromium
-
-# Com o Vite em execução, use o mesmo PLAYWRIGHT_BROWSERS_PATH da instalação se for personalizado.
-node tests/recebimento.e2e.mjs
-MILLUS_EVIDENCIAS=/opt/data/cache/scratch/millus-evidencias MILLUS_PYTHON=python node tests/recebimento-pdf.e2e.mjs
+PLAYWRIGHT_BROWSERS_PATH=/opt/data/cache/scratch/pw-browsers node tests/recebimento.e2e.mjs
+PLAYWRIGHT_BROWSERS_PATH=/opt/data/cache/scratch/pw-browsers \
+  MILLUS_PYTHON=/opt/data/cache/scratch/millus-pdf-venv/bin/python \
+  MILLUS_EVIDENCIAS=/opt/data/cache/scratch/millus-evidencias \
+  node tests/recebimento-pdf.e2e.mjs
+node tests/alinhamento.e2e.mjs
+node tests/campos-verticais.e2e.mjs
+npm run build
 ```
 
-`MILLUS_URL` seleciona outra origem de teste. `MILLUS_EVIDENCIAS` define o destino das capturas e do PDF de fixture. No ambiente de desenvolvimento compartilhado, os navegadores estão em `/opt/data/cache/scratch/pw-browsers`.
+`MILLUS_URL` troca a origem (padrão `http://localhost:5174`). Instale Chromium em outro ambiente com `npm exec --yes --package=@playwright/test -- playwright install chromium` e use o mesmo `PLAYWRIGHT_BROWSERS_PATH` nos testes.
 
-Os testes cobrem os três tipos de equipamento, revisão e correção, retomada, recuperação de Blob v1, fotos de duas origens, quota e tentativa posterior, persistência do protocolo e dimensões em 360×640, 390×844 e 1440×900. O parser verifica dimensões A4, numeração, texto longo com acentos, seções e proporção das fotos. Os testes de compartilhamento simulam a disponibilidade da API e o cancelamento. Câmera física, compartilhamento nativo e Safari/iOS exigem verificação em aparelho.
+A suíte principal inclui `fases.e2e.mjs`, `anexos.e2e.mjs` e `layout-v3.e2e.mjs`: recebimento sem inspeção, reload, retomada, correção, estados, fotos em cabos/mangueiras, mudança de categoria/estado sem perda, foto contextual do recebimento, decodificação, limites/remoção/cleanup, quota/retry, conflito entre abas e rolagem natural em viewport reduzida. O layout percorre cliente, inspeção com seis fotos por item e revisão em **360×640**, **390×844**, **1440×900**, verificando alinhamento vertical e ausência de scroll normal. Detalhes expandidos, textos extensos, teclado e zoom podem usar rolagem natural; não há ocultação de overflow.
+
+O teste de PDF salva fixtures absolutas em scratch, antes/depois da inspeção, e parseia conteúdo, acentos, status, protocolo, fotos, legendas, dimensões A4, proporções, paginação, texto longo e ausência de sobreposição/legenda órfã. Também testa popup, fallback/cancelamento de Web Share simulado, confirmação e cleanup. Capturas e rasterizações ficam no diretório de evidências. Câmera física, compartilhamento real e Safari/iOS não são comprovados por Chromium emulado.

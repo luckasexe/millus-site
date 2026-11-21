@@ -40,7 +40,7 @@ try {
         transacao.oncomplete = () => { banco.close(); resolve(); };
         transacao.onerror = reject;
         transacao.objectStore("rascunhos").put({
-          versao: 2, protocolo: "MILLUS-FIXTURE", tela: "ciencia",
+          versao: 3, protocolo: "MILLUS-FIXTURE", tela: "painel", inspecao: "pendente", ultimaTelaInspecao: "visual-carcaca",
           nome: "Águia Manutenção", telefone: "(13) 98207-1346", responsavel: "João",
           tipo: "lavadora", marca: "Água", modelo: "A17", serie: "XYZ", acessorios: ["Mangueira"],
           recebidoEm: "2025-03-20T12:23:00.000Z", atendente: "Márcia", ciencia: true,
@@ -51,7 +51,11 @@ try {
           },
           complementos: { "historico-0": "Queda observada." },
           fotos: [{ id: "a", nome: "cliente-ação.png", arquivo: cliente }],
-          fotosInspecao: [{ id: "b", nome: "inspeção-visível.png", arquivo: inspecao }],
+          fotosInspecao: [
+            { id: "b", nome: "inspeção-visível.png", arquivo: inspecao },
+            { id: "c", nome: "cabo-danificado.png", arquivo: inspecao, itemId: "visual-cabos", itemTitulo: "Condição dos cabos e conectores", estado: "Danificado ou alteração", origem: "funcionário" },
+            { id: "d", nome: "mangueira.png", arquivo: cliente, itemId: "visual-mangueiras", itemTitulo: "Mangueiras e conexões", estado: "Não observado", origem: "funcionário" },
+          ],
         }, "atual");
       };
       pedido.onerror = reject;
@@ -83,6 +87,27 @@ try {
   assert.equal(await pagina.evaluate(() => window.chamadas), 1);
   await pagina.getByText("Compartilhamento cancelado.").waitFor();
   assert.equal(await compartilhar.isEnabled(), true);
+  await pagina.getByRole("button", { name: "Iniciar inspeção", exact: true }).click();
+  await pagina.locator("select").waitFor();
+  for (let indice = 0; indice < 5; indice++) {
+    await pagina.locator("select").selectOption(indice === 1 ? "Sem alteração" : "Não observado");
+    const anterior = await pagina.locator("#titulo-subtela").getAttribute("data-tela");
+    await pagina.getByRole("button", { name: indice === 4 ? "Concluir inspeção visual" : "Continuar", exact: true }).click();
+    await pagina.waitForFunction(tela => document.querySelector("#titulo-subtela")?.getAttribute("data-tela") !== tela, anterior);
+  }
+  await pagina.getByRole("heading", { name: "Recebido · inspeção concluída", exact: true }).waitFor();
+  const [atualizado] = await Promise.all([pagina.waitForEvent("download"), baixar.click()]);
+  const caminhoConcluido = join(destino, "recebimento-concluido-fixture.pdf");
+  await atualizado.saveAs(caminhoConcluido);
+  execFileSync(process.env.MILLUS_PYTHON || "python", ["tests/verificar-pdf.py", caminhoConcluido, "concluída"], { stdio: "inherit" });
+  assert.equal(await pagina.getByTestId("protocolo").innerText(), "MILLUS-FIXTURE");
+  await pagina.reload();
+  await pagina.getByRole("heading", { name: "Recebido · inspeção concluída", exact: true }).waitFor();
+  await pagina.getByRole("button", { name: "Retomar inspeção", exact: true }).click();
+  await pagina.locator("select").waitFor();
+  await pagina.locator("select").selectOption("Danificado ou alteração");
+  await pagina.getByRole("button", { name: "Retomar depois", exact: true }).click();
+  await pagina.getByRole("heading", { name: "Recebido · inspeção em andamento", exact: true }).waitFor();
   await pagina.screenshot({ path: join(destino, "recebimento-protocolo-360.png") });
   pagina.once("dialog", async aviso => {
     assert.match(aviso.message(), /substitui o registro local/);

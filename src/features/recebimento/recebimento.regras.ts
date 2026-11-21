@@ -2,7 +2,7 @@ export function validarFoto(
   arquivo: { type: string; size: number },
   quantidade: number,
 ) {
-  if (quantidade >= 6) return "O limite é de 6 fotos por recebimento.";
+  if (quantidade >= 6) return "O limite é de 6 fotos por item.";
   if (!["image/jpeg", "image/png", "image/webp"].includes(arquivo.type))
     return "Use fotos JPEG, PNG ou WebP.";
   if (arquivo.size > 5 * 1024 * 1024) return "Cada foto deve ter até 5 MB.";
@@ -116,7 +116,7 @@ const inspecao = [
   id: `visual-${indice}`, titulo, etapa: 5, formato: "selecao", opcoes: visuais, complemento: true,
 }));
 
-export function perguntasRecebimento(tipo: string): Pergunta[] {
+function perguntasLegadas(tipo: string): Pergunta[] {
   const categoria = categoriaAtual(tipo);
   const especificas = categoria ? perguntasCategoria[categoria] : [];
   return [
@@ -130,6 +130,34 @@ export function perguntasRecebimento(tipo: string): Pergunta[] {
   ];
 }
 
+export function perguntasRecebimento(tipo: string): Pergunta[] {
+  const itens = [
+    ["carcaca", "Carcaça e componentes"],
+    ["cabos", "Condição dos cabos e conectores"],
+    ...(categoriaAtual(tipo) !== "outros" ? [["mangueiras", "Mangueiras e conexões"]] : []),
+    ["sinais", "Oxidação, umidade e vazamentos"],
+    ["pecas", "Peças e acessórios"],
+  ];
+  return [
+    { id: "ocorrencia", titulo: "Relato do cliente", etapa: 3, formato: "texto" },
+    ...itens.map(([id, titulo]): Pergunta => ({
+      id: `visual-${id}`, titulo, etapa: 5, formato: "selecao", complemento: true,
+      opcoes: ["Sem alteração", "Danificado ou alteração", "Não observado", "Não se aplica"],
+    })),
+  ];
+}
+
+export function linhasLegadas(dados: Registro) {
+  const atuais = new Set([...perguntasRecebimento(dados.tipo).map(item => item.id), ...(categoriaAtual(dados.tipo) === "outros" ? ["tipoDetalhe"] : []), "tempo", "liga"]);
+  const configuradas = categorias.flatMap(categoria => perguntasLegadas(categoria.id));
+  return [...new Set([...Object.keys(dados.respostas), ...Object.keys(dados.complementos)])]
+    .filter(id => !atuais.has(id) && !!(dados.respostas[id] || dados.complementos[id])).map(id => ({
+    id, etapa: id.startsWith("visual-") || id === "observacoes" ? 5 : 4,
+    tela: "legado", rotulo: `Legado · ${configuradas.find(item => item.id === id)?.titulo ?? id}`,
+    valor: [dados.respostas[id], dados.complementos[id]].filter(Boolean).join(" · "),
+  }));
+}
+
 type Registro = import("./recebimento.service").RascunhoRecebimento;
 
 export const titulosEtapa = ["Cliente e entrega", "Equipamento", "Relato do cliente", "Histórico informado", "Inspeção visual"];
@@ -139,8 +167,9 @@ export function linhasRecebimento(dados: Registro) {
   return [
     { etapa: 1, tela: "cliente", rotulo: "Cliente", valor: dados.nome },
     { etapa: 1, tela: "cliente", rotulo: "Telefone / WhatsApp", valor: dados.telefone },
-    { etapa: 1, tela: "entrega", rotulo: "Responsável pela entrega", valor: dados.responsavel },
-    { etapa: 1, tela: "entrega", rotulo: "Recebido em", valor: formatarData(dados.recebidoEm) },
+    { etapa: 1, tela: "cliente", rotulo: "Recebido em", valor: formatarData(dados.recebidoEm) },
+    { etapa: 1, tela: "ciencia", rotulo: "Atendente do recebimento", valor: dados.atendente },
+    { etapa: 1, tela: "ciencia", rotulo: "Ciência do cliente", valor: dados.ciencia ? "Confirmada pelo atendente" : "Não registrada" },
     { etapa: 2, tela: "tipo", rotulo: "Tipo de equipamento", valor: categoria?.nome },
     ...(categoria && categoria.id !== "outros" && legadoTipo(dados.tipo) ? [
       { etapa: 2, tela: "tipo", rotulo: "Descrição do equipamento no rascunho original", valor: dados.tipo },
@@ -153,6 +182,10 @@ export function linhasRecebimento(dados: Registro) {
     { etapa: 2, tela: "serie", rotulo: "Número de série", valor: dados.serie },
     { etapa: 2, tela: "acessorios", rotulo: "Acessórios", valor: dados.acessorios.join(", ") },
     { etapa: 2, tela: "acessorios", rotulo: "Outros acessórios", valor: dados.outros },
+    { etapa: 3, tela: "ocorrencia", rotulo: "Tempo informado pelo cliente", valor: dados.respostas.tempo },
+    { etapa: 3, tela: "ocorrencia", rotulo: "Funcionamento informado pelo cliente (não testado)", valor: dados.respostas.liga },
+    { etapa: 5, tela: "painel", rotulo: "Status da inspeção visual", valor: dados.inspecao },
+    ...linhasLegadas(dados),
     ...perguntasRecebimento(dados.tipo).flatMap(({ id, etapa, titulo }) => [
       { etapa, tela: id, rotulo: titulo, valor: dados.respostas[id] },
       ...(dados.complementos[id] ? [{ etapa, tela: id, rotulo: `Complemento · ${titulo}`, valor: dados.complementos[id] }] : []),
@@ -161,22 +194,40 @@ export function linhasRecebimento(dados: Registro) {
 }
 
 export function paginasRevisao(dados: Registro) {
-  const linhas = linhasRecebimento(dados).flatMap(({ etapa, tela, rotulo, valor }) => {
-    // Limita também o número de quebras explícitas em textos colados.
-    const trechos = (valor || "Não informado").match(/(?:[^\n]{0,38}\n|[^\n]{1,38})/gu) ?? [valor];
-    const paginas = [];
-    for (let posicao = 0; posicao < trechos.length; posicao += 5) {
-      paginas.push({
-        id: `revisao-${tela}-${rotulo}-${posicao}`, etapa, tela, rotulo,
-        valor: trechos.slice(posicao, posicao + 5).join(""),
-        parte: trechos.length > 5 ? `${posicao / 5 + 1}/${Math.ceil(trechos.length / 5)}` : "",
-        fotos: undefined,
-      });
+  type Pagina = { id: string; etapa: number; tela: string; rotulo: string; valor?: string; parte?: string;
+    fotos?: Registro["fotos"]; linhas?: { rotulo: string; valor: string; tela: string }[] };
+  const paginas: Pagina[] = [];
+  const grupos = new Map<string, ReturnType<typeof linhasRecebimento>>();
+  for (const linha of linhasRecebimento(dados).filter(item => !!item.valor)) {
+    const grupo = grupos.get(linha.tela) ?? [];
+    grupo.push(linha); grupos.set(linha.tela, grupo);
+  }
+  for (const [tela, linhas] of grupos) {
+    let bloco: NonNullable<Pagina["linhas"]> = [];
+    let tamanho = 0;
+    function adicionar() {
+      if (!bloco.length) return;
+      paginas.push({ id: `revisao-${tela}-${paginas.length}`, etapa: linhas[0].etapa, tela,
+        rotulo: tela === "legado" ? "Registro anterior preservado" : titulosEtapa[linhas[0].etapa - 1], linhas: bloco });
+      bloco = []; tamanho = 0;
     }
-    return paginas;
-  });
-  const fotosCliente = { id: "revisao-fotos", etapa: 2, tela: "fotos", rotulo: "Fotos do cliente", fotos: dados.fotos };
-  const fotosInspecao = { id: "revisao-inspecao", etapa: 5, tela: "fotosInspecao", rotulo: "Fotos da inspeção visual", fotos: dados.fotosInspecao };
-  const inicioRelato = linhas.findIndex(linha => linha.etapa === 3);
-  return [...linhas.slice(0, inicioRelato), fotosCliente, ...linhas.slice(inicioRelato), fotosInspecao];
+    for (const linha of linhas) {
+      // Limita texto e quebras explícitas, com continuação sem truncar informação.
+      const trechos = (linha.valor ?? "").match(/[^\n]{1,100}|\n/g) ?? [];
+      for (let posicao = 0; posicao < trechos.length; posicao += 2) {
+        const valor = trechos.slice(posicao, posicao + 2).join("");
+        if (bloco.length >= 3 || tamanho + valor.length > 200) adicionar();
+        bloco.push({ rotulo: linha.rotulo + (posicao ? " (continuação)" : ""), valor, tela: linha.tela });
+        tamanho += valor.length;
+      }
+    }
+    adicionar();
+  }
+  for (const [rotulo, fotos] of [["Documentação de recebimento · cliente", dados.fotos], ["Evidências visuais · funcionário", dados.fotosInspecao]] as const) {
+    for (let posicao = 0; posicao < fotos.length; posicao += 2) {
+      paginas.push({ id: `revisao-fotos-${paginas.length}`, etapa: rotulo.startsWith("Documentação") ? 2 : 5,
+        tela: "anexos", rotulo, fotos: fotos.slice(posicao, posicao + 2) });
+    }
+  }
+  return paginas;
 }

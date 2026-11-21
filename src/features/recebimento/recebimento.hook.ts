@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { criarRascunho, gravarRascunho, lerRascunho, type RascunhoRecebimento } from "./recebimento.service";
-import { mascararTelefone, validarRecebimento } from "./recebimento.regras";
+import { mascararTelefone, validarRecebimento, perguntasRecebimento } from "./recebimento.regras";
 
 export function useRecebimento() {
   const [dados, definirDados] = useState(criarRascunho);
@@ -79,8 +79,13 @@ export function useRecebimento() {
   }
 
   function alterar<Campo extends keyof RascunhoRecebimento>(campo: Campo, valor: RascunhoRecebimento[Campo]) {
-    if (bloqueado.current || atual.current.protocolo) return;
+    if (bloqueado.current) return;
     const proximo = { ...atual.current, [campo]: campo === "telefone" ? mascararTelefone(String(valor)) : valor };
+    const alteraInspecao = campo === "fotosInspecao" || campo === "complementos" ||
+      (campo === "tipo" && valor !== atual.current.tipo) ||
+      (campo === "respostas" && Object.keys({ ...atual.current.respostas, ...(valor as Record<string, string>) })
+        .some(id => id.startsWith("visual-") && atual.current.respostas[id] !== (valor as Record<string, string>)[id]));
+    if (alteraInspecao && proximo.inspecao === "concluída") proximo.inspecao = "em andamento";
     atualizar(proximo);
     void persistir(proximo).catch(() => {});
   }
@@ -115,15 +120,31 @@ export function useRecebimento() {
     if (!validar(errosFinais)) return;
     return gravarMudanca({
       ...registro,
-      protocolo: `MILLUS-${crypto.randomUUID().toUpperCase()}`,
+      protocolo: registro.protocolo || `MILLUS-${crypto.randomUUID().toUpperCase()}`,
+      tela: "painel", retornoRevisao: "",
     });
   }
 
   return {
     dados, carregando, falhaLeitura, erros, situacao, falha, ocupado, alterar, concluir,
     validarCliente: () => validar(validarRecebimento(atual.current)),
+    validarPergunta: (id: string) => validar(atual.current.respostas[id]?.trim() ? {} : { [id]: id.startsWith("visual-") ? "Selecione um estado, inclusive Não observado quando necessário." : "Resuma o problema informado pelo cliente." }),
     navegar: (tela: string, retornoRevisao = "") => gravarMudanca({ ...atual.current, tela, retornoRevisao }),
     tentarNovamente: () => gravarMudanca(atual.current),
+    iniciarInspecao: () => {
+      const itens = perguntasRecebimento(atual.current.tipo).filter(item => item.etapa === 5);
+      const tela = itens.some(item => item.id === atual.current.ultimaTelaInspecao) ? atual.current.ultimaTelaInspecao : itens[0].id;
+      return gravarMudanca({ ...atual.current, inspecao: atual.current.inspecao === "pendente" ? "em andamento" : atual.current.inspecao, tela, retornoRevisao: "" });
+    },
+    pausarInspecao: () => gravarMudanca({ ...atual.current, ultimaTelaInspecao: atual.current.tela, tela: "painel", retornoRevisao: "" }),
+    finalizarInspecao: () => {
+      const faltam = perguntasRecebimento(atual.current.tipo).filter(item => item.etapa === 5 && !atual.current.respostas[item.id]);
+      if (faltam.length) {
+        validar({ [faltam[0].id]: "Selecione um estado." });
+        return gravarMudanca({ ...atual.current, tela: faltam[0].id });
+      }
+      return gravarMudanca({ ...atual.current, inspecao: "concluída", tela: "painel", retornoRevisao: "" });
+    },
     novo: () => gravarMudanca(criarRascunho()),
   };
 }

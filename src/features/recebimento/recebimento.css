@@ -1,7 +1,7 @@
 /* Subtelas mantêm fluxo natural: zoom, teclado e detalhes podem rolar. */
 .recebimento .cabecalho-recebimento { padding: 6px max(12px, calc((100% - 840px) / 2 + 12px)); }
 .recebimento .marca-recebimento img { height: 30px; width: 90px; }
-.recebimento .conteudo-recebimento { padding: 10px 12px 12px; width: 100%; min-height: calc(100dvh - 43px); display: flex; flex-direction: column; }
+.recebimento .conteudo-recebimento { padding: 8px 12px 8px; width: 100%; min-height: calc(100dvh - 43px); display: flex; flex-direction: column; }
 .recebimento .progresso-recebimento { margin-bottom: 8px; }
 .recebimento .trilha-progresso { margin-top: 4px; }
 .recebimento .abertura-recebimento { margin: 0 0 4px; }
@@ -23,7 +23,7 @@
 .recebimento .estado-recebimento { text-align: left; }
 .recebimento .titulo-secao-recebimento { align-items: flex-start; }
 .recebimento .barra-recebimento button { flex: 1; min-height: 44px; padding: 10px; }
-.recebimento .opcoes-acessorios { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+.recebimento .opcoes-acessorios { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; margin-bottom: 8px; }
 .recebimento .opcoes-acessorios label { min-height: 44px; padding: 6px; font-size: 11px; }
 .recebimento .grade-fotos { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; margin-top: 8px; }
 .recebimento .miniatura-foto { position: relative; }
@@ -510,3 +510,16 @@
 .protocolo { overflow-wrap: anywhere; font-weight: 650; }
 .acoes-comprovante { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .acoes-comprovante a { display: inline-flex; align-items: center; text-decoration: none; }
+.recebimento summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-size: 11px; }
+.recebimento .fotos-contexto { margin-bottom: 6px; }
+.recebimento .fotos-contexto .grade-fotos { grid-template-columns: repeat(6,minmax(0,1fr)); }
+.recebimento .fotos-contexto .miniatura-foto button { background: radial-gradient(circle at center, #fff 0 10px, transparent 11px); }
+.recebimento .fotos-contexto .limites-fotos { margin: 0 0 4px; }
+.recebimento .contador-fotos { margin: 2px 0 0; }
+.recebimento .barra-recebimento button { font-size: 11px; padding: 6px 4px; }
+.recebimento .aviso-evidencia { font-size: 10px; margin: 0 0 6px; }
+.recebimento .acoes-painel { display: flex; flex-wrap: wrap; gap: 6px; }
+.recebimento .fotos-revisao { display: grid; gap: 8px; }
+.recebimento .fotos-revisao > div { display: grid; grid-template-columns: 80px 1fr; gap: 6px; }
+.recebimento .fotos-revisao figure { grid-row: span 2; }
+.recebimento .resumo-recebimento h3 { font-size: 13px; margin: 4px 0; }

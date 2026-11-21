@@ -25,7 +25,7 @@ export function ProgressoRecebimento({ etapa, titulo }: { etapa: number; titulo:
   return (
     <div className="progresso-recebimento">
       <div>
-        <span>ETAPA {etapa} DE 6</span>
+        <span>ETAPA {etapa} DE 2</span>
         <span>{titulo}</span>
       </div>
       <div
@@ -33,11 +33,11 @@ export function ProgressoRecebimento({ etapa, titulo }: { etapa: number; titulo:
         role="progressbar"
         aria-label="Etapas do atendimento"
         aria-valuenow={etapa}
-        aria-valuetext={`Etapa ${etapa} de 6 · ${titulo}`}
+        aria-valuetext={`Etapa ${etapa} de 2 · ${titulo}`}
         aria-valuemin={1}
-        aria-valuemax={6}
+        aria-valuemax={2}
       >
-        {[1, 2, 3, 4, 5, 6].map((numero) => (
+        {[1, 2].map((numero) => (
           <span key={numero} className={numero <= etapa ? "etapa-atual" : ""} />
         ))}
       </div>
@@ -56,9 +56,8 @@ export function SecaoRecebimento({
   children: ReactNode;
 }) {
   return (
-    <section className="secao-recebimento">
+    <section className="secao-recebimento" data-grupo={numero}>
       <div className="titulo-secao-recebimento">
-        <span>{numero}</span>
         <div>
           <h2>{titulo}</h2>
           <p>{descricao}</p>

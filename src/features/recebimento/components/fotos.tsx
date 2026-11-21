@@ -19,7 +19,7 @@ export function MiniaturaFoto({
   return (
     <figure className="miniatura-foto">
       {endereco && <img src={endereco} alt={`Foto: ${foto.nome}`} />}
-      <figcaption>{foto.nome}</figcaption>
+      <figcaption title={[foto.itemTitulo, foto.estado, foto.nome].filter(Boolean).join(" · ")}>{foto.estado ? `${foto.estado} · ` : ""}{foto.nome}</figcaption>
       {remover && (
         <button
           type="button"
@@ -37,7 +37,9 @@ export function FotosRecebimento({
   fotos,
   alterar,
   aoProcessar,
+  contexto,
 }: {
+  contexto?: Pick<FotoRecebimento, "itemId" | "itemTitulo" | "estado" | "origem">;
   fotos: FotoRecebimento[];
   alterar: (fotos: FotoRecebimento[]) => void;
   aoProcessar: (processando: boolean) => void;
@@ -62,7 +64,7 @@ export function FotosRecebimento({
         try {
           const imagem = await createImageBitmap(arquivo);
           imagem.close();
-          novas.push({ id: crypto.randomUUID(), nome: arquivo.name, arquivo });
+          novas.push({ id: crypto.randomUUID(), nome: arquivo.name, arquivo, ...contexto, capturadaEm: new Date().toISOString() });
         } catch {
           mensagens.push(
             `${arquivo.name}: A imagem não pôde ser lida. Escolha outra foto.`,
@@ -79,8 +81,7 @@ export function FotosRecebimento({
   return (
     <div>
       <p className="limites-fotos">
-        Até 6 fotos, com até 5 MB cada. JPEG, PNG ou WebP. As fotos ficam
-        somente neste navegador.
+        6 fotos/item · 5 MB/foto · JPEG, PNG ou WebP.
       </p>
       <div className="acoes-fotos">
         <button
