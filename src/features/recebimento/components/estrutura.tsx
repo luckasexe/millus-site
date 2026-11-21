@@ -21,23 +21,24 @@ export function EstruturaRecebimento({ children }: { children: ReactNode }) {
     </div>
   );
 }
-export function ProgressoRecebimento() {
+export function ProgressoRecebimento({ etapa, titulo }: { etapa: number; titulo: string }) {
   return (
     <div className="progresso-recebimento">
       <div>
-        <span>ETAPA 1 DE 6</span>
-        <span>Recebimento</span>
+        <span>ETAPA {etapa} DE 6</span>
+        <span>{titulo}</span>
       </div>
       <div
         className="trilha-progresso"
         role="progressbar"
         aria-label="Etapas do atendimento"
-        aria-valuenow={1}
-        aria-valuemin={0}
+        aria-valuenow={etapa}
+        aria-valuetext={`Etapa ${etapa} de 6 · ${titulo}`}
+        aria-valuemin={1}
         aria-valuemax={6}
       >
         {[1, 2, 3, 4, 5, 6].map((numero) => (
-          <span key={numero} className={numero === 1 ? "etapa-atual" : ""} />
+          <span key={numero} className={numero <= etapa ? "etapa-atual" : ""} />
         ))}
       </div>
     </div>

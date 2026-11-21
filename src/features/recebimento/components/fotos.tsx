@@ -4,9 +4,11 @@ import { validarFoto } from "../recebimento.regras";
 export function MiniaturaFoto({
   foto,
   remover,
+  processando,
 }: {
   foto: FotoRecebimento;
   remover?: () => void;
+  processando?: boolean;
 }) {
   const [endereco, definirEndereco] = useState("");
   useEffect(() => {
@@ -22,6 +24,7 @@ export function MiniaturaFoto({
         <button
           type="button"
           onClick={remover}
+          disabled={processando}
           aria-label={`Remover foto ${foto.nome}`}
         >
           ×
@@ -33,9 +36,11 @@ export function MiniaturaFoto({
 export function FotosRecebimento({
   fotos,
   alterar,
+  aoProcessar,
 }: {
   fotos: FotoRecebimento[];
   alterar: (fotos: FotoRecebimento[]) => void;
+  aoProcessar: (processando: boolean) => void;
 }) {
   const [erro, definirErro] = useState("");
   const [processando, definirProcessando] = useState(false);
@@ -43,6 +48,7 @@ export function FotosRecebimento({
   const camera = useRef<HTMLInputElement>(null);
   async function adicionar(arquivos: File[]) {
     definirProcessando(true);
+    aoProcessar(true);
     definirErro("");
     const novas = [...fotos];
     const mensagens: string[] = [];
@@ -67,6 +73,7 @@ export function FotosRecebimento({
       definirErro(mensagens.join(" "));
     } finally {
       definirProcessando(false);
+      aoProcessar(false);
     }
   }
   return (
@@ -94,6 +101,7 @@ export function FotosRecebimento({
       <input
         ref={galeria}
         className="entrada-foto"
+        tabIndex={-1}
         type="file"
         accept="image/jpeg,image/png,image/webp"
         multiple
@@ -107,6 +115,7 @@ export function FotosRecebimento({
       <input
         ref={camera}
         className="entrada-foto"
+        tabIndex={-1}
         type="file"
         accept="image/jpeg,image/png,image/webp"
         capture="environment"
@@ -128,6 +137,7 @@ export function FotosRecebimento({
           <MiniaturaFoto
             key={foto.id}
             foto={foto}
+            processando={processando}
             remover={() => alterar(fotos.filter((item) => item.id !== foto.id))}
           />
         ))}

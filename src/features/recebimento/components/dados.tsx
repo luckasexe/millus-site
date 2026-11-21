@@ -1,21 +1,22 @@
+import { categorias, categoriaAtual, formatarData, legadoTipo } from "../recebimento.regras";
 import { CampoRecebimento, SecaoRecebimento } from "./estrutura";
 import type { RascunhoRecebimento } from "../recebimento.service";
-type PropriedadesDados = {
+export type PropriedadesDados = {
   dados: RascunhoRecebimento;
-  alterar: (
-    campo: keyof RascunhoRecebimento,
-    valor: string | string[] | RascunhoRecebimento["fotos"],
+  alterar: <Campo extends keyof RascunhoRecebimento>(
+    campo: Campo, valor: RascunhoRecebimento[Campo],
   ) => void;
 };
 export function DadosCliente({
   dados,
   alterar,
   erros,
-}: PropriedadesDados & { erros: { nome?: string; telefone?: string } }) {
+  entrega,
+}: PropriedadesDados & { erros: { nome?: string; telefone?: string }; entrega: boolean }) {
   const campos = [
     {
       id: "nome",
-      rotulo: "Nome completo",
+      rotulo: "Nome completo ou razão social",
       required: true,
       autoComplete: "name",
     },
@@ -35,11 +36,11 @@ export function DadosCliente({
   return (
     <SecaoRecebimento
       numero="01"
-      titulo="Dados do cliente"
-      descricao="Nome completo e telefone são obrigatórios."
+      titulo={entrega ? "Entrega" : "Dados do cliente"}
+      descricao={entrega ? "Informe quem trouxe o equipamento." : "Nome ou razão social e telefone são obrigatórios."}
     >
       <div className="grade-campos">
-        {campos.map((campo) => (
+        {campos.filter(campo => (campo.id === "responsavel") === entrega).map((campo) => (
           <CampoRecebimento
             key={campo.id}
             {...campo}
@@ -50,35 +51,38 @@ export function DadosCliente({
           />
         ))}
       </div>
+      {entrega && <p className="data-recebimento">
+        Recebido em <time dateTime={dados.recebidoEm}>{formatarData(dados.recebidoEm)}</time>
+      </p>}
     </SecaoRecebimento>
   );
 }
-export function DadosEquipamento({ dados, alterar, identificacao = false }: PropriedadesDados & { identificacao?: boolean }) {
-  const campos = [
-    { id: "tipo", rotulo: "Tipo de equipamento" },
-    { id: "marca", rotulo: "Marca" },
-    { id: "modelo", rotulo: "Modelo" },
-    { id: "serie", rotulo: "Número de série" },
-  ] as const;
-  return (
-    <SecaoRecebimento
-      numero="02"
-      titulo="Equipamento"
-      descricao="Identifique o equipamento recebido. Todos os campos são opcionais."
-    >
-      <div className="grade-campos">
-        {campos.filter((_, indice) => identificacao ? indice >= 2 : indice < 2).map((campo) => (
-          <CampoRecebimento
-            key={campo.id}
-            {...campo}
-            maxLength={160}
-            value={dados[campo.id]}
-            onChange={(evento) => alterar(campo.id, evento.target.value)}
-          />
-        ))}
-      </div>
-    </SecaoRecebimento>
-  );
+export function TiposEquipamento({ dados, alterar }: PropriedadesDados) {
+  return <SecaoRecebimento numero="02" titulo="Tipo de equipamento" descricao="Selecione a categoria do equipamento recebido.">
+    <div className="tipos-equipamento">
+      {categorias.map(({ id, nome }) => <button key={id} type="button"
+        aria-pressed={id === categoriaAtual(dados.tipo)} onClick={() => alterar("tipo", id)}>
+        <img src={`/assets/recebimento/${id}.svg`} alt="" />
+        {nome}
+      </button>)}
+    </div>
+  </SecaoRecebimento>;
+}
+
+export function DadosEquipamento({ dados, alterar, serie }: PropriedadesDados & { serie: boolean }) {
+  const campos = serie
+    ? [{ id: "serie", rotulo: "Número de série" }] as const
+    : [{ id: "marca", rotulo: "Marca" }, { id: "modelo", rotulo: "Modelo" }] as const;
+  return <SecaoRecebimento numero="02" titulo="Identificação" descricao="Preencha os dados disponíveis.">
+    <div className="grade-campos">
+      {campos.map(({ id, rotulo }) =>
+        <CampoRecebimento key={id} id={id} rotulo={rotulo} maxLength={160}
+          value={dados[id]} onChange={evento => alterar(id, evento.target.value)} />)}
+      {serie && categoriaAtual(dados.tipo) === "outros" && <CampoRecebimento id="tipoDetalhe"
+        rotulo="Qual equipamento?" maxLength={160} value={dados.respostas.tipoDetalhe ?? legadoTipo(dados.tipo)}
+        onChange={evento => alterar("respostas", { ...dados.respostas, tipoDetalhe: evento.target.value })} />}
+    </div>
+  </SecaoRecebimento>;
 }
 const acessoriosDisponiveis = [
   "Cabo de energia",
@@ -92,7 +96,7 @@ const acessoriosDisponiveis = [
 export function AcessoriosRecebimento({ dados, alterar }: PropriedadesDados) {
   return (
     <SecaoRecebimento
-      numero="03"
+      numero="02"
       titulo="Acessórios recebidos"
       descricao="Selecione tudo que acompanha o equipamento."
     >

@@ -458,3 +458,53 @@
     padding: 14px 20px;
   }
 }
+
+.recebimento .cabecalho-recebimento { min-height: 44px; box-sizing: border-box; }
+.recebimento .conteudo-recebimento { min-height: calc(100dvh - 44px); box-sizing: border-box; }
+.tipos-equipamento { display: grid; gap: 6px; }
+.tipos-equipamento button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 4px 10px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  text-align: left;
+  font-weight: 650;
+}
+.tipos-equipamento button[aria-pressed="true"] { background: #fff8cb; border-color: #a18600; }
+.tipos-equipamento img { width: 62px; height: 46px; object-fit: contain; }
+.campo-recebimento textarea, .campo-recebimento select {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #cbd2d6;
+  border-radius: 8px;
+  background: white;
+  padding: 8px 10px;
+  font-size: 16px;
+}
+.campo-recebimento textarea { resize: vertical; }
+.campo-recebimento + .campo-recebimento { margin-top: 8px; }
+.grade-campos .campo-recebimento + .campo-recebimento { margin-top: 0; }
+.recebimento .barra-recebimento > div { flex-wrap: wrap; }
+.recebimento .barra-recebimento button { white-space: normal; }
+.subtela-recebimento { border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+.recebimento .botao-secundario {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 6px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: white;
+  color: var(--grafite);
+  font-size: 13px;
+  font-weight: 650;
+}
+.texto-revisao { white-space: pre-wrap; }
+.confirmar-ciencia { display: flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 8px; }
+.confirmar-ciencia input { width: 18px; height: 18px; accent-color: #766800; }
+.protocolo { overflow-wrap: anywhere; font-weight: 650; }
+.acoes-comprovante { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.acoes-comprovante a { display: inline-flex; align-items: center; text-decoration: none; }
