@@ -1,5 +1,5 @@
-import { InicioPagina } from '@/features/inicio/inicio.page';
+import { RecebimentoPagina } from '@/features/recebimento/recebimento.page';
 
 export default function App() {
-  return <InicioPagina />;
+  return <RecebimentoPagina />;
 }
