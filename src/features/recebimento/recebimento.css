@@ -1,5 +1,5 @@
 /* Subtelas mantêm fluxo natural: zoom, teclado e detalhes podem rolar. */
-.recebimento .cabecalho-recebimento { padding: 6px 16px; }
+.recebimento .cabecalho-recebimento { padding: 6px max(12px, calc((100% - 840px) / 2 + 12px)); }
 .recebimento .marca-recebimento img { height: 30px; width: 90px; }
 .recebimento .conteudo-recebimento { padding: 10px 12px 12px; width: 100%; min-height: calc(100dvh - 43px); display: flex; flex-direction: column; }
 .recebimento .progresso-recebimento { margin-bottom: 8px; }
@@ -19,7 +19,9 @@
 .recebimento .campo-recebimento label { margin-bottom: 3px; }
 .recebimento .campo-recebimento input { min-height: 44px; padding: 8px 10px; }
 .recebimento .barra-recebimento { position: static; margin-top: auto; padding: 8px 0 max(4px, env(safe-area-inset-bottom)); background: transparent; }
-.recebimento .barra-recebimento > div { flex-direction: row; gap: 10px; }
+.recebimento .barra-recebimento > div { flex-direction: row; gap: 10px; max-width: none; width: 100%; }
+.recebimento .estado-recebimento { text-align: left; }
+.recebimento .titulo-secao-recebimento { align-items: flex-start; }
 .recebimento .barra-recebimento button { flex: 1; min-height: 44px; padding: 10px; }
 .recebimento .opcoes-acessorios { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
 .recebimento .opcoes-acessorios label { min-height: 44px; padding: 6px; font-size: 11px; }
