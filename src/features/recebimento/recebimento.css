@@ -427,7 +427,7 @@
 }
 @media (min-width: 640px) {
   .grade-campos {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .secao-recebimento {
     padding: 28px;
